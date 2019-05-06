@@ -45,27 +45,3 @@ legend {
     margin: 15px;
     margin-top: 60px;
 }
-
-#content{
-    height: 80%;
-    width:100%;
-    bottom: 0;
-    position: fixed;
-    margin-left: 0;
-    z-index: -1;
-    margin: 10px;
-}
-
-#header {
-  font-weight: bolder;
-  color:white;
-  height: 20%;
-  width : 100%;
-  top:0;
-  position: fixed;
-  background-color: black;
-}
-#join{
-  position: absolute;
-  bottom: 20px;
-}
