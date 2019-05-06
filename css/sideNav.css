@@ -1,0 +1,44 @@
+/*entire side bar when it is opened*/
+.sidenav {
+    height: 100%;
+    position: fixed;
+    width: 0;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color:black;
+    overflow-x: hidden;
+    transition: 1s;
+    padding-top: 60px;
+  }
+  
+/*content inside side bar*/
+  .sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color:grey;
+    display: block;
+    text-align: left;
+    transition: 0.3s;
+  }
+  .sidenav a:hover {
+    color: white;
+  }
+  
+  /*button to close side bar*/
+  .sidenav .closebtn {
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    right: 25px;
+    font-size: 50px;
+    margin-left: 0;  
+  }
+
+/* little three line thingy to open the side bar*/
+span{
+ position: absolute;
+ left:5%;
+ top: 5%;
+  }

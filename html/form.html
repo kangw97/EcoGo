@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <!--css files-->
+    <link href="../css/form.css" rel='stylesheet' type="text/css">
+
+    <link href="../css/sideNav.css" rel='stylesheet' type="text/css">
+    <link href="../css/ecoGo.css" rel='stylesheet' type="text/css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <!-- font -->
+    <link href='https://fonts.googleapis.com/css?family=Rajdhani' rel='stylesheet'>
+
+
+</head>
+
+<body>
+    <!--header-->
+    <div id='header'>
+        <!--side menu bar-->
+        <!--side menu bar-->
+        <div id="mySidenav" class="sidenav">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+            <a href="../ecoGo.html" onclick="closeNav()">HOME</a>
+            <a href="./aboutUs.html" onclick="closeNav()">ABOUT US</a>
+            <a href="./joinUs.html" onclick="closeNav()">JOIN US</a>
+        </div>
+        <span style="font-size:30px;cursor:pointer; text-align: left" onclick="openNav()">&#9776;</span>
+
+        <h1>JOIN US</h1>
+        <h3>asdfghjk</h3>
+    </div>
+    <div id='content'>
+        <div id='form'>
+            <Label>Business Name</Label>
+            <input id='bname' type="text" placeholder="Enter Business">
+            <label>Category</label>
+            <input id='baddress' type="text" placeholder="Enter Street">
+            <!--smaller boxes for address-->
+            <div id='address'>
+                <!--left div for city and state-->
+                <div id='laddress'>
+                    <label>City</label>
+                    <input id='baddress' type="text" placeholder="">
+                    <label>State</label>
+                    <input id='baddress' type="text" placeholder="">
+                </div>
+                <!--right div for country and zip code-->
+                <div id='raddress'>
+
+                    <label>Country</label>
+                    <input id='baddress' type="text" placeholder="">
+
+                    <label>Zip Code</label>
+                    <input id='baddress' type="text" placeholder="">
+                </div>
+
+
+
+            </div>
+            <label>Phone</label>
+            <input id='bphone' type="text" placeholder="(xxx) - xxx- xxxx">
+
+            <button id="send">SEND</button>
+
+        </div>
+    </div>
+
+    <script src="../js/sideNav.js">
+    </script>
+</body>
+
+</html>

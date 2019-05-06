@@ -1,0 +1,67 @@
+body {
+    font-family: 'Rajdhani';
+    text-align: center;
+    font-weight: bolder;
+    display: block;
+    width:100%;
+    font-size: 16px;
+    position: relative;
+    z-index: -1;
+    overflow: scroll;
+  }
+
+/* location input text box */
+input{
+  width:85%;
+  text-align: center;
+  margin-top: 25px;
+
+ }
+/* div for the logo*/
+#divLogo {
+  margin-top: 30px;
+  height: 150px;;
+  
+}
+button {
+    padding: 5px;
+    font-family: 'Rajdhani';
+    font-weight: bolder;
+    display: block;
+    margin: 0 auto;
+    width:95%;
+    height: 50px;
+    margin-top: 30px;
+}
+ 
+#divBtn{
+  margin: 15px;
+  margin-top: 60px;
+}
+
+#content{
+  height: 80%;
+  width:100%;
+  bottom: 0;
+  position: fixed;
+  margin-left: 0;
+  z-index: -1;
+  margin: 10px;
+}
+
+#header {
+  font-weight: bolder;
+  color:white;
+  height: 20%;
+  width : 100%;
+  top:0;
+  position: fixed;
+  background-color: black;
+}
+#join{
+
+  position: absolute;
+  bottom: 20px;
+ 
+ 
+}
