@@ -10,20 +10,17 @@
     overflow-x: hidden;
     transition: 1s;
     padding-top: 60px;
+    white-space: nowrap;
   }
   
 /*content inside side bar*/
   .sidenav a {
-    padding: 8px 8px 8px 32px;
-    text-decoration: none;
-    font-size: 25px;
+    padding: 8px 8px 8px 20px;
+    font-size: 20px;
     color:grey;
-    display: block;
+    display: flex;
     text-align: left;
     transition: 0.3s;
-  }
-  .sidenav a:hover {
-    color: white;
   }
   
   /*button to close side bar*/
@@ -38,7 +35,6 @@
 
 /* little three line thingy to open the side bar*/
 span{
- position: absolute;
- left:5%;
- top: 5%;
+    position: absolute;
+    margin: -40px 0 0 -175px;
   }

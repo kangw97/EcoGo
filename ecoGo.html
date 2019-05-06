@@ -1,51 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-    <!-- css files-->
-    <link href="./css/ecoGo.css" rel='stylesheet' type="text/css">
-    <link href="./css/sideNav.css" rel='stylesheet' type="text/css">
-    <!-- font -->
-    <link href='https://fonts.googleapis.com/css?family=Rajdhani' rel='stylesheet'>
-
-
-</head>
-
-<body>
-    <!--side menu bar-->
-    <div id="mySidenav" class="sidenav">
-        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <a href="ecoGo.html" onclick="closeNav()">HOME</a>
-        <a href="./html/aboutUs.html" onclick="closeNav()">ABOUT US</a>
-        <a href="./html/joinUs.html" onclick="closeNav()">JOIN US</a>
-    </div>
-
-    <!--three line thigy to open up the menu bar-->
-    <span style="font-size:30px;cursor:pointer; text-align: left" onclick="openNav()">&#9776;</span>
-
-    <!--Eco Go logo-->
-    <div id='divLogo'>
-        <img src="./image/ecogo.png" alt="EcoGo" width="130" height="80">
-    </div>
-
-    <!--label and text box to input location-->
-    <div id='location'></div>
-    <Lable>WHERE YOU?</label>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Eco Home</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+        <!-- css files-->
+        <link href="./css/ecoGo.css" rel='stylesheet' type="text/css">
+        <link href="./css/sideNav.css" rel='stylesheet' type="text/css">
+        <!-- font -->
+        <link href='https://fonts.googleapis.com/css?family=Rajdhani' rel='stylesheet'>
+    </head>
+    
+    <body>
+        <!--side menu bar-->
+        <div id="mySidenav" class="sidenav">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+            <a href="ecoGo.html" onclick="closeNav()">HOME</a>
+            <a href="./html/aboutUs.html" onclick="closeNav()">ABOUT US</a>
+            <a href="./html/joinUs.html" onclick="closeNav()">JOIN US</a>
+        </div>
+        
+        <!--three line thigy to open up the menu bar-->
+        <span style="font-size:30px;cursor:pointer; text-align: left" onclick="openNav()">&#9776;</span>
+        
+        <!--Eco Go logo-->
+        <div id='divLogo'>
+            <img src="./image/ecogo.png" alt="EcoGo" width="130" height="80">
+        </div>
+        
+        <!--label and text box to input location-->
+        <fieldset>
+        <legend>WHERE ARE YOU?</legend>
         <input type="text" placeholder="ENTER YOUR LOCATION">
-
+        </fieldset>
+        
         <!--two buttons-->
         <div id="divBtn">
             <button>WE'LL ROUTE YOU</button>
             <button>FIND YOUR OWN ROUTE</button>
         </div>
+        
         <script src="./js/sideNav.js">
-
         </script>
-</body>
+    </body>
 
 </html>
