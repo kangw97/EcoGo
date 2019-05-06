@@ -12,16 +12,19 @@ body {
 
 /* location input text box */
 input{
-  width:85%;
-  text-align: center;
-  margin-top: 25px;
+    font-size: 15pt;
+    width:85%;
+    text-align: center;
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+    border-bottom: 1pt solid;
 
  }
 /* div for the logo*/
 #divLogo {
-  margin-top: 30px;
-  height: 150px;;
-  
+    margin-top: 80px;
+    height: 150px;
 }
 button {
     padding: 5px;
@@ -32,21 +35,25 @@ button {
     width:95%;
     height: 50px;
     margin-top: 30px;
+    border-radius: 10%;
 }
- 
+legend {
+    font-size: 15pt;
+    border-bottom: 0;
+}
 #divBtn{
-  margin: 15px;
-  margin-top: 60px;
+    margin: 15px;
+    margin-top: 60px;
 }
 
 #content{
-  height: 80%;
-  width:100%;
-  bottom: 0;
-  position: fixed;
-  margin-left: 0;
-  z-index: -1;
-  margin: 10px;
+    height: 80%;
+    width:100%;
+    bottom: 0;
+    position: fixed;
+    margin-left: 0;
+    z-index: -1;
+    margin: 10px;
 }
 
 #header {
@@ -59,9 +66,6 @@ button {
   background-color: black;
 }
 #join{
-
   position: absolute;
   bottom: 20px;
- 
- 
 }
