@@ -27,6 +27,8 @@ input{
     height: 150px;
 }
 button {
+    background-color: black;
+    color: white;
     padding: 5px;
     font-family: 'Rajdhani';
     font-weight: bolder;
