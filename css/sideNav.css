@@ -15,9 +15,9 @@
   
 /*content inside side bar*/
   .sidenav a {
-    padding: 8px 8px 8px 20px;
-    font-size: 20px;
-    color:grey;
+    padding: 20px 8px 8px 20px;
+    font-size: 20pt;
+    color: white;
     display: flex;
     text-align: left;
     transition: 0.3s;
