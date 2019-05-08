@@ -21,6 +21,14 @@ input{
     border-bottom: 1pt solid;
 
  }
+/* disable outlining when clicking on the input field */
+input:focus, textarea {
+    outline: none !important;
+}
+/* disable outlining when clicking on the buttons */
+button:focus, textarea {
+    outline: none !important;
+}
 /* div for the logo*/
 #divLogo {
     margin-top: 80px;
@@ -31,12 +39,13 @@ button {
     color: white;
     padding: 5px;
     font-family: 'Rajdhani';
-    font-weight: bolder;
+    font-weight: bold;
+    font-size: 16pt;
     display: block;
     margin: 0 auto;
     width:95%;
     height: 50px;
-    margin-top: 30px;
+    margin-top: 30px;   
     border-radius: 10%;
 }
 legend {
