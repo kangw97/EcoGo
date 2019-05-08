@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -6,11 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-    <link rel = "icon" type = "image/png" href = "../image/ecogo.png" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
     <!--css files-->
-    <link href="../css/form.css" rel='stylesheet' type="text/css">
-
+    <link rel = "icon" type = "image/png" href = "../image/ecogo.png" />
+	<link href="../css/form.css" rel='stylesheet' type="text/css">
     <link href="../css/sideNav.css" rel='stylesheet' type="text/css">
     <link href="../css/ecoGo.css" rel='stylesheet' type="text/css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
@@ -29,43 +28,127 @@
         <a href="./joinUs.html" onclick="closeNav()">JOIN US</a>
     </div>
     <!--  header-->
-    <div id = "header">
-        <span id = "notindexspan" style="font-size:30px;cursor:pointer; text-align: left" onclick="openNav()">&#9776;</span>
-        <h1>JOIN US</h1> 
-        <h3>WE BUILD GREATE BUSINESS</h3>
+    <div id="header">
+        <span id="notindexspan" style="font-size:30px;cursor:pointer; text-align: left" onclick="openNav()">&#9776;</span>
+        <h1>JOIN US</h1>
+        <h3>WE BUILD GREAT BUSINESS</h3>
     </div>
     <div id='content'>
         <div id='form'>
-            <Label>Business Name</Label>
+            <div id="category">
+                Eco-Category
+                <select id="mySelect">
+                    <option value="restaurant">Restaurant</option>
+                    <option value="activity">Activity</option>
+                    <option value="retailer">Retailer</option>
+
+                </select>
+            </div>
+            <label>Name</label>
             <input id='bname' type="text" placeholder="Enter Business">
-            <label>Category</label>
-            <input id='baddress' type="text" placeholder="Enter Street">
+            <label>Street</label>
+            <input id='street' type="text" placeholder="Enter Street">
             <!--smaller boxes for address-->
             <div id='address'>
                 <!--left div for city and state-->
                 <div id='laddress'>
                     <label>City</label>
-                    <input id='baddress' type="text" placeholder="">
+                    <input id='city' type="text" placeholder="Enter City">
                     <label>State</label>
-                    <input id='baddress' type="text" placeholder="">
+                    <input id='state' type="text" placeholder="Enter State">
                 </div>
                 <!--right div for country and zip code-->
                 <div id='raddress'>
                     <label>Country</label>
-                    <input id='baddress' type="text" placeholder="">
+                    <input id='country' type="text" placeholder="Enter Country">
                     <label>Zip Code</label>
-                    <input id='baddress' type="text" placeholder="">
+                    <input id='code' type="text" placeholder="Enter Zip Code">
                 </div>
             </div>
             <label>Phone</label>
             <input id='bphone' type="text" placeholder="(xxx) - xxx- xxxx">
-
-            <button id="send">SEND</button>
+            <label>Website</label>
+            <input id="site" type="url"/>
+            <label>Description</label>
+            <input id='description' type="text" placeholder="Enter Description">
+            <label class="upload-group">
+                Upload Image
+                <input type="file" class="upload-group" id="file"/>
+             </label>
+            <button id="send" onclick="uploadFile()">SEND</button>
         </div>
     </div>
+    <script>
+
+        function uploadFile() {
+            var fileName = selectedFile.name;
+            var storageRef = firebase.storage().ref('/EcoGo/' + fileName);
+            var uploadTask = storageRef.put(selectedFile);
+            uploadTask.on('state_changed', function (snapshot) {
+
+            }), function (error) {
+
+            }, function () {
+                var downloadURL = uploadTask.snapshot.downloadURL;
+                var postKey = firebase.database().ref('Posts/').push().key;
+                var updates = {};
+                var postData = {
+                    url: downloadURL
+                }
+                updates['/Posts/' + postKey] = postData;
+                firebase.database().ref().update(updates);
+
+            }
+        }
+        function submitClick() {
+            window.alert("working");
+        }
+    </script>
 
     <script src="../js/sideNav.js">
     </script>
+    <script src="https://www.gstatic.com/firebasejs/5.11.1/firebase.js"></script>
+    <script>
+        var selectedFile;
+        $("#file").on("change", function (event) {
+            selectedFile = event.target.files[0];
+            $("#uploadButton").show();
+        });
+        // Initialize Firebases
+        var config = {
+            apiKey: "AIzaSyDhfsUGoiAA7zdKpvBFYTJab_Y7XbCEqiY",
+            authDomain: "ecogo-33c6f.firebaseapp.com",
+            databaseURL: "https://ecogo-33c6f.firebaseio.com",
+            projectId: "ecogo-33c6f",
+            storageBucket: "ecogo-33c6f.appspot.com",
+            messagingSenderId: "917118768534"
+        };
+        firebase.initializeApp(config);
+
+        var rootRef = firebase.database().ref().child('eco-friendly-place');
+        $("#send").click(function () {
+            var category = $("#mySelect option:selected").text();
+            var bname = document.getElementById("bname").value;
+            var street = document.getElementById("street").value;
+            var city = document.getElementById("city").value;
+            var state = document.getElementById("state").value;
+            var zip_code = document.getElementById("code").value;
+            var phone = document.getElementById("bphone").value;
+            var website = document.getElementById("site").value;
+            rootRef.push({
+			"Category": category,
+                 "Name": bname,
+                "Street": street,
+                "City": city,
+                "State": state,
+                "Zip Code": zip_code,
+                "Phone": phone,
+                "Web Site": website,
+                "description": description
+            });
+        })
+
+    </script>
 </body>
 
-</html>
+</html >
