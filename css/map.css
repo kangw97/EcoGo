@@ -1,0 +1,19 @@
+#map {
+    height: 400px;
+}
+input {
+    width: 100%;
+}
+button {
+    width: 48%;
+    height: 60px;
+    border-radius: 10%;
+    margin-top: 10px;
+    background-color: black;
+    color: white;
+    font-weight: bold;
+    font-size: 15pt;
+}
+#reroute {
+    margin-left: 5px;
+}

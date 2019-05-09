@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Simple Map</title>
+    <meta name="viewport" content="initial-scale=1.0">
+    <meta charset="utf-8">
+    
+    <link rel = "stylesheet" href = "../css/map.css">
+  </head>
+  <body>
+    <div class="container">
+        <div id="map"></div>
+        <div id = "choices">
+            <button onclick = "rerout()" id = "reroute">Another Route</button>
+            <button onclick = "go()" id = "go">Let's Go!</button>
+        </div>
+    </div>
+    <script src="../js/map.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?callback=createMap&key=AIzaSyCHXKnfoxUG98BDI0ZgzVwViZEH9CCGb0M"
+    async defer></script>
+  </body>
+</html>
