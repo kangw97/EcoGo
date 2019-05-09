@@ -8,8 +8,7 @@
     <title>Document</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
     <!--css files-->
-    <link rel = "icon" type = "image/png" href = "../image/ecogo.png" />
-	<link href="../css/form.css" rel='stylesheet' type="text/css">
+    <link href="../css/form.css" rel='stylesheet' type="text/css">
     <link href="../css/sideNav.css" rel='stylesheet' type="text/css">
     <link href="../css/ecoGo.css" rel='stylesheet' type="text/css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
@@ -68,21 +67,22 @@
             <label>Phone</label>
             <input id='bphone' type="text" placeholder="(xxx) - xxx- xxxx">
             <label>Website</label>
-            <input id="site" type="url"/>
+            <input id="site" type="url" />
             <label>Description</label>
             <input id='description' type="text" placeholder="Enter Description">
             <label class="upload-group">
                 Upload Image
-                <input type="file" class="upload-group" id="file"/>
-             </label>
+                <input type="file" class="upload-group" id="file" />
+            </label>
             <button id="send" onclick="uploadFile()">SEND</button>
         </div>
     </div>
     <script>
 
         function uploadFile() {
-            var fileName = selectedFile.name;
-            var storageRef = firebase.storage().ref('/EcoGo/' + fileName);
+            var fname = document.getElementById("bname").value;
+            
+            var storageRef = firebase.storage().ref('/EcoGo/' + fname);
             var uploadTask = storageRef.put(selectedFile);
             uploadTask.on('state_changed', function (snapshot) {
 
@@ -115,15 +115,16 @@
             $("#uploadButton").show();
         });
         // Initialize Firebases
-        var config = {
-            apiKey: "AIzaSyDhfsUGoiAA7zdKpvBFYTJab_Y7XbCEqiY",
-            authDomain: "ecogo-33c6f.firebaseapp.com",
-            databaseURL: "https://ecogo-33c6f.firebaseio.com",
-            projectId: "ecogo-33c6f",
-            storageBucket: "ecogo-33c6f.appspot.com",
-            messagingSenderId: "917118768534"
+        const firebaseConfig = {
+            apiKey: "AIzaSyDjnDBcjTl7ohz1k7-BKdFUjOnJuNKX3Aw",
+            authDomain: "team05-ecogo.firebaseapp.com",
+            databaseURL: "https://team05-ecogo.firebaseio.com",
+            projectId: "team05-ecogo",
+            storageBucket: "team05-ecogo.appspot.com",
+            messagingSenderId: "540393307666",
+            appId: "1:540393307666:web:a01b5e54395f311b"
         };
-        firebase.initializeApp(config);
+        firebase.initializeApp(firebaseConfig);
 
         var rootRef = firebase.database().ref().child('eco-friendly-place');
         $("#send").click(function () {
@@ -136,8 +137,8 @@
             var phone = document.getElementById("bphone").value;
             var website = document.getElementById("site").value;
             rootRef.push({
-			"Category": category,
-                 "Name": bname,
+                "Category": category,
+                "Name": bname,
                 "Street": street,
                 "City": city,
                 "State": state,
@@ -151,4 +152,4 @@
     </script>
 </body>
 
-</html >
+</html>
