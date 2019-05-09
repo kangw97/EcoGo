@@ -10,21 +10,23 @@ function createMap() {
     };
     // initial map
     map = new google.maps.Map(document.getElementById("map"), options);
-    
+    // converting string address to lat and lng
     geocoder.geocode({ 'address': localStorage.getItem("myAddress")}, function (results, status) {
         if (status == google.maps.GeocoderStatus.OK) {
-
           latitude = results[0].geometry.location.lat();
           longitude = results[0].geometry.location.lng();
-
+          var pos = {
+            lat: latitude,
+            lng: longitude
+          };
           var myLatLng = { lat: latitude, lng: longitude }
+          // reset the center of map
+          map.setCenter(pos);
           // place markers
           var marker = new google.maps.Marker({
             position: myLatLng,
             map: map,
-            title: 'destination'
           });
-          options.center = {latitude, longitude};
         }
       });
 }
