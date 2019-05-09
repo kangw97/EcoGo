@@ -37,15 +37,17 @@
         <!--label and text box to input location-->
         <fieldset>
         <legend>WHERE ARE YOU?</legend>
-        <input type="text" placeholder="ENTER YOUR LOCATION">
+        <input type="text" placeholder="ENTER YOUR LOCATION" onclick = "select()" id = "adEntry" autofocus required>
         </fieldset>
         
         <!--two buttons-->
         <div id="divBtn">
-            <button>WE'LL ROUTE YOU</button>
+            <button onclick="random()">WE'LL ROUTE YOU</button>
             <button>FIND YOUR OWN ROUTE</button>
         </div>
-        
+        <script src="./js/map.js"></script>
+        <script src="./js/sideNav.js"></script>
+        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?callback=autoFillAddress&key=AIzaSyCHXKnfoxUG98BDI0ZgzVwViZEH9CCGb0M&libraries=places"></script>
     </body>
 
 </html>
