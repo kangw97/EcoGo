@@ -5,13 +5,16 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title>EcoGo</title>
-        <link rel = "icon" type = "image/png" href = "./image/ecogo.png" />
+        <link rel = "icon" type = "image/png" href = "./image/world.png" />
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
         <!-- css files-->
         <link href="./css/ecoGo.css" rel='stylesheet' type="text/css">
         <link href="./css/sideNav.css" rel='stylesheet' type="text/css">
         <!-- font -->
         <link href='https://fonts.googleapis.com/css?family=Rajdhani' rel='stylesheet'>
+        <!-- js files -->
+        <script src="./js/easterEgg.js"></script>
+        <script src="./js/sideNav.js"></script>
     </head>
     
     <body>
@@ -28,7 +31,7 @@
         
         <!--Eco Go logo-->
         <div id='divLogo'>
-            <img src="./image/ecogo.png" alt="EcoGo" width="130" height="80">
+            <img src="./image/ecogo.png" alt="EcoGo" width="130" height="80" id="image" onclick="easterEgg()">
         </div>
         
         <!--label and text box to input location-->
@@ -43,8 +46,6 @@
             <button>FIND YOUR OWN ROUTE</button>
         </div>
         
-        <script src="./js/sideNav.js">
-        </script>
     </body>
 
 </html>
