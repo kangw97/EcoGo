@@ -45,6 +45,6 @@ function autoFillAddress(){
 function random(){
     address = document.getElementById('adEntry').value;
     localStorage.setItem("myAddress", address);
-    window.location = "./html/map.html";
+    window.location = "./html/randomRoute.html";
 }
 
