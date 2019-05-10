@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>EcoGo Join Us</title>
-    <link rel = "icon" type = "image/png" href = "../image/world.png" />
+    <link rel="icon" type="image/png" href="../image/world.png" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
     <!--css files-->
     <link href="../css/sideNav.css" rel='stylesheet' type="text/css">
@@ -31,28 +31,46 @@
         <a href="./joinUs.html" onclick="closeNav()">JOIN US</a>
     </div>
     <!--  header-->
-    <div id = "header">
-        <span id = "notindexspan" style="font-size:30px;cursor:pointer; text-align: left" onclick="openNav()">&#9776;</span>
-        <h1>JOIN US</h1> 
-        <h3>WE BUILD GREATE BUSINESS</h3>
+    <div id="header">
+        <span id="notindexspan" style="font-size:30px;cursor:pointer; text-align: left" onclick="openNav()">&#9776;</span>
+        <h1>JOIN US</h1>
     </div>
     <!--content-->
-    <div id = "content">
-        <p id = "criteria">OUR CRITERIA</p>
-        <div id = "intro">
+    <div id="content">
+        <div>
+            <p id=joinUsP>At EcoGo, we deeply take our locations into consideration. We value locations and businesses that are striving towards an eco-friendly lifestyle. Please join us..</p>
+        </div>
+        <div id="businessReq">
+            <p id="criteria">IF YOUR BUSINESS: </p>
             <ol>
-                <li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. adipiscing elit. adipiscing elit</li>
-                <li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. adipiscing elit. adipiscing elit</li>
-                <li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. adipiscing elit. adipiscing elit</li>
+                <li>Demonstrates a commitment to an envrionmentally sustainable future. </li>
+                <li>Delivers more than just profits, but uses eco-friendly practices and strategies from recycling to sourcing local products.</li>
+                <li>Strives to have a positive impact on the environment and the community. </li>
+                <li>
+                    Considers the environmental impact of their workers, customers and suppliers. </li>
             </ol>
         </div>
+        <div id="foodReq">
+            <p id="criteria">IF YOUR RESTAURANT: </p>
+            <ol>
+                <li>Is engaged in protecting the environment. </li>
+                <li>Serves fresh organic ingredients that is locally sourced and considers on-site food production. </li>
+                <li>Produces minimal packaging waste and serves food in recycled content packaging. </li>
+                <li>
+                    Serves many vergetarian and vegan options. </li>
+            </ol>
+        </div>
+        <div id="joinButton">
+            <Button onclick="writeForm()">JOIN US</Button>
+            <script>
+                function writeForm() {
+                    window.location = 'form.html';
+                }
+
+            </script>
+        </div>
     </div>
-    <Button id='join' onclick="writeForm()">JOIN US</Button>
-    <script>
-        function writeForm() {
-            window.location = 'form.html';
-        }
-    </script>
+
 </body>
 
 </html>
