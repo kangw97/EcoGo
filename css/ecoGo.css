@@ -77,3 +77,18 @@ legend {
 .pac-container {
     margin-top: -80px;
 }
+
+#header {
+    position: fixed;
+}
+#aboutUs {
+    font-size: pt; 
+    margin-left: pt;
+}
+#joinUsP {
+    margin: 0 12pt 12pt 12pt;
+}
+
+
+
+
