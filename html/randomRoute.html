@@ -4,18 +4,29 @@
     <title>Simple Map</title>
     <meta name="viewport" content="initial-scale=1.0">
     <meta charset="utf-8">
-    
-    <link rel = "stylesheet" href = "../css/randomRoute.css">
+    <link rel = "stylesheet" href = "../css/randomRoute.css" type="text/css">
+    <link rel="icon" type="image/png" href="../image/world.png" />
+    <!-- js files -->
+    <script src="../js/sideNav.js"></script>
+    <script src="../js/randomRoute.js"></script>
   </head>
   <body>
+    <!--side menu bar-->
+    <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="../index.html">HOME</a>
+        <a href="./aboutUs.html">ABOUT US</a>
+        <a href="./joinUs.html">JOIN US</a>
+    </div>
     <div class="container">
         <div id="map"></div>
+        <!--three line thigy to open up the menu bar-->
+        <div id="notindexspan" style="font-size:30px;cursor:pointer; text-align: left" onclick="openNav()">&#9776;</div>
         <div id = "choices">
             <button onclick = "rerout()" id = "reroute">Another Route</button>
             <button onclick = "go()" id = "go">Let's Go!</button>
         </div>
     </div>
-    <script src="../js/randomRoute.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?callback=createMap&key=AIzaSyCHXKnfoxUG98BDI0ZgzVwViZEH9CCGb0M"
     async defer></script>
   </body>

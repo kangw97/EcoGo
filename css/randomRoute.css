@@ -1,9 +1,7 @@
 #map {
     height: 400px;
 }
-input {
-    width: 100%;
-}
+/*button formatting */
 button {
     width: 48%;
     height: 60px;
@@ -14,6 +12,60 @@ button {
     font-weight: bold;
     font-size: 15pt;
 }
+/*formatting reroute button*/
 #reroute {
     margin-left: 5px;
 }
+
+/*entire side bar when it is opened*/
+.sidenav {
+    height: 100%;
+    position: fixed;
+    width: 0;
+    z-index: +2;
+    top: 0;
+    left: 0;
+    background-color:black;
+    overflow-x: hidden;
+    transition: 1s;
+    padding-top: 60px;
+    white-space: nowrap;
+  }
+  
+/*content inside side bar*/
+  .sidenav a {
+    padding: 20px 8px 8px 20px;
+    font-size: 20pt;
+    color: white;
+    display: flex;
+    text-align: left;
+    transition: 0.3s;
+    text-decoration: none;
+  }
+  
+  /*button to close side bar*/
+  .sidenav .closebtn {
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    right: 25px;
+    font-size: 50px;
+    margin-left: 0;  
+  }
+  /*formatting menubar */
+  #notindexspan {
+      border-radius: 7%;
+      position: absolute;
+      display: block;
+      color: white;
+      background-color: black;
+      width: 95%;
+      height: 40px;
+      margin: -390px 0 0 0;
+      text-decoration: none;
+  }
+
+  /* disable outlining when clicking on the buttons */
+  button:focus, textarea {
+      outline: none !important;
+  }
