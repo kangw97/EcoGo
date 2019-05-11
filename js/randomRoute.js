@@ -6,7 +6,9 @@ function createMap() {
     var latitude = 0;
     var options = {
         center: {lat: 49.2827, lng: -123.1207},
-        zoom: 16
+        zoom: 16,
+        disableDefaultUI: true,
+        zoomControl: true
     };
     // initial map
     map = new google.maps.Map(document.getElementById("map"), options);
@@ -43,8 +45,14 @@ function autoFillAddress(){
 }
 // after click we will route you
 function random(){
-    address = document.getElementById('adEntry').value;
-    localStorage.setItem("myAddress", address);
-    window.location = "./html/randomRoute.html";
+  // check if user entry is empty
+  var fill = document.getElementById('adEntry').value;
+    if(fill == "") {
+      alert("Enter Your Location");
+    } else {
+      address = document.getElementById('adEntry').value;
+      localStorage.setItem("myAddress", address);
+      window.location = "./html/randomRoute.html";
+    }
 }
 

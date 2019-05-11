@@ -73,11 +73,14 @@ legend {
 	90% { transform: translate(1px, 2px) rotate(0deg); }
 	100% { transform: translate(1px, -2px) rotate(-1deg); }
 }
-
+/*searchBox formatting*/
 .pac-container {
     margin-top: -80px;
 }
-
+/*highlighting item in the search box when pressed*/
+.pac-item:active{
+    background-color: yellow;
+}
 #header {
     position: fixed;
 }
