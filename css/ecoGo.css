@@ -32,7 +32,13 @@ button:focus, textarea {
 /* div for the logo*/
 #divLogo {
     margin-top: 80px;
+    margin-left: -150px;
     height: 150px;
+}
+#divLogo img {
+    position: absolute;
+    width: 195px;
+    height: 120px;
 }
 button {
     background-color: black;
@@ -56,10 +62,12 @@ legend {
     margin: auto;
     margin-top: 60px;
 }
+/* styling for the easter egg */
 .easterEgg {
 	animation: shake 0.5s;
 	animation-iteration-count: 1;
 }
+/* keyframe animation to shake the element */
 @keyframes shake {
 	0% { transform: translate(1px, 1px) rotate(0deg); }
 	10% { transform: translate(-1px, -2px) rotate(-1deg); }
