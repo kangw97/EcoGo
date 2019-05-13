@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>directions</title>
+    <!--image files-->
+    <link rel="icon" type="image/png" href="../image/arrow_left.png" />
+    <link rel="icon" type="image/png" href="./image/arrow_right.png" />
+    <!-- css files-->
+    <link rel="stylesheet" href="../css/directions.css" type="text/css">
+    <!-- font -->
+    <link href='https://fonts.googleapis.com/css?family=Rajdhani' rel='stylesheet'>
+    <!-- js files -->
+    <script src="../js/directions.js"></script>
+</head>
+<body>
+    <!--button to check the routes-->
+    <div id="map"></div>
+    <form action="directions.html">
+ <input type="image" id="arrow_left" src="../image/arrow_left.png" width="48" height="48"/>
+        </form>
+    <form action="directions.html">
+        <input type="image" id="arrow_right" src="../image/arrow_right.png" width="48" hegith="48" />
+    </form>
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCguyCC4Xv0M2SeH25gP8nCCv2LzEl_iao&callback=initMap">
+    </script>
+
+</body>
+</html>

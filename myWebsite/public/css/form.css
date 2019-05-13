@@ -1,0 +1,36 @@
+#form, #bname, #baddress, #bphone{
+    text-align: left;
+  }
+
+#form{
+    margin: 15px 0 0 5px;
+  }
+#bname, #baddress, #bphone {
+    margin: -3px 0 0 0;
+    display: block;
+}  
+
+#address{
+  position: relative;
+  z-index: 1;
+  padding-top: 5px;
+  overflow: hidden;
+}
+#laddress{
+    top: 40%;
+    position: relative;
+    display: inline-block;
+}
+#raddress{
+    top: 40%;
+    position: relative;
+    display: inline-block;
+
+}
+#send {
+    position: absolute;
+    bottom: 5px;
+}
+label {
+    margin-top: 2px;
+}

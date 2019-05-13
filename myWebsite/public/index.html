@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>EcoGo</title>
+        <link rel = "icon" type = "image/png" href = "./image/world.png" />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+        <!-- css files-->
+        <link href="./css/ecoGo.css" rel='stylesheet' type="text/css">
+        <link href="./css/sideNav.css" rel='stylesheet' type="text/css">
+        <!-- font -->
+        <link href='https://fonts.googleapis.com/css?family=Rajdhani' rel='stylesheet'>
+        <!-- js files -->
+        <script src="./js/easterEgg.js"></script>
+        <script src="./js/sideNav.js"></script>
+    </head>
+    
+    <body>
+        <!--side menu bar-->
+        <div id="mySidenav" class="sidenav">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+            <a href="index.html" onclick="closeNav()">HOME</a>
+            <a href="./html/aboutUs.html" onclick="closeNav()">ABOUT US</a>
+            <a href="./html/joinUs.html" onclick="closeNav()">JOIN US</a>
+        </div>
+        
+        <!--three line thigy to open up the menu bar-->
+        <span id = "indexspan" style="font-size:30px;cursor:pointer; text-align: left" onclick="openNav()">&#9776;</span>
+        
+        <!--Eco Go logo-->
+        <div id='divLogo'>
+            <img src="./image/ecogo.png" alt="EcoGo" width="130" height="80" id="image" onclick="easterEgg()">
+        </div>
+        
+        <!--label and text box to input location-->
+        <fieldset>
+        <legend>WHERE ARE YOU?</legend>
+        <input type="text" placeholder="ENTER YOUR LOCATION" onclick = "select()" id = "adEntry" autofocus required>
+        </fieldset>
+        
+        <!--two buttons-->
+        <div id="divBtn">
+            <button onclick="random()">WE'LL ROUTE YOU</button>
+            <button>FIND YOUR OWN ROUTE</button>
+        </div>
+        <script src="./js/randomRoute.js"></script>
+        <script src="./js/sideNav.js"></script>
+        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?callback=autoFillAddress&key=AIzaSyCHXKnfoxUG98BDI0ZgzVwViZEH9CCGb0M&libraries=places"></script>
+    </body>
+
+</html>

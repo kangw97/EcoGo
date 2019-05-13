@@ -1,0 +1,146 @@
+/*entire side bar when it is opened*/
+.sidenav {
+    height: 100%;
+    position: fixed;
+    width: 0;
+    z-index: +2;
+    top: 0;
+    left: 0;
+    background-color:black;
+    overflow-x: hidden;
+    transition: 1s;
+    padding-top: 60px;
+    white-space: nowrap;
+  }
+  
+/*content inside side bar*/
+  .sidenav a {
+    padding: 20px 8px 8px 20px;
+    font-size: 20pt;
+    color: white;
+    display: flex;
+    text-align: left;
+    transition: 0.3s;
+  }
+  
+  /*button to close side bar*/
+  .sidenav .closebtn {
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    right: 25px;
+    font-size: 50px;
+    margin-left: 0;  
+  }
+
+/* little three line thingy to open the side bar*/
+#header {
+    position: relative;
+    width: 100%;
+    height: 15%;
+    color: white;
+    background-color: black;
+    z-index: +1;
+}
+#indexspan{
+   /* position: absolute;
+    margin: -40px 0 0 -175px;
+    */
+    float: left;
+    margin: -50px -40px 0 20px;
+  }
+#notindexspan {
+    float: left;
+    margin: 40px 0 0 20px;
+}
+h1 {
+    position: absolute;
+    margin: 40px 0 0 130px;
+}
+h3 {
+    position: absolute;
+    margin: 82px 0 0 80px;
+}
+#content {
+    position: absolute;
+    margin: 100pt 0 0 0;
+}
+#content1 {
+    width: 90%;
+    height: 20%;
+    position: fixed;
+    margin: 10px 0 0 18px;
+    background-color: white;
+}
+#content2 {
+    width: 90%;
+    height: 20%;
+    position: fixed;
+    margin: 160px 0 0 18px;
+    background-color: white;
+}
+#content3 {
+    width: 90%;
+    height: 20%;
+    position: fixed;
+    margin: 310px 0 0 18px;
+    background-color: white;
+}
+.sum1 {
+    position: fixed;
+    margin: 10px 0 0 18px;
+    width: 35%;
+    height: 15%;
+    background-color: brown;
+}
+.des1 {
+    position: fixed;
+    margin: 10px 0 0 180px;
+    width: 35%;
+    height: 15%;
+    background-color: purple;
+}
+
+/*join Us CSS */ 
+#join{
+  position: absolute;
+  margin: 600px 0 0 10px;
+}
+#criteria {
+    font-size: 23pt;
+    font-weight: bolder;
+    margin-left: 20pt;
+}
+#businessReq {
+     width: 90%;
+    height: 65%;
+    margin: 20px 0 0 px;
+
+}
+#foodReq {
+    width: 90%;
+    height: 65%;
+    margin: 20px 0 0 0px;
+}
+li {
+    font-size: 13pt; 
+    margin: 15px 0 0 0;
+}
+
+/* About Us CSS */
+#divLogo1 {
+    margin: 10pt 0 0 0; 
+}
+
+#activityPic{
+    margin: 0 0 20pt 15pt; 
+}
+
+#activityText {
+    margin: 10pt 0 0 0;
+    font-size: 15pt;
+    color: dimgrey; 
+}
+#personPic{
+    border-radius: 50%; 
+}
