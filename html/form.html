@@ -18,9 +18,8 @@
     <!-- font -->
     <link href='https://fonts.googleapis.com/css?family=Rajdhani' rel='stylesheet'>
     <script src="../js/sideNav.js"></script>
-
+    <script src="https://www.gstatic.com/firebasejs/5.11.1/firebase.js"></script>
 </head>
-
 <body>
     <div id="mySidenav" class="sidenav">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
@@ -42,7 +41,6 @@
                     <option value="restaurant">Restaurant</option>
                     <option value="activity">Activity</option>
                     <option value="retailer">Retailer</option>
-
                 </select>
             </div>
             <label>Name</label>
@@ -80,10 +78,9 @@
         </div>
     </div>
     <script>
-
+        // uploading user data into firebase
         function uploadFile() {
             var fname = document.getElementById("bname").value;
-            
             var storageRef = firebase.storage().ref('/EcoGo/' + fname);
             var uploadTask = storageRef.put(selectedFile);
             uploadTask.on('state_changed', function (snapshot) {
@@ -99,16 +96,8 @@
                 }
                 updates['/Posts/' + postKey] = postData;
                 firebase.database().ref().update(updates);
-
             }
         }
-        function submitClick() {
-            window.alert("working");
-        }
-    </script>
-
-    <script src="https://www.gstatic.com/firebasejs/5.11.1/firebase.js"></script>
-    <script>
         var selectedFile;
         $("#file").on("change", function (event) {
             selectedFile = event.target.files[0];
@@ -124,7 +113,6 @@
             messagingSenderId: "540393307666",
             appId: "1:540393307666:web:a01b5e54395f311b"
         };
-      
         firebase.initializeApp(firebaseConfig);
         $("#send").click(function () {
             var userCategory = $("#mySelect option:selected").text();
@@ -135,13 +123,7 @@
             var zip_code = document.getElementById("code").value;
             var phone = document.getElementById("bphone").value;
             var website = document.getElementById("site").value;
-            if (userCategory == "Restaurant") {
-                var rootRef = firebase.database().ref().child('restaurant');
-            } else if (userCategory == "Activity") {
-                var rootRef = firebase.database().ref().child('activity');
-            } else {
-                var rootRef = firebase.database().ref().child('retailer');
-            }
+            var rootRef = firebase.database().ref().child(userCategory);
             rootRef.push({
                 "Category": userCategory,
                 "Name": bname,
@@ -154,8 +136,6 @@
                 "description": description
             });
         })
-
     </script>
 </body>
-
 </html>
