@@ -88,9 +88,6 @@ legend {
 .pac-item:active{
     background-color: yellow;
 }
-#header {
-    position: fixed;
-}
 #aboutUs {
     font-size: pt; 
     margin-left: pt;
@@ -98,7 +95,21 @@ legend {
 #joinUsP {
     margin: 0 12pt 12pt 12pt;
 }
-
-
-
-
+#errorBody {
+    background-image: url("../image/factory.jpg");
+    background-repeat: no-repeat;
+    background-color: #3b3f4a;
+}
+#errorContent {
+    position: absolute;
+    margin: 30pt 0 0 0;
+    text-align: center;
+}
+#errorP {
+    font-size: 30pt;
+    margin: 0 auto;
+}
+#errorP2 {
+    font-size: 18pt;
+    margin: 0 auto;
+}
