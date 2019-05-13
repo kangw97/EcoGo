@@ -110,7 +110,6 @@
     <script src="https://www.gstatic.com/firebasejs/5.11.1/firebase.js"></script>
     <script>
         var selectedFile;
-        var rootRef;
         $("#file").on("change", function (event) {
             selectedFile = event.target.files[0];
             $("#uploadButton").show();
@@ -129,14 +128,15 @@
         firebase.initializeApp(firebaseConfig);
         var userCategory = $("#mySelect option:selected").text();
         if (userCategory == "Restaurant") {
-            rootRef = firebase.database().ref().child('restaurant');
-        } else if (userCategory == "Activity") {
-            rootRef = firebase.database().ref().child('activity');
-        } else {
-            rootRef = firebase.database().ref().child('Retailer');
+            var rootRef = firebase.database().ref().child('restaurant');
+        } 
+		if (userCategory == "Activity") {
+            var rootRef = firebase.database().ref().child('activity');
+        } 
+		if (userCategory == "Retailer"){
+            var rootRef = firebase.database().ref().child('retailer');
         }
         $("#send").click(function () {
-            var category = $("#mySelect option:selected").text();
             var bname = document.getElementById("bname").value;
             var street = document.getElementById("street").value;
             var city = document.getElementById("city").value;
@@ -145,7 +145,7 @@
             var phone = document.getElementById("bphone").value;
             var website = document.getElementById("site").value;
             rootRef.push({
-                "Category": category,
+                "Category": userCategory,
                 "Name": bname,
                 "Street": street,
                 "City": city,
