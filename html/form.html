@@ -126,17 +126,8 @@
         };
       
         firebase.initializeApp(firebaseConfig);
-        var userCategory = $("#mySelect option:selected").text();
-        if (userCategory == "Restaurant") {
-            var rootRef = firebase.database().ref().child('restaurant');
-        } 
-		if (userCategory == "Activity") {
-            var rootRef = firebase.database().ref().child('activity');
-        } 
-		if (userCategory == "Retailer"){
-            var rootRef = firebase.database().ref().child('retailer');
-        }
         $("#send").click(function () {
+            var userCategory = $("#mySelect option:selected").text();
             var bname = document.getElementById("bname").value;
             var street = document.getElementById("street").value;
             var city = document.getElementById("city").value;
@@ -144,6 +135,13 @@
             var zip_code = document.getElementById("code").value;
             var phone = document.getElementById("bphone").value;
             var website = document.getElementById("site").value;
+            if (userCategory == "Restaurant") {
+                var rootRef = firebase.database().ref().child('restaurant');
+            } else if (userCategory == "Activity") {
+                var rootRef = firebase.database().ref().child('activity');
+            } else {
+                var rootRef = firebase.database().ref().child('retailer');
+            }
             rootRef.push({
                 "Category": userCategory,
                 "Name": bname,
