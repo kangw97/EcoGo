@@ -54,6 +54,7 @@ button {
   }
   /*formatting menubar */
   #notindexspan {
+      border-radius: 7%;
       position: absolute;
       display: block;
       color: white;
