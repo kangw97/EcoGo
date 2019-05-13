@@ -37,7 +37,6 @@ button:focus, textarea {
 }
 #divLogo img {
     position: absolute;
-    width: 195px;
     height: 120px;
 }
 button {
