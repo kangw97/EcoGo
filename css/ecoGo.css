@@ -21,6 +21,9 @@ input{
     border-bottom: 1pt solid;
 
  }
+#header {
+    position: fixed;
+}
 /* disable outlining when clicking on the input field */
 input:focus, textarea {
     outline: none !important;
