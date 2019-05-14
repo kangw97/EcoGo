@@ -95,15 +95,17 @@ legend {
 #joinUsP {
     margin: 0 12pt 12pt 12pt;
 }
-#errorBody {
+#errorHtml {
     background-image: url("../image/factory.jpg");
     background-repeat: no-repeat;
     background-color: #3b3f4a;
 }
+#errorBody {
+    margin-top: -3em;
+}
 #errorContent {
     position: absolute;
     margin: 30pt 0 0 0;
-    text-align: center;
 }
 #errorP {
     font-size: 30pt;
@@ -113,3 +115,27 @@ legend {
     font-size: 18pt;
     margin: 0 auto;
 }
+#errorText {
+    margin-top: -1em;
+    text-align: center;
+}
+#error404 {
+    font-size: 105pt;
+    color: #8fb04a;
+    display: inline-flex;
+}
+.image404 {
+    display: block;
+    top: 50%;
+    left: 50%;
+    width: 120px;
+    height: 120px;
+    margin: 35px auto;
+    -webkit-animation:spin 8s linear infinite;
+    -moz-animation:spin 8s linear infinite;
+    animation:spin 8s linear infinite;
+}
+
+@-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
+@-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
+@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
