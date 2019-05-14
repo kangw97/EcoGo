@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Add icon library -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- font -->
+    <link href='https://fonts.googleapis.com/css?family=Rajdhani' rel='stylesheet'>
+    <link rel="stylesheet" href="../css/selfRoute.css">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Self Select Option</title>
+
+    <script src="https://www.gstatic.com/firebasejs/5.11.1/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyDjnDBcjTl7ohz1k7-BKdFUjOnJuNKX3Aw",
+            authDomain: "team05-ecogo.firebaseapp.com",
+            databaseURL: "https://team05-ecogo.firebaseio.com",
+            projectId: "team05-ecogo",
+            storageBucket: "team05-ecogo.appspot.com",
+            messagingSenderId: "540393307666",
+            appId: "1:540393307666:web:a01b5e54395f311b"
+        };
+        firebase.initializeApp(firebaseConfig);
+
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <div id="map"></div>
+        <div id="content">
+        </div>
+    </div>
+    <script src="../js/selfRoute.js"></script>
+    <!-- google api  -->
+    <script type="text/javascript"
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCHXKnfoxUG98BDI0ZgzVwViZEH9CCGb0M&callback=createEmptyMap"></script>
+</body>
+
+</html>

@@ -1,0 +1,108 @@
+body{
+    font-family: 'Rajdhani';
+    font-weight: bold;
+}
+/* margin : top right bottom left */
+#map {
+    height: 550px;
+}
+#content{
+     margin-top: 5px;
+     height: 60px;
+}
+div[id *= "opt"]{
+    display: inline-block;
+    width: 33%;
+    height: 60px;
+}
+button{
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    color: white;
+    font-weight: bold;
+    font-size: 10pt;
+    border-radius: 10%;
+    
+}
+#category{
+    font-size: 35px;
+    height: 60px;
+    text-align: left;
+}
+div[id*="smallDivs"]{
+    margin-top: 5px;
+    height: 90px;
+    background-color: aliceblue;
+    font-size: 20px;
+    text-align: left;
+    padding: 5px;
+    /* border-bottom: solid 2px; */
+
+}
+#list{
+    top:200px;
+ /* color: red; */
+}
+#back{
+    position: relative;
+    width: 35px;
+   height: 35px; 
+    background-color: white;
+    color: black;
+    font-weight: bold;
+    border-radius: 10%;
+    bottom: 8px;
+    left: 120px;
+    font-size: 20px;
+}
+/* any btn that contains btnMore as id */
+button[id *="btnMore"]{
+    width: 55px;
+    height: 55px;
+    margin: 2px 2px;
+    border-radius: 50%;
+    bottom: 35px;
+    left: 150px;
+    background-color: white;
+    color: black;
+
+}
+/* any btn that contains moreInfo or addToTrip as id */
+button[id *= "moreInfo"], [id *= "addToTrip"]{
+    display: inline-block;
+    width: 50%;
+    font-size: 20px;
+}
+#buttonContainer{
+    top: 250px;
+}
+#backToList{
+   font-size: 20px;
+}
+#startTrip{
+    z-index: 1;
+    width: 100px;
+    height: 10%;;
+    position: relative;
+    top: 8px;
+
+}
+
+#count{
+    z-index: 1;
+    width: 120px;
+    height: 10%;;
+    position: relative;
+}
+#details{
+    background:rgba(0,0,0,.4);
+    cursor:pointer;
+    display:none;
+    height:100%;
+    position:fixed;
+    text-align:center;
+    top:0;
+    width:100%;
+    z-index:10000;
+}
