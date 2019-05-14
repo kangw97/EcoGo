@@ -123,6 +123,7 @@
             var zip_code = document.getElementById("code").value;
             var phone = document.getElementById("bphone").value;
             var website = document.getElementById("site").value;
+            var des = document.getElementById("description").value;
             var rootRef = firebase.database().ref().child(userCategory);
             rootRef.push({
                 "Category": userCategory,
@@ -133,7 +134,7 @@
                 "ZipCode": zip_code,
                 "Phone": phone,
                 "WebSite": website,
-                "description": description
+                "Description": des
             });
         })
     </script>
