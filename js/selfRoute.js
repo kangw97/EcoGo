@@ -312,7 +312,7 @@ function showRoute() {
 function setUpWayPoints() {
     var addresses = JSON.parse(localStorage.getItem("myDestination"));
     var waypts = [];
-    for (var i = 0; i < addresses[0].length; i++) {
+    for (var i = 0; i < addresses[0].length-1; i++) {
         waypts.push({
             location: addresses[1][i],
             stopover: true
@@ -321,15 +321,27 @@ function setUpWayPoints() {
     return waypts;
 }
 
+//set up the final destination of the trip, which is the last location that user selected
+function setUpDestination(){
+    var addresses = JSON.parse(localStorage.getItem("myDestination"));
+    var dest = [];
+    dest.push({
+        location: addresses[1][addresses.length-1],
+        stopover: true
+    })
+    return dest[0]['location'];   
+}
+
 function calculateAndDisplayRoute(directionsService, directionsDisplay) {
+    var destination = setUpDestination();
     var waypts = setUpWayPoints();
     var origin = localStorage.getItem("myAddress");
 
     directionsService.route({
         //convert origin and destinations into lat and lng
         origin: origin,
-        destination: waypts[waypts.length - 1]["location"],//bcit downtown;
-        waypoints: waypts,//last destination
+        destination: destination,
+        waypoints: waypts,
         optimizeWaypoints: true,
         travelMode: 'WALKING'
     }, function (response, status) {
