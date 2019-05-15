@@ -2,12 +2,22 @@ var map;
 var directionsService;
 var directionsDisplay;
 var dbRef;
+
+// arrays to store place info
+// [[name],[address],[type], [description]]
 var actArr = [[], [], [], []];
 var retArr = [[], [], [], []];
 var restArr = [[], [], [], []];
-var myDestinations = [[],[]];
+
+//array to store the destinations selected by users
+//[[name],[address]]
+var myDestinations = [[], []];
 var geocoder;
+
+// one of the three arrays will be assigned to this typeList
 var typeList;
+
+//button to show how many destinations user have selected
 var countDest = document.createElement("button");
 countDest.id = "count";
 
@@ -23,46 +33,53 @@ function self() {
     }
 }
 
+//initial map page centered at user's location
 function createEmptyMap() {
+    // get all the location info from firebase
     getPlaces("Restaurant");
     getPlaces("Activity");
     getPlaces("Retailer");
 
-    //show pinpoints of places that user added to their trip
     geocoder = new google.maps.Geocoder();
     directionsService = new google.maps.DirectionsService;
     directionsDisplay = new google.maps.DirectionsRenderer;
-    // set the map centered to downtown Vancouver
-    //zoom : 12
+
     map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 11.5,
+        zoom: 11,
         center: { lat: 49.2827, lng: -123.1207 }, //downtown vancouver
         disableDefaultUI: true,
-        zoomControl: true
+        zoomControl: true,
+        gestureHandling: 'greedy'
     });
 
     showThreeOption();
     showDestinations(myDestinations);
-    showPinPoints(localStorage.getItem("myAddress"))
-}
-
-function showDestinations(array) {
-
-    countDest.innerHTML = "DESTINATIONS: " + array[0].length;
-    document.getElementById("map").appendChild(countDest);
-    if (array[0].length > 0) {
+    //show pinpoints of current location
+    showPinPoints(localStorage.getItem("myAddress"));
+    if (myDestinations[0].length > 0) {
         addStartBtn();
     }
 }
 
+ //updates destination count
+function showDestinations(array) {
+    countDest.innerHTML = "DESTINATIONS: " + array[0].length;
+    document.getElementById("map").appendChild(countDest);
+
+    for(var i = 0; i<myDestinations[1].length;i++){
+        showDestPinPoints(myDestinations[1][i]);
+    }
+}
+
+// convert each address to lat and lng and place marker
 function showPinPoints(address) {
     geocoder.geocode({ "address": address }, function (results, status) {
         if ((status == google.maps.GeocoderStatus.OK)) {
             var latitude = results[0].geometry.location.lat();
             var longitude = results[0].geometry.location.lng();
             var myLatLng = {
-                 lat: latitude, lng: longitude 
-                 }
+                lat: latitude, lng: longitude
+            }
             var marker = new google.maps.Marker({
                 position: myLatLng,
                 map: map,
@@ -71,7 +88,27 @@ function showPinPoints(address) {
     });
 }
 
-// initial screen, shows [FOOD STORES ACTIVITIES]
+// shows the destination location with blue marker
+function showDestPinPoints(address) {
+    geocoder.geocode({ "address": address }, function (results, status) {
+        if ((status == google.maps.GeocoderStatus.OK)) {
+            var latitude = results[0].geometry.location.lat();
+            var longitude = results[0].geometry.location.lng();
+            var myLatLng = {
+                lat: latitude, lng: longitude
+            }
+            var marker = new google.maps.Marker({
+                position: myLatLng,
+                map: map,
+                icon:{
+                    url:"http://maps.google.com/mapfiles/ms/icons/blue-dot.png"
+                }
+            });
+        }
+    });
+}
+
+// shows [FOOD STORES ACTIVITIES]
 function showThreeOption() {
     // div underneath the map
     var threeOptions = document.getElementById("content");
@@ -120,14 +157,16 @@ function showThreeOption() {
     })
 }
 
-// shows the list of place, btnid is either food, store, activity
+// shows the list of place, type is either food, store, activity
 function showList(type) {
 
     // empty the previous content
     var content = document.getElementById("content");
     content.innerHTML = "";
 
-    var textContainer = document.createElement("div");
+    var container = document.createElement("div");
+    
+    //prints what users have selected either restaurant, retailer, activity
     var category = document.createElement("div");
     var title = type.toUpperCase();
     category.innerHTML = title;
@@ -155,6 +194,7 @@ function showList(type) {
         typeList = actArr;
     }
 
+    //one div for each place, create the more btn as well
     for (var i = 0; i < typeList[0].length; i++) {
         var smallDivs = document.createElement("div");
         smallDivs.id = "smallDivs" + i;
@@ -164,15 +204,17 @@ function showList(type) {
         btnMore.innerHTML = "MORE";
         btnMore.id = "btnMore" + i;
 
+        //event handler for more btn
         showMoreInfo(btnMore, btnMore.id, type);
-    
-        smallDivs.appendChild(btnMore);
-        textContainer.appendChild(smallDivs);
-    
-    }
-    content.appendChild(textContainer);
 
-    for(var i = 0; i<typeList[1].length;i++){
+        smallDivs.appendChild(btnMore);
+        container.appendChild(smallDivs);
+
+    }
+    content.appendChild(container);
+
+    // pin points for every places in the list
+    for (var i = 0; i < typeList[1].length; i++) {
         showPinPoints(typeList[1][i]);
     }
 }
@@ -188,18 +230,21 @@ function showMoreInfo(btn, btnId, type) {
     btn.addEventListener("click", function () {
         var id = getId(btnId);
         // clear out the lists
-         var content = document.getElementById("content");
-         content.innerHTML = " ";
-         var name = document.createElement("div");
-         name.id = "placeName";
-         name.innerHTML = typeList[0][id].toUpperCase();
+        var content = document.getElementById("content");
+        content.innerHTML = " ";
 
-         var address = document.createElement("div");
-         address.id = "address";
-         address.innerHTML =  typeList[1][id]
+        // name of the place
+        var name = document.createElement("div");
+        name.id = "placeName";
+        name.innerHTML = typeList[0][id].toUpperCase();
 
-         content.appendChild(name);
-         content.appendChild(address);
+        // address of the place
+        var address = document.createElement("div");
+        address.id = "address";
+        address.innerHTML = typeList[1][id]
+
+        content.appendChild(name);
+        content.appendChild(address);
 
         var btnMoreInfo = document.createElement("button");
         btnMoreInfo.id = "moreInfo" + id;
@@ -210,17 +255,17 @@ function showMoreInfo(btn, btnId, type) {
         var btnAddToTrip = document.createElement("button");
         btnAddToTrip.id = "addToTrip" + id;
         btnAddToTrip.innerHTML = "ADD TO TRIP";
-    
-        for(var i = 0; i<myDestinations[0].length;i++){
-            if(myDestinations[0][i] === typeList[0][id]){
-                btnAddToTrip.innerHTML = "ADDED TO TRIP";
-                btnAddToTrip.disabled = true;
-                addStartBtn();
-
-            }
-        }
         addToTrip(btnAddToTrip, btnAddToTrip.id);
 
+        // check if the place is alreay added to myDestination
+        for (var i = 0; i < myDestinations[0].length; i++) {
+            if (myDestinations[0][i] === typeList[0][id]) {
+                btnAddToTrip.innerHTML = "ADDED TO TRIP";
+                btnAddToTrip.disabled = true;
+            }
+        }
+
+        //back to list
         var back = document.createElement("button");
         back.innerHTML = "BACK";
         back.id = "backToList";
@@ -233,7 +278,9 @@ function showMoreInfo(btn, btnId, type) {
         content.appendChild(back);
     });
 }
+
 function addStartBtn() {
+
     var startTrip = document.createElement("button");
     startTrip.id = "startTrip";
     startTrip.innerHTML = "START";
@@ -244,6 +291,8 @@ function addStartBtn() {
         window.location = "startRoute.html";
     })
 }
+
+// shows the route
 function showRoute() {
     console.log("trip started");
 
@@ -251,12 +300,15 @@ function showRoute() {
     var directionsDisplay = new google.maps.DirectionsRenderer;
     var map = new google.maps.Map(document.getElementById('map'), {
         zoom: 11.5,
-        center: { lat: 49.2827, lng: -123.1207 }//downtown vancouver
+        center: { lat: 49.2827, lng: -123.1207 },//downtown vancouver
+        disableDefaultUI: true,
+        zoomControl: true,
+        gestureHandling: 'greedy'
     });
     directionsDisplay.setMap(map);
     calculateAndDisplayRoute(directionsService, directionsDisplay);
 }
-
+// set up the places to be stopped by
 function setUpWayPoints() {
     var addresses = JSON.parse(localStorage.getItem("myDestination"));
     var waypts = [];
@@ -275,8 +327,8 @@ function calculateAndDisplayRoute(directionsService, directionsDisplay) {
 
     directionsService.route({
         //convert origin and destinations into lat and lng
-        origin:origin,
-        destination: waypts[waypts.length-1]["location"],//bcit downtown;
+        origin: origin,
+        destination: waypts[waypts.length - 1]["location"],//bcit downtown;
         waypoints: waypts,//last destination
         optimizeWaypoints: true,
         travelMode: 'WALKING'
@@ -293,36 +345,33 @@ function calculateAndDisplayRoute(directionsService, directionsDisplay) {
 function showLocationDetails(btn, btnId, type) {
     btn.addEventListener("click", function () {
         var id = getId(btnId);
-        var info = document.getElementById("list");
+        var info = document.getElementById("content");
         info.innerHTML = "";
-        info.innerHTML = typeList[--id];
-        var back = document.createElement("button");
-        back.id = "backToList";
-        back.innerHTML = "BACK";
-        info.appendChild(back);
-        back.addEventListener("click", function () {
-            showList(type);
+        //name
+        info.innerHTML =typeList[0][id] + "</br>";
+        //address
+        info.innerHTML +=typeList[1][id]+ "</br>";
+        //desc
+        info.innerHTML +=typeList[3][id]+ "</br>";
         })
-    })
-}
+    }
 
+//add selected location to myDestiantions
 function addToTrip(btn, btnId) {
     btn.addEventListener("click", function () {
 
         var id = getId(btnId);
-        myDestinations[0][id] = typeList[0][id];
-        myDestinations[1][id] = typeList[1][id];
-        
-         document.getElementById("addToTrip" + id).innerHTML = "ADDED TO TRIP";
-         document.getElementById("addToTrip" + id).disabled = true;
-    
-         if(myDestinations[0].length ==0){
-            addStartBtn();
-         }  
-    
+        myDestinations[0].push(typeList[0][id]);
+        myDestinations[1].push(typeList[1][id]);
+
+        document.getElementById("addToTrip" + id).innerHTML = "ADDED TO TRIP";
+        document.getElementById("addToTrip" + id).disabled = true;
+        document.getElementById("count").innerHTML = "DESTINATIONS: " + myDestinations[0].length;
+
     });
 }
 
+// get info from firebase
 function getPlaces(type) {
     //database path
     dbref = firebase.database().ref(type);
