@@ -16,6 +16,10 @@ var retArr = [[], [], [], []],
     restArr = [[], [], [], []];
 // 2d array to store the info of the 4 places of the trip
 var myTrip;
+// whole trip, 5 address
+var wholeTrip = [];
+// keep track of which route the user is on 
+var trackRoute = 0;
 // array stores the way points
 var waypts = [];
 // divs for holding trip details
@@ -28,24 +32,33 @@ var buttonDiv1, buttonDiv2, buttonDiv3, buttonDiv4;
 var button1, button2, button3, button4;
 // description for each trip
 var descriptions;
+// for getting direction service api
+var directionsService;
+// for show directions on map service api
+var directionsDisplay;
+
+var displayOnce = 0;
 // createMap function with the marker of starting address
 function createMap() {
     // rest the 3 2d arrays in randomRoute page for randomizingRoute function
     restArr = JSON.parse(localStorage.getItem("restArray"));
     retArr = JSON.parse(localStorage.getItem("retArray"));
     actArr = JSON.parse(localStorage.getItem("actArray"));  
-    geocoder = new google.maps.Geocoder();
+    geocoder = new google.maps.Geocoder();   
+    // generating the trip user interface by call tripList function
+    randomizingRoute();
+    // call set waypoints function
+    setUpWayPoints();
     // call initial map and show route function
     showRoute();
+    // show the trip detail using DOM
     tripList();
 }
 
 // initial the map and show the route of entire trip
 function showRoute() {
-  // generating the trip user interface by call tripList function
-  randomizingRoute();
-  var directionsService = new google.maps.DirectionsService;
-  var directionsDisplay = new google.maps.DirectionsRenderer;
+  directionsService = new google.maps.DirectionsService;
+  directionsDisplay = new google.maps.DirectionsRenderer;
   map = new google.maps.Map(document.getElementById('map'), {
     zoom: 11,
     center: { lat: 49.2827, lng: -123.1207 },//downtown vancouver
@@ -59,14 +72,12 @@ function showRoute() {
 
 // function to display route and get the distance of two points
 function calculateAndDisplayRoute(directionsService, directionsDisplay) {
-  // call set waypoints function
-  setUpWayPoints();
   directionsService.route({
     //convert origin and destinations into lat and lng
     origin: localStorage.getItem("myAddress"),
     destination: myTrip[1][3],
     waypoints: waypts,
-    optimizeWaypoints: true,
+    optimizeWaypoints: false,
     travelMode: 'DRIVING'
   }, function (response, status) {
     if (status === 'OK') {
@@ -74,11 +85,14 @@ function calculateAndDisplayRoute(directionsService, directionsDisplay) {
         var route = response.routes[0];
         // For each route, display summary information.
         for (var i = 0; i < route.legs.length; i++) {
-          descriptions[i].innerHTML += route.legs[i].distance.text;
+          if(!displayOnce) {
+            descriptions[i].innerHTML += route.legs[i].distance.text;
+          }
         }
     } else {
         window.alert('Directions request failed due to ' + status);
     }
+    displayOnce = 1;
   });
 }
 
@@ -206,7 +220,7 @@ function tripList(){
 
   // Css for mainDiv
   mainDiv.style.width = "90%";
-  mainDiv.style.margin = "10px auto";
+  mainDiv.style.margin = "90px auto";
 
   for(var i = 0; i < 4; i++) {
     // css for 4 trip divs
@@ -225,7 +239,7 @@ function tripList(){
 
     // css for 4 desination description divs
     descriptions[i].style.margin = "5px 0 0 80px";
-    descriptions[i].style.width = "55%";
+    descriptions[i].style.width = "45%";
     descriptions[i].style.height = "90px";
     descriptions[i].style.position = "absolute";
     descriptions[i].innerHTML = "<b>" + myTrip[0][i] + "</b><br><br>";
@@ -234,19 +248,100 @@ function tripList(){
     // css for 4 button divs 
     buttonDs[i].style.width = "50px";
     buttonDs[i].style.height = "50px";
-    buttonDs[i].style.margin = "25px 0 0 250px";
+    buttonDs[i].style.margin = "25px 0 0 75%";
 
     // css for 4 buttons
     buttons[i].style.width = "50px";
     buttons[i].style.height = "50px";
-    buttons[i].style.margin = "25px 0 0 5px";
+    buttons[i].style.margin = "25px 0 0 75%";
     buttons[i].style.border = "2px solid black";
     buttons[i].style.borderRadius = "50%";
     buttons[i].innerHTML = "i";
     buttons[i].style.fontSize = "20pt";
     buttons[i].style.color = "black";
     buttons[i].style.background = "transparent";
+    buttons[i].id = i;
+    showMoreInfo(buttons[i]);
   }
+}
+// show more info after clicking i button
+function showMoreInfo(btnMoreInfo){
+  btnMoreInfo.addEventListener("click", function(){
+    var latitude, longitude;
+    // converting address into lat and lng for recentering the map
+    geocoder.geocode({ "address": myTrip[1][btnMoreInfo.id]}, function (results, status) {
+      if ((status == google.maps.GeocoderStatus.OK)) {
+        latitude = results[0].geometry.location.lat();
+        longitude = results[0].geometry.location.lng();
+        var myLatLng = {
+          lat: latitude, lng: longitude
+        }
+        // reinitializing the map to the location associated with the info button
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: myLatLng,
+          disableDefaultUI: true,
+          zoom: 15,
+          zoomControl: true,
+          gestureHandling: 'greedy'
+        });
+        // place the marker
+        var marker = new google.maps.Marker({
+          position: myLatLng,
+          map: map,
+          icon:{
+            url:"http://maps.google.com/mapfiles/ms/icons/blue-dot.png"
+          },
+          animation: google.maps.Animation.DROP
+        });
+      }
+    });
+      // reCssing using dom after more info button is clicked
+      trip1.style.display = "none";
+      trip2.style.display = "none";
+      trip3.style.display = "none";
+      trip4.style.display = "none";
+      document.getElementById("reroute").style.display = "none";
+      document.getElementById("go").style.display = "none";
+      // creating elements using dom
+      var back = document.createElement("button");
+      var desMoreInfo = document.createElement("div");
+      // css for bakc button 
+      back.innerHTML = "X";
+      back.style.fontSize = "12pt";
+      back.style.textAlign = "center";
+      back.style.position = "absolute";
+      back.style.width = "25px";
+      back.style.height = "25px";
+      back.style.margin = "-50px 0 0 300px";
+      back.style.border = "1px solid black";
+      // css for description in more info
+      desMoreInfo.style.width = "300px";
+      desMoreInfo.style.height = "200px";
+      desMoreInfo.style.margin = "60px auto";
+      desMoreInfo.innerHTML = myTrip[3][btnMoreInfo.id] + "<br><br>";
+      desMoreInfo.innerHTML += myTrip[1][btnMoreInfo.id];
+      
+      //css for mainDive
+      mainDiv.style.marginTop = "0px";
+
+      // appending elements into mainDiv
+      mainDiv.appendChild(back);
+      mainDiv.appendChild(desMoreInfo);
+
+      // onClickFunction for back button
+      back.addEventListener("click", function () {
+      showRoute();
+      back.style.display = "none";
+      desMoreInfo.style.display = "none";
+      trip1.style.display = "block";
+      trip2.style.display = "block";
+      trip3.style.display = "block";
+      trip4.style.display = "block";
+      mainDiv.style.marginTop = "90px";
+      document.getElementById("reroute").style.display = "block";
+      document.getElementById("go").style.display = "block";
+    });
+  });
 }
 // after clicking reroute change the contents in the description list
 function newLocations() {
@@ -257,8 +352,11 @@ function newLocations() {
 }
 // reroute function
 function reroute(){
+  displayOnce = 0;
   // empty waypts
   waypts = [];
+  randomizingRoute();
+  setUpWayPoints();
   showRoute();
   newLocations();
 }
@@ -318,6 +416,12 @@ function randomizingRoute(){
 }
 // let's go function
 function go() {
+  wholeTrip.push(localStorage.getItem("myAddress"));
+  for(var i = 0; i < 4; i++){
+    wholeTrip.push(myTrip[1][i]);
+  }
+  // css for making some buttons disapear and add more details of the trip
+  trip1.style.display = "none";
   trip2.style.display = "none";
   trip3.style.display = "none";
   trip4.style.display = "none";
@@ -338,8 +442,46 @@ function go() {
   descriptions[0].innerHTML += "<br><br>" + myTrip[1][0];
   markerImgDiv1.style.margin = "55px 0 0 5px";
   button1.style.marginTop = "45px";
+  // zoom in map
+  startTriping(wholeTrip[trackRoute], wholeTrip[++trackRoute]);
+  nextButton.addEventListener("click", function(){
+    startTriping(wholeTrip[trackRoute], wholeTrip[++trackRoute]);
+    if(trackRoute == 4){
+      nextButton.style.display = "none";
+      var doneButton = document.createElement("button");
+      doneButton.style.width = "75px";
+      doneButton.style.height = "40px";
+      doneButton.innerHTML = "Done";
+      doneButton.style.textAlign = "center";
+      nextButtonDiv.appendChild(doneButton);
+      doneButton.addEventListener("click", function(){
+        window.location = "http://www.bcit.ca";
+      });
+    }
+  });
 }
-
+// show the route of two points
+function startTriping(startPoint, endPoint) {
+  directionsDisplay.setMap(map);
+  directionsService.route({
+    //convert origin and destinations into lat and lng
+    origin: startPoint,
+    destination: endPoint,
+    travelMode: 'DRIVING'
+  }, function (response, status) {
+    if (status === 'OK') {
+        directionsDisplay.setDirections(response);
+    } else {
+        window.alert('Directions request failed due to ' + status);
+    }
+  });
+  // show directions here!!!!!!!
+  //
+  //
+  //
+  //
+  //
+}
 // automating address and initializing 2d arrays store then in localstorage
 function autoFillAddress(){
     var defaultBounds = new google.maps.LatLngBounds(
