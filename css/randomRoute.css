@@ -3,7 +3,7 @@
 }
 /*button formatting */
 button {
-    width: 48%;
+    width: 45%;
     height: 60px;
     border-radius: 10%;
     margin-top: 10px;
@@ -11,12 +11,12 @@ button {
     color: white;
     font-weight: bold;
     font-size: 15pt;
+    float: left;
 }
 /*formatting reroute button*/
-#reroute {
-    margin-left: 5px;
+#reroute, #go {
+    margin-left: 15px;
 }
-
 /*entire side bar when it is opened*/
 .sidenav {
     height: 100%;
