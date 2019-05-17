@@ -57,8 +57,7 @@ button {
       border-radius: 7%;
       position: absolute;
       display: block;
-      color: white;
-      background-color: black;
+      color: black;
       width: 95%;
       height: 40px;
       margin: -390px 0 0 0;
