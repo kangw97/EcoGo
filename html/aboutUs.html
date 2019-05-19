@@ -1,13 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 
-    <head>
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>EcoGo About Us</title>
     <link rel="icon" type="image/png" href="../image/world.png" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <!-- fontAwesome icons -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <!-- counterUp not working -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Counter-Up/1.0.0/jquery.counterup.js"></script>
+
     <!-- css files -->
     <link href="../css/sideNav.css" rel='stylesheet' type="text/css">
     <link href="../css/ecoGo.css" rel='stylesheet' type="text/css">
@@ -15,8 +23,12 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
     <!-- font -->
     <link href='https://fonts.googleapis.com/css?family=Rajdhani' rel='stylesheet'>
+    <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+
     <!-- js files -->
     <script src="../js/sideNav.js"></script>
+
+
 </head>
 
 <body>
@@ -32,17 +44,129 @@
         <h1 id=aboutUs></h1>
 
         <div id='divLogo1'>
-            <img src="../image/ecogo.png" alt="EcoGo" width="130" height="80" id="image" onclick="easterEgg()">
+            <img src="../image/ecogo.png" alt="EcoGo" width="110" height="60" id="image" onclick="easterEgg()">
         </div>
     </div>
-
-    <div id="content">
-        <div>
+        <div id="topBanner" class="topBanner">
+            <div class="img-container" id="imgContainer"></div>
+            <div class="inner-container">
+            <!--<img src="https://images.pexels.com/photos/113338/pexels-photo-113338.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" class="forest">-->
+             <div id="foster1"> <p id="foster12" class="foster">TO FOSTER A CULTURE OF WALKING, CYCLING AND SOCIAL INTERACTION</p></div>
+            </div> 
+    </div>
+    
+        <div class="topAboutContainer">
+        <div class="leftSide"> 
+            <img src="https://images.pexels.com/photos/325521/pexels-photo-325521.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" class="outdoorPic" ></div>
+       
+        <div class="rightSide" id="rightSide">
+        <div id="aboutUsTop">
             <p id="criteria">More than a Trip Planner </p>
-            <p id=joinUsP>At EcoGo, our goal is to become the most environmentally progressive trip planner on the planet. We don’t want to just reduce the negative impact of pollution and plastic waste, we want to use EcoGo as a vehicle for change. We are the city’s number one eco-friendly travel planner that provides eco-friendly travel destinations and activities for locals and tourists. Our purpose is to foster a healthy culture of walking, cycling, and social interaction. </p>
+            <p class="aboutUsInfo" id="aboutUsInfo">At EcoGo, our goal is to become the most environmentally progressive trip planner on the planet. We don’t want to just reduce the negative impact of pollution and plastic waste, we want to use EcoGo as a vehicle for change. We are the city’s number one eco-friendly travel planner that provides eco-friendly travel destinations and activities for locals and tourists. Our purpose is to foster a healthy culture of walking, cycling, and social interaction. </p>
         </div>
-        <div id="businessReq">
-            <p id="criteria">&nbsp;&nbsp;&nbsp;&nbsp;WHAT WE OFFER: </p>
+
+        <div class="middle">
+
+            <div class="counting-sec">
+                <div class="inner-width">
+                    <div class="col" id="col">
+                        <i id="icon" class="fas fa-hiking"></i>
+                        <div class="num" id="num">10+</div>
+                        Activities
+
+                    </div>
+                    <div class="col" id="col">
+                        <i id="icon"  class="fas fa-utensils"></i>
+                        <div class="num" id="num">30+</div>
+                        <p id="iconLabel"> Restaurants</p>
+
+                    </div>
+                    <div class="col" id="col">
+                        <i id="icon" class="fas fa-shopping-bag"></i>
+                        <div class="num" id="num">50+</div>
+                        Shops
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+        </div>
+    
+        <div class="mobileAbout" id="mobileAbout">
+            
+            <div class="maboutUsTop" id="maboutUsTop">
+            <p id="mcriteria">More than a Trip Planner </p>
+            <p class="maboutUsInfo" id="maboutUsInfo">At EcoGo, our goal is to become the most environmentally progressive trip planner on the planet. We don’t want to just reduce the negative impact of pollution and plastic waste, we want to use EcoGo as a vehicle for change. We are the city’s number one eco-friendly travel planner that provides eco-friendly travel destinations and activities for locals and tourists. Our purpose is to foster a healthy culture of walking, cycling, and social interaction. </p>
+        </div>
+        
+            <div class="mmiddle">
+
+            <div class="mcounting-sec">
+                <div class="minner-width">
+                    <div class="mcol" id="col">
+                        <i id="micon" class="fas fa-hiking"></i>
+                        <div class="mnum" id="mnum">10+</div>
+                        Activities
+
+                    </div>
+                    <div class="mcol" id="mcol">
+                        <i id="micon"  class="fas fa-utensils"></i>
+                        <div class="mnum" id="mnum">30+</div>
+                        <p id="miconLabel"> Restaurants</p>
+
+                    </div>
+                    <div class="mcol" id="mcol">
+                        <i id="micon" class="fas fa-shopping-bag"></i>
+                        <div class="mnum" id="mnum">50+</div>
+                        Shops
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        </div>
+        <div id="content">
+   
+        <div id="services">
+            <p id="whatweoffer" class="whatweoffer"><span>-  WHAT WE OFFER -  </span> </p>
+            <div class="cen">
+                <div class="service" id="service">
+                    <img src="https://c.pxhere.com/photos/16/78/girl_biking_bike_bicycle_cycle_cycling_cyclist_helmet-796341.jpg!d" alt="Girl in a jacket" width="330" height="270">
+                    <p class="info" id="info">Eco-friendly activities that pertain to a healthy lifestyle. </p>
+
+                </div>
+                <div class="service" id="service">
+                    <img src="https://www.letsgobiking.net/wp-content/uploads/2018/10/MOBI-by-Shaw-Go.jpg" alt="Girl in a jacket" width="330" height="270">
+                    <p class="info" id="info">Access to ShawMobi bike locations and local bike rental shops. </p>
+
+                </div>
+
+
+
+                <div class="service" id="service">
+                    <img src="https://c.pxhere.com/photos/b0/9d/color_delicious_diet_epicure_food_fork_fruits_health-1169658.jpg!d" alt="Girl in a jacket" width="330" height="270">
+                    <p class="info">Restaurants that are engaged in protecting the environment such as using sustainable materials and homegrown ingredients</p>
+
+                </div>
+                <div class="service" id="service">
+                    <img src="https://cdn-a.william-reed.com/var/wrbm_gb_food_pharma/storage/images/5/2/1/2/2272125-1-eng-GB/Producers-urged-to-return-to-organic_wrbm_large.jpg" alt="Girl in a jacket" width="330" height="240">
+                    <p class="info">Supermarkets that have a commitment to sustainable adriculture and support local vendors and farmers.</p>
+                </div>
+                <div class="service" id="service">
+                    <img src="https://y6auj24xr4y3qq95tz7io6uu-wpengine.netdna-ssl.com/wp-content/uploads/2017/10/img-magasin-1-1080x675-800x500.jpg" alt="Girl in a jacket" width="330" height="240">
+                    <p class="info" id="info">Eco-friendly shops and brands that you never knew existed! </p>
+
+                </div>
+                <div class="service" id="service">
+                    <img src="https://arch.alimy.us/wp-content/uploads/2018/07/google-maps-route-planner-descartes-route-planner-rs-roadshow-rs-bestrane-group-of-google-maps-route-planner.jpg" alt="Girl in a jacket" width="330" height="240">
+                    <p class="info" id="info">Automated guidance to each location.  </p>
+
+                </div>
+            </div>
+
+            <!--
             <div id="activityPic">
                 <img src="https://c.pxhere.com/photos/16/78/girl_biking_bike_bicycle_cycle_cycling_cyclist_helmet-796341.jpg!d" alt="Girl in a jacket" width="330" height="240">
                 <div id="activityText">Eco-friendly activities that pertain to a healthy lifestyle. </div>
@@ -69,53 +193,56 @@
                 <img src="https://arch.alimy.us/wp-content/uploads/2018/07/google-maps-route-planner-descartes-route-planner-rs-roadshow-rs-bestrane-group-of-google-maps-route-planner.jpg" width="330" height="240">
                 <div id="activityText">Automated guidance to each location. </div>
             </div>
+        </div> -->
         </div>
-    
+
+        </div>
+
         <!-- MEET OUR TEAM SECTION-->
-            <div id="container">
-                <h1 id="heading">MEET OUR TEAM</h1>
-                <div class="card-wrapper">
-                    <div class="card">
-                        <img src="../image/cardbackground.jpg" alt="card background" class="card-img">
-                        <img src="../image/ringo.jpg" alt="profile img" id="profile-img">
-                        <h2 class="name"> Ringo Suen</h2>
-                        <p class="about">write something here asd;fjadl;skfj alsdkfja l;kasld;kf jas;lkdf al;ksdfj al;skdaldskfj als;dkasldkaslk;als;kdflkj aslkdjf alks </p>
-                        <a href="#" class="btn">Contact</a>
-                    </div>
+        <div id="container">
+            <h1 id="heading">- MEET OUR TEAM - </h1>
+            <div class="card-wrapper">
+                <div class="card">
+                    <img src="../image/cardbackground.jpg" alt="card background" class="card-img">
+                    <img src="../image/ringo.jpg" alt="profile img" id="profile-img">
+                    <h2 class="name"> Ringo Suen</h2>
+                    <p class="about">As a Vancourite, it only makes sense that we are as green as the city we live in. That's why we made EcoGo, to help people find what Vancouver has to offer, as one of the greenest cities in the world.</p>
+                    <a href="#" class="btn">Contact</a>
+                </div>
 
-                    <div class="card">
-                        <img src="../image/cardbackground.jpg" alt="card background" class="card-img">
-                        <img src="../image/kangw.jpeg" alt="profile img" id="profile-img">
-                        <h2 class="name"> Kang Wang</h2>
-                        <p class="about">write something here asd;fjadl;skfj alsdkfja l;kasld;kf jas;lkdf al;ksdfj al;skdaldskfj als;dkasldkaslk;als;kdflkj aslkdjf alks </p>
-                        <a href="#" class="btn">Contact</a>
-                    </div>
-                    <div class="card" id="clairecard">
-                        <img src="../image/cardbackground.jpg" alt="card background" class="card-img">
-                        <img src="../image/claire.jpg" alt="profile img" id="profile-img">
-                        <h2 class="name"> Claire Cho</h2>
-                        <p class="about">write something here asd;fjadl;skfj alsdkfja l;kasld;kf jas;lkdf al;ksdfj al;skdaldskfj als;dkasldkaslk;als;kdflkj aslkdjf alks </p>
-                        <a href="#" class="btn">Contact</a>
-                    </div>
+                <div class="card">
+                    <img src="../image/cardbackground.jpg" alt="card background" class="card-img">
+                    <img src="../image/kangw.jpeg" alt="profile img" id="profile-img">
+                    <h2 class="name"> Kang Wang</h2>
+                    <p class="about">As someone who is a new to Vancouver, it was an abolute joy to develop this app. I found new places that I never knenw about. EcoGo is so good, I love it. asdf asdf adf asdfaaaaaaaaa </p>
+                    <a href="#" class="btn">Contact</a>
+                </div>
+                <div class="card">
+                    <img src="../image/cardbackground.jpg" alt="card background" class="card-img">
+                    <img src="../image/claire.jpg" alt="profile img" id="profile-img">
+                    <h2 class="name"> Claire Cho</h2>
+                    <p class="about">Some of my favorite activities include biking, taking a nice walk around a park or finding the most fulfilling hikes with a beautiful view at the top. This is what I live for and EcoGo can help do this!  </p>
+                    <a href="#" class="btn">Contact</a>
+                </div>
 
-                    <div class="card">
-                        <img src="../image/cardbackground.jpg" alt="card background" class="card-img">
-                        <img src="../image/eric1.jpg" alt="profile img" id="profile-img">
-                        <h2 class="name"> Eric Chiu</h2>
-                        <p class="about">write something here asd;fjadl;skfj alsdkfja l;kasld;kf jas;lkdf al;ksdfj al;skdaldskfj als;dkasldkaslk;als;kdflkj aslkdjf alks </p>
-                        <a href="#" class="btn">Contact</a>
-                    </div>
+                <div class="card">
+                    <img src="../image/cardbackground.jpg" alt="card background" class="card-img">
+                    <img src="../image/eric1.jpg" alt="profile img" id="profile-img">
+                    <h2 class="name"> Eric Chiu</h2>
+                    <p class="about">write something here asd;fjadl;skfj alsdkfja l;kasld;kf jas;lkdf al;ksdfj al;skdaldskfj als;dkasldkaslk;als;kdflkj aslkdjf alks </p>
+                    <a href="#" class="btn">Contact</a>
+                </div>
 
-                    <div class="card">
-                        <img src="../image/cardbackground.jpg" alt="card background" class="card-img">
-                        <img src="../image/emily.jpg" alt="profile img" id="profile-img">
-                        <h2 class="name"> Emily Kim</h2>
-                        <p class="about">write something here asd;fjadl;skfj alsdkfja l;kasld;kf jas;lkdf al;ksdfj al;skdaldskfj als;dkasldkaslk;als;kdflkj aslkdjf alks </p>
-                        <a href="#" class="btn">Contact</a>
-                    </div>
-                    </div>
+                <div class="card">
+                    <img src="../image/cardbackground.jpg" alt="card background" class="card-img">
+                    <img src="../image/emily.jpg" alt="profile img" id="profile-img">
+                    <h2 class="name"> Emily Kim</h2>
+                    <p class="about">write something here asd;fjadl;skfj alsdkfja l;kasld;kf jas;lkdf al;ksdfj al;skdaldskfj als;dkasldkaslk;als;kdflkj aslkdjf alks </p>
+                    <a href="#" class="btn">Contact</a>
+                </div>
             </div>
-    </div>
+        </div>
+
 
 </body>
 
