@@ -10,6 +10,8 @@ var markerRed = "http://maps.google.com/mapfiles/ms/icons/red-dot.png";
 var geocoder;
 // random ints for randomizing the trip
 var randomRest1, randomRest2, randomRet, randomAct;
+// diretionPanel holds the diretions
+var directionPanel;
 // 3 2D arrays that store restaurant, retailer and activity info
 var retArr = [[], [], [], []], 
   actArr = [[], [], [], []], 
@@ -24,8 +26,6 @@ var trackRoute = 0;
 var waypts = [];
 // divs for holding trip details
 var mainDiv, trip1, trip2, trip3, trip4;
-// divs for holding marker images
-var markerImgDiv1, markerImgDiv2, markerImgDiv3, markerImgDiv4;
 // divs for holding more info buttons
 var buttonDiv1, buttonDiv2, buttonDiv3, buttonDiv4;
 // buttons for more info
@@ -36,7 +36,9 @@ var descriptions;
 var directionsService;
 // for show directions on map service api
 var directionsDisplay;
-
+// method of travel
+var methodTravel, options, selectedMode;
+// display distance only once
 var displayOnce = 0;
 // createMap function with the marker of starting address
 function createMap() {
@@ -429,21 +431,49 @@ function go() {
   document.getElementById("go").style.display = "none";
   var nextButtonDiv = document.createElement("div");
   var nextButton = document.createElement("button");
+  options = document.createElement("select");
+  var walking = document.createElement("option");
+  var biking = document.createElement("option");
+  var trans = document.createElement("option");
+  directionPanel = document.createElement("div");
+  methodTravel = document.createElement("div");
+  // appending elements
+  mainDiv.appendChild(methodTravel);
+  methodTravel.appendChild(options);
+  options.appendChild(biking);
+  options.appendChild(walking);
+  options.appendChild(trans);
+  mainDiv.appendChild(directionPanel);
   mainDiv.appendChild(nextButtonDiv);
   nextButtonDiv.appendChild(nextButton);
   trip1.style.borderBottom = "0px";
+  // values for options
+  walking.innerHTML = "Walking";
+  biking.innerHTML = "Bicycling";
+  trans.innerHTML = "Transit";
+  walking.value = "WALKING";
+  biking.value = "BICYCLING";
+  trans.value = "TRANSIT";
+  // css for method travel container
+  methodTravel.style.position = "absolute";
+  methodTravel.style.margin = "-15px 0";
+  // css for next button
   nextButtonDiv.style.width = "85px";
   nextButtonDiv.style.height = "50px";
-  nextButtonDiv.style.margin = "40px 0 0 250px";
+  nextButtonDiv.style.margin = "60px 0 0 250px";
   nextButton.style.width = "75px";
   nextButton.style.height = "40px";
   nextButton.innerHTML = "Next";
   nextButton.style.textAlign = "center";
-  descriptions[0].innerHTML += "<br><br>" + myTrip[1][0];
-  markerImgDiv1.style.margin = "55px 0 0 5px";
-  button1.style.marginTop = "45px";
+  // css for direction panel
+  directionPanel.style.width = "95%";
+  directionPanel.style.margin = "-60px auto";
+  directionPanel.style.paddingTop = "20px";
   // zoom in map
   startTriping(wholeTrip[trackRoute], wholeTrip[++trackRoute]);
+  options.addEventListener('change', function() {
+    startTriping(wholeTrip[trackRoute-1], wholeTrip[trackRoute]);
+  });
   nextButton.addEventListener("click", function(){
     startTriping(wholeTrip[trackRoute], wholeTrip[++trackRoute]);
     if(trackRoute == 4){
@@ -458,16 +488,23 @@ function go() {
         window.location = "http://www.bcit.ca";
       });
     }
+    // scroll to the top of the web page 
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
   });
 }
-// show the route of two points
+// show the route of two points and directions
 function startTriping(startPoint, endPoint) {
+  selectedMode = options.value;
+  // show the route on map
   directionsDisplay.setMap(map);
+  // show the directions in directionPanel
+  directionsDisplay.setPanel(directionPanel);
   directionsService.route({
     //convert origin and destinations into lat and lng
     origin: startPoint,
     destination: endPoint,
-    travelMode: 'DRIVING'
+    travelMode: selectedMode
   }, function (response, status) {
     if (status === 'OK') {
         directionsDisplay.setDirections(response);
@@ -475,12 +512,6 @@ function startTriping(startPoint, endPoint) {
         window.alert('Directions request failed due to ' + status);
     }
   });
-  // show directions here!!!!!!!
-  //
-  //
-  //
-  //
-  //
 }
 // automating address and initializing 2d arrays store then in localstorage
 function autoFillAddress(){
