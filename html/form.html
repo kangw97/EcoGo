@@ -5,138 +5,112 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-    <!--css files-->
 
+    <title>Join Us At EcoGo</title>
+
+    <!--css files-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
     <link rel = "icon" type = "image/png" href = "../image/world.png" />
-	  <link href="../css/form.css" rel='stylesheet' type="text/css">
     <link href="../css/sideNav.css" rel='stylesheet' type="text/css">
     <link href="../css/ecoGo.css" rel='stylesheet' type="text/css">
+    <link href="../css/form.css" rel='stylesheet' type="text/css">
+
+    <!-- js files -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.11.1/firebase.js"></script>
+    <script src="../js/sideNav.js"></script>
+
     <!-- font -->
     <link href='https://fonts.googleapis.com/css?family=Rajdhani' rel='stylesheet'>
-    <script src="../js/sideNav.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/5.11.1/firebase.js"></script>
+    
+    
 </head>
 <body>
+    <!-- side nav -->
     <div id="mySidenav" class="sidenav">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
         <a href="../index.html" onclick="closeNav()">HOME</a>
         <a href="./aboutUs.html" onclick="closeNav()">ABOUT US</a>
         <a href="./joinUs.html" onclick="closeNav()">JOIN US</a>
     </div>
+
     <!--  header-->
-    <div id="header">
+     <div id="header">
         <span id="notindexspan" style="font-size:30px;cursor:pointer; text-align: left" onclick="openNav()">&#9776;</span>
-        <h1>JOIN US</h1>
-        <h3>WE BUILD GREAT BUSINESS</h3>
+        <div id='divLogo1'>
+            <img src="../image/ecogo.png" alt="EcoGo" width="110" height="60" id="image" onclick="easterEgg()">
+        </div>
     </div>
-    <div id='content'>
+
+    <!-- form -->
+    <div id='container'>
         <div id='form'>
-            <div id="category">
-                Eco-Category
+            <!-- Selection of Activities -->
+            <label>Eco-Category</label>
+            <div id="category" class="custom-select">
                 <select id="mySelect">
+                    <option value="selectOption">Select a category:</option>
                     <option value="restaurant">Restaurant</option>
                     <option value="activity">Activity</option>
                     <option value="retailer">Retailer</option>
                 </select>
             </div>
-            <label>Name</label>
+
+            <!-- Name of Business -->
+            <label>* Name</label>
             <input id='bname' type="text" placeholder="Enter Business">
-            <label>Street</label>
+
+            <!-- Street -->
+            <label>* Street</label>
             <input id='street' type="text" placeholder="Enter Street">
-            <!--smaller boxes for address-->
-            <div id='address'>
-                <!--left div for city and state-->
-                <div id='laddress'>
-                    <label>City</label>
-                    <input id='city' type="text" placeholder="Enter City">
-                    <label>State</label>
-                    <input id='state' type="text" placeholder="Enter State">
-                </div>
-                <!--right div for country and zip code-->
-                <div id='raddress'>
-                    <label>Country</label>
-                    <input id='country' type="text" placeholder="Enter Country">
-                    <label>Zip Code</label>
-                    <input id='code' type="text" placeholder="Enter Zip Code">
-                </div>
+            
+            <!-- City -->
+            <label>* City</label>
+            <div class="autocomplete">
+                <input id='city' type="text" placeholder="Enter City">
             </div>
-            <label>Phone</label>
+
+            <!-- State -->
+            <label>* State</label>
+            <div class="autocomplete">
+                <input id='state' type="text" placeholder="Enter State">
+            </div>
+            
+            <!-- Country -->
+            <label>* Country</label>
+            <div class="autocomplete">
+                <input id='country' type="text" placeholder="Enter Country">
+            </div>
+
+            <!-- Zip Code -->
+            <label>* Zip Code</label>
+            <input id='code' type="text" placeholder="Enter Zip Code">
+            
+            <!-- Phone Number -->
+            <label>* Phone</label>
             <input id='bphone' type="text" placeholder="(xxx) - xxx- xxxx">
+
+            <!-- Website -->
             <label>Website</label>
-            <input id="site" type="url" />
-            <label>Description</label>
+            <input id="site" type="text" placeholder="Enter Website" />
+
+            <!-- Description -->
+            <label>* Description</label>
             <input id='description' type="text" placeholder="Enter Description">
+
+            <!-- Images -->
             <label class="upload-group">
                 Upload Image
                 <input type="file" class="upload-group" id="file" />
             </label>
+
+            <!-- Send -->
             <button id="send" onclick="uploadFile()">SEND</button>
         </div>
     </div>
-    <script>
-        // uploading user data into firebase
-        function uploadFile() {
-            var fname = document.getElementById("bname").value;
-            var storageRef = firebase.storage().ref('/EcoGo/' + fname);
-            var uploadTask = storageRef.put(selectedFile);
-            uploadTask.on('state_changed', function (snapshot) {
 
-            }), function (error) {
+    <script src="../js/form.js"></script>
 
-            }, function () {
-                var downloadURL = uploadTask.snapshot.downloadURL;
-                var postKey = firebase.database().ref('Posts/').push().key;
-                var updates = {};
-                var postData = {
-                    url: downloadURL
-                }
-                updates['/Posts/' + postKey] = postData;
-                firebase.database().ref().update(updates);
-            }
-        }
-        var selectedFile;
-        $("#file").on("change", function (event) {
-            selectedFile = event.target.files[0];
-            $("#uploadButton").show();
-        });
-        // Initialize Firebases
-        const firebaseConfig = {
-            apiKey: "AIzaSyDjnDBcjTl7ohz1k7-BKdFUjOnJuNKX3Aw",
-            authDomain: "team05-ecogo.firebaseapp.com",
-            databaseURL: "https://team05-ecogo.firebaseio.com",
-            projectId: "team05-ecogo",
-            storageBucket: "team05-ecogo.appspot.com",
-            messagingSenderId: "540393307666",
-            appId: "1:540393307666:web:a01b5e54395f311b"
-        };
-        firebase.initializeApp(firebaseConfig);
-        $("#send").click(function () {
-            var userCategory = $("#mySelect option:selected").text();
-            var bname = document.getElementById("bname").value;
-            var street = document.getElementById("street").value;
-            var city = document.getElementById("city").value;
-            var state = document.getElementById("state").value;
-            var zip_code = document.getElementById("code").value;
-            var phone = document.getElementById("bphone").value;
-            var website = document.getElementById("site").value;
-            var des = document.getElementById("description").value;
-            var rootRef = firebase.database().ref().child(userCategory);
-            rootRef.push({
-                "Category": userCategory,
-                "Name": bname,
-                "Street": street,
-                "City": city,
-                "State": state,
-                "ZipCode": zip_code,
-                "Phone": phone,
-                "WebSite": website,
-                "Description": des
-            });
-        })
-    </script>
 </body>
 </html>
