@@ -1,11 +1,78 @@
-﻿/* Always set the map height explicitly to define the size of the div
-        * element that contains the map. */
-#map {
-    position: relative;
+﻿
+/*entire side bar when it is opened*/
+.sidenav {
+    height: 100%;
+    position: fixed;
+    width: 0;
+    z-index: +2;
     top: 0;
     left: 0;
-   width: 375px;
+    background-color: black;
+    overflow-x: hidden;
+    transition: 1s;
+    padding-top: 60px;
+    white-space: nowrap;
+}
+
+    /*content inside side bar*/
+    .sidenav a {
+        padding: 20px 8px 8px 20px;
+        font-size: 20pt;
+        color: white;
+        display: flex;
+        text-align: left;
+        transition: 0.3s;
+        text-decoration: none;
+    }
+
+    /*button to close side bar*/
+    .sidenav .closebtn {
+        position: absolute;
+        z-index: -1;
+        top: 0;
+        right: 25px;
+        font-size: 50px;
+        margin-left: 0;
+    }
+/*formatting menubar */
+#notindexspan {
+    border-radius: 7%;
+    position: absolute;
+    display: block;
+    color: black;
+    /* background-color: black; */
+    z-index: 1;
+    width: 9%;
+    height: 50px;
+    float: left;
+    left: 20px;
+    top: 5%;
+}
+#driving_btn, #walk_btn, #bike_btn, #trans_btn {
+    position: relative;
+    top: 0px;
+    width: 60px;
+    height: 60px;
+    left: 10px;
+    background-color: black;
+    color: white;
+    font-weight: bold;
+    font-size: 8pt;
+    border-radius: 10%;
+}
+/* Always set the map height explicitly to define the size of the div
+        * element that contains the map. */
+#map {
+    position: absolute;
+    top: 10pt;
+    left: 0;
+   width: 400px;
     height: 500px;
+    text-align: center;
+}
+#content {
+    margin-top: 5px;
+    height: 60px;
 }
 
 /* Optional: Makes the sample page fill the window. */
@@ -20,27 +87,101 @@ body {
     z-index: -1;
     overflow: scroll;
 }
-
-#floating-panel {
+#next_btn {
     position: absolute;
-    top: 10px;
-    left: 25%;
-    z-index: 5;
-    background-color: #fff;
-    padding: 5px;
-    border: 1px solid #999;
+    width: 48px;
+    height: 48px;
+    top: 50px;
+    left: 320px;   
+}
+
+#prev_btn {
+    position: absolute;
+    width: 48px;
+    height: 48px;
+    top: 50px;
+    left: 50px;
+}
+
+#startL{
+    font-size:1.2em;
+    position: relative;
+    left: 0px;
+}
+
+#destL {
+    font-size: 1.2em;
+    position: relative;
+    right: 0px;
+}
+
+body {
+    font-family: 'Rajdhani';
     text-align: center;
+    font-weight: bolder;
+    display: block;
+    width: 100%;
+    font-size: 16px;
+    position: relative;
+    z-index: -1;
+    overflow: scroll;
+}
+
+#right-panel {
+    position: relative;
+    top: 45rem;
     font-family: 'Roboto','sans-serif';
     line-height: 30px;
     padding-left: 10px;
 }
-#arrow_left {
-    position: absolute;
-    top: 250px;
-   left: 10px;
+
+    #right-panel select, #right-panel input {
+        font-size: 15px;
+    }
+
+    #right-panel select {
+        width: 100%;
+    }
+
+    #right-panel i {
+        font-size: 12px;
+    }
+
+#right-panel {
+    height: 100%;
+    float: right;
+    width: 390px;
+    overflow: auto;
 }
-#arrow_right{
-    position: absolute;
-    top: 250px;
-    right: 10px;
+
+
+
+#floating-panel {
+    position : absolute;
+    top: 400px;
+    background: #fff;
+    padding: 5px;
+    font-size: 14px;
+    font-family: Arial;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 2px rgba(33, 33, 33, 0.4);
+    display: none;
+}
+
+@media print {
+    #map {
+        height: 500px;
+        margin: 0;
+    }
+
+    #right-panel {
+        float: none;
+        width: auto;
+    }
+}
+
+#twoPlaces {
+    position: relative;
+    top: 50px;
+    left: 520px;
 }
