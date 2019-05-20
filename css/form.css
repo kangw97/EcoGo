@@ -1,36 +1,134 @@
-#form, #bname, #baddress, #bphone{
+#container {
+  margin-top: 100px;
+}
+
+#form {
     text-align: left;
-  }
-
-#form{
-    margin: 15px 0 0 5px;
-  }
-#bname, #baddress, #bphone {
-    margin: -3px 0 0 0;
-    display: block;
-}  
-
-#address{
-  position: relative;
-  z-index: 1;
-  padding-top: 5px;
-  overflow: hidden;
+    margin: 0 2% 0 2%;
 }
-#laddress{
-    top: 40%;
-    position: relative;
-    display: inline-block;
-}
-#raddress{
-    top: 40%;
-    position: relative;
-    display: inline-block;
 
-}
 #send {
     position: absolute;
-    bottom: 5px;
 }
+
+#description {
+  padding: 40px;
+}
+
 label {
     margin-top: 2px;
+}
+
+input, select {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  resize: vertical;
+}
+
+button {
+  position: absolute;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #1e1d1d;
+}
+
+#form {
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 1%;
+}
+
+.autocomplete {
+  position: relative;
+}
+
+.autocomplete-items, option {
+  position: absolute;
+  border: 1px solid #d4d4d4;
+  border-bottom: none;
+  border-top: none;
+  z-index: 99;
+  top: 100%;
+  left: 0;
+  right: 0;
+}
+
+.autocomplete-items div {
+  padding: 10px;
+  cursor: pointer;
+  background-color: #fff; 
+  border-bottom: 1px solid #d4d4d4; 
+}
+
+.autocomplete-items div:hover {
+  background-color: #e9e9e9; 
+}
+
+.autocomplete-active {
+  background-color: #e9e9e9 !important; 
+  color: #ffffff; 
+}
+
+.custom-select {
+  position: relative;
+}
+
+.custom-select select {
+  display: none;
+}
+
+.select-selected:after {
+  position: absolute;
+  content: "";
+  top: 14px;
+  right: 10px;
+  width: 0;
+  height: 0;
+  border: 6px solid transparent;
+  border-color: #000 transparent transparent transparent;
+}
+
+.select-selected.select-arrow-active:after {
+  border-color: transparent transparent #000 transparent;
+  top: 7px;
+}
+
+.select-items div,.select-selected {
+  color: #757575;
+  padding: 8px 16px;
+  border: 1px solid transparent;
+  border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
+  cursor: pointer;
+}
+
+.select-selected {
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+}
+
+.select-items {
+  position: absolute;
+  background-color: #f9f9f9;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 99;
+}
+
+.select-hide {
+  display: none;
+}
+
+.select-items div:hover, .same-as-selected {
+  background-color: rgba(0, 0, 0, 0.1);
 }
