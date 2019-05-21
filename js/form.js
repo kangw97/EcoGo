@@ -61,7 +61,7 @@ $("#send").click(function () {
             "Description": des
         });
         window.alert("Your application has been received!");
-        
+        window.location.href = "aboutUs.html";
     }
     else {
         window.alert("Please fill out all required fields!");
