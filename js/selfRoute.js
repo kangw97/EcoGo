@@ -351,7 +351,9 @@ function addStartBtn() {
         // pass the myDestination array to localStorage
         localStorage.setItem("myDestination", JSON.stringify(myDestinations));
         // then redirect to startRoute html
+        
         window.location = "directions.html";
+
     })
 }
 
