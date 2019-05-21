@@ -29,15 +29,25 @@
 </head>
 
 <body>
+     <!--side menu bar-->
+     <div id="mySidenav" class="sidenav">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+            <a href="../index.html">HOME</a>
+            <a href="./aboutUs.html">ABOUT US</a>
+            <a href="./joinUs.html">JOIN US</a>
+        </div>
     <div class="container">
         <div id="map"></div>
+        <!--three line thigy to open up the menu bar-->
+        <div id="notindexspan" style="font-size:30px;cursor:pointer; text-align: left" onclick="openNav()">&#9776;</div>
         <div id="content">
         </div>
     </div>
     <script src="../js/selfRoute.js"></script>
+    <script src="../js/sideNav.js"></script>
     <!-- google api  -->
     <script type="text/javascript"
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCHXKnfoxUG98BDI0ZgzVwViZEH9CCGb0M&callback=createEmptyMap"></script>
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCHXKnfoxUG98BDI0ZgzVwViZEH9CCGb0M&callback=createEmptyMap&sensor=false&libraries=geometry"></script>
 </body>
 
 </html>

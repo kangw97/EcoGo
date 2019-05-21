@@ -23,6 +23,8 @@ var count = 0;
 var previndex = 0;
 // the address of destination
 var destLocation = 0;
+var prevdiv = 0;
+
 // start location.
 var startLocation=0;
 var directionsDisplay;
@@ -90,76 +92,78 @@ function initPoint() {
 }
 function next() {
     if (nCount == 0) {
-        var content = document.getElementById("content");
+        var content = document.getElementById("previousNext");
         var nextdiv = document.createElement("div");
         nextdiv.id = "nextdiv";
-        //nextBtn = document.createElement("button");
-        //nextBtn.id = "next_btn";
-        //nextBtn.innerHTML = "NEXT";
-        //nextdiv.appendChild(nextBtn);
+
+        nextBtn = document.createElement("button");
+        nextBtn.id = "next_btn";
+        nextBtn.innerHTML = "NEXT";
+        nextdiv.appendChild(nextBtn);
         //content.appendChild(nextdiv);
-        var arrow_right = document.createElement("img");
-        arrow_right.src = "../image/arrow_right.png";
-        arrow_right.id = "next_btn"
-        nextdiv.appendChild(arrow_right);
+        //var arrow_right = document.createElement("img");
+        //arrow_right.src = "../image/arrow_right.png";
+        //arrow_right.id = "next_btn";
+        //nextdiv.appendChild(arrow_right);
         content.appendChild(nextdiv);
     }
-  
     // when right arrow button is clicked ,"right-panel" is initialized.
-    arrow_right.addEventListener("click", function () {
+    nextBtn.addEventListener("click", function () {
         nCount++;
         index++;
+        console.log(index);
+
+        document.getElementById("nameL").innerHTML = "";
         document.getElementById("right-panel").innerHTML = "";
         twoP();
         nextMap();
+
         if (index != 0) {
             document.getElementById("prevdiv").style.position = "relative";
-          document.getElementById("prevdiv").style.visibility = "visible";
+            document.getElementById("prevdiv").style.visibility = "visible";
         }
-
+       
     })
 }
 //create previous button to go previous directions.
 function prev() {
-    var prevdiv = 0;
-    var arrow_left;
-    var content = document.getElementById("content");
+    var content = document.getElementById("previousNext");
     if (nCount == 1) {
-      
-        
-            content = document.getElementById("content");
+        if (index == 0) {
+            
+        }
+        else {
+            content = document.getElementById("previousNext");
         prevdiv = document.createElement("div");
         prevdiv.id = "prevdiv";
-       //prevBtn = document.createElement("button");
-       //prevBtn.id = "prev_btn";
-       //prevBtn.innerHTML = "PREVIOUS";
-       //prevdiv.appendChild(prevBtn);
-       //content.appendChild(prevdiv);
+       prevBtn = document.createElement("button");
+       prevBtn.id = "prev_btn";
+       prevBtn.innerHTML = "PREVIOUS";
+       prevdiv.appendChild(prevBtn);
+       content.appendChild(prevdiv);
        
         
-            arrow_left = document.createElement("img");
-            arrow_left.src = "../image/arrow_left.png";
-            arrow_left.id = "prev_btn"
-            prevdiv.appendChild(arrow_left);
-            content.appendChild(prevdiv);
+           //arrow_left = document.createElement("img");
+           //arrow_left.src = "../image/arrow_left.png";
+           //arrow_left.id = "prev_btn"
+           //prevdiv.appendChild(arrow_left);
+          // arrowNname.appendChild(prevdiv);
             nCount++;
-        
+        }
     }
- 
   
    
-    arrow_left.addEventListener("click", function () {
+    prevBtn.addEventListener("click", function () {
         index--;
         console.log(index);
         if (index == 0) {
             console.log("hi");
-            document.getElementById("prevdiv").style.position = "relative";
-            document.getElementById("prevdiv").style.visibility = "hidden";
-            
+            document.getElementById("prevdiv").innerHTML = "";
 
-        } 
-       previndex++;
-        document.getElementById("right-panel").innerHTML = "";
+        }
+        previndex++;
+        document.getElementById("nameL").innerHTML = "";
+
         twoP();
         prevMap();
     })
@@ -170,7 +174,7 @@ function twoP() {
     twoPlace.id = "twoPl";
 
     //connect to "right-panel" in html page.
-    var right_Panel = document.getElementById("right-panel");
+    var nameL = document.getElementById("nameL");
     var startL = document.createElement("div");
     startL.id = "startL";
     //show the name of eco-friendly places in the name array.
@@ -189,13 +193,13 @@ function twoP() {
     destL.innerHTML = bName[index + 1];
     arrowsdiv.appendChild(destL);
     twoPlace.appendChild(arrowsdiv);
-    right_Panel.appendChild(twoPlace);
+    nameL.appendChild(twoPlace);
 
 }
 // create buttons for selecting vehicles to travel. 
 function vehicle() {
 
-        var header = document.getElementById("header");
+        var selectV = document.getElementById("selectV");
         //A section for button group("Driving, Transit, Walk, Byke")
         var vehdiv = document.createElement("div");
         vehdiv.id = "vehdiv";
@@ -224,7 +228,7 @@ function vehicle() {
         bikeBtn.innerHTML = "BIKE";
         vehdiv.appendChild(bikeBtn);
 
-        header.appendChild(vehdiv);
+        selectV.appendChild(vehdiv);
 
         
         drivingBtn.addEventListener("click", function () {
@@ -255,8 +259,8 @@ function travel_b(directionsService, directionsDisplay) {
     if (previndex == 1) {
         directionsService.route({
 
-            origin: myAddress[i + 2],
-            destination: myAddress[i + 1],
+            origin: myAddress[i + 1],
+            destination: myAddress[i + 2],
             travelMode: 'BICYCLING'
         }, function (response, status) {
             if (status === 'OK') {
@@ -386,7 +390,7 @@ function travel_t(directionsService, directionsDisplay) {
 }
 
 function suggestion() {
-    if (confirm("Why don't we use transit today? If you still want to drive please press 'Cancel' button!")) {
+    if (confirm("Why don't we use transit today? If you still want to drive, please press 'Cancel' button!")) {
         confirmNum = 1;
     } else {
         confirmNum =0;
