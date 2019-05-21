@@ -2,10 +2,29 @@ var map, localStorage, address;
 var index=0;
 //array to store all the addresses.
 //var myAddress = ["5089 Dominion St, Burnaby, BC V5G 1C8", "3700 Wilingdon Ave, Burnaby BC V5G 3H2", "4670 Assembly Way, Burnaby, BC V5H 0H3","4500 Still Creek Dr, Burnaby, BC V5C 0E5"];
-var myAddress = ["3950 Main Street, Vancouver, BC V5V 3P2","550 Clark Drive,Vancouver, BC V5L 3H7", "3995 Main Street, Vancouver, BC V5V 3P3","1185 West Georgia Street, Vancouver, BC V6E 4E6"];
+//var myAddress = ["3950 Main Street, Vancouver, BC V5V 3P2","550 Clark Drive,Vancouver, BC V5L 3H7", "3995 Main Street, Vancouver, BC V5V 3P3","1185 West Georgia Street, Vancouver, BC V6E 4E6"];
 //the number of addresses in array "myAddress"
-var bName = ["Nomad","Agro Coffee Roasters","The Acorn Restaurant","Freshii"];
-var length = myAddress.length;
+//var bName = ["Nomad","Agro Coffee Roasters","The Acorn Restaurant","Freshii"];
+
+var currentLocation = localStorage.getItem("myAddress");
+var myAddress = [];
+myAddress[0] = currentLocation;
+
+//myAddress[0] = currentLocation;
+var destinations = JSON.parse(localStorage.getItem('myDestination'));
+console.log(destinations);
+for (var i = 0; i < destinations[0].length; i++) {
+    myAddress.push(destination[1][i]);
+}
+
+//myAddress.push(localStorage.getItem('myDestination'));
+console.log(myAddress);
+
+//myAddress.push(myAddresses[0]);
+//console.log(myAddress);
+var bName = ["currentLocation"];
+//bName.push(myDestination[0]);
+//var length = myAddress.length;
 //initialize google map API
 var geocoder;
 //count the number of next button to prevent creating more than 2 next button.
