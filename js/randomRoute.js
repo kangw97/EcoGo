@@ -429,23 +429,32 @@ function go() {
   trip4.style.display = "none";
   document.getElementById("reroute").style.display = "none";
   document.getElementById("go").style.display = "none";
+  // creating elements
+  var doneButton;
   var nextButtonDiv = document.createElement("div");
   var nextButton = document.createElement("button");
+  var prevButtonDiv = document.createElement("div");
+  var prevButton = document.createElement("button");
+  var destNames = document.createElement("div");
   options = document.createElement("select");
   var walking = document.createElement("option");
   var biking = document.createElement("option");
   var trans = document.createElement("option");
   directionPanel = document.createElement("div");
   methodTravel = document.createElement("div");
+
   // appending elements
   mainDiv.appendChild(methodTravel);
   methodTravel.appendChild(options);
   options.appendChild(biking);
   options.appendChild(walking);
   options.appendChild(trans);
+  methodTravel.appendChild(destNames);
   mainDiv.appendChild(directionPanel);
   mainDiv.appendChild(nextButtonDiv);
   nextButtonDiv.appendChild(nextButton);
+  mainDiv.appendChild(prevButtonDiv);
+  prevButtonDiv.appendChild(prevButton);
   trip1.style.borderBottom = "0px";
   // values for options
   walking.innerHTML = "Walking";
@@ -454,31 +463,50 @@ function go() {
   walking.value = "WALKING";
   biking.value = "BICYCLING";
   trans.value = "TRANSIT";
+  // innerhtml for destination names
+  destNames.innerHTML = "<em>From</em>: " + wholeTrip[trackRoute] + "<br><em>To</em>: " + myTrip[0][trackRoute];
+  // css for destination names, from ... to ...
+  destNames.style.width = "300px";
+  destNames.style.height = "50px";
+  destNames.style.fontSize = "13pt";
+  // css for previous button
+  prevButtonDiv.style.display = "none";
+  prevButtonDiv.style.width = "95px";
+  prevButtonDiv.style.height = "50px";
+  prevButtonDiv.style.position = "absolute";
+  prevButtonDiv.style.marginTop = "-50px";
+  prevButton.style.width = "100px";
+  prevButton.style.height = "40px";
+  prevButton.innerHTML = "Previous";
+  prevButton.style.textAlign = "center";
   // css for method travel container
+  options.style.fontSize = "12pt";
   methodTravel.style.position = "absolute";
-  methodTravel.style.margin = "-15px 0";
+  methodTravel.style.margin = "-50px 0";
   // css for next button
   nextButtonDiv.style.width = "85px";
   nextButtonDiv.style.height = "50px";
-  nextButtonDiv.style.margin = "60px 0 0 250px";
+  nextButtonDiv.style.margin = "10px 0 0 250px";
   nextButton.style.width = "75px";
   nextButton.style.height = "40px";
   nextButton.innerHTML = "Next";
   nextButton.style.textAlign = "center";
   // css for direction panel
   directionPanel.style.width = "95%";
-  directionPanel.style.margin = "-60px auto";
-  directionPanel.style.paddingTop = "20px";
+  directionPanel.style.margin = "-10px auto";
+  directionPanel.style.paddingTop = "30px";
   // zoom in map
   startTriping(wholeTrip[trackRoute], wholeTrip[++trackRoute]);
   options.addEventListener('change', function() {
     startTriping(wholeTrip[trackRoute-1], wholeTrip[trackRoute]);
   });
+  // onlick next button
   nextButton.addEventListener("click", function(){
+    destNames.innerHTML = "<em>From</em>: " + myTrip[0][trackRoute-1] + "<br><em>To</em>: " + myTrip[0][trackRoute];
     startTriping(wholeTrip[trackRoute], wholeTrip[++trackRoute]);
     if(trackRoute == 4){
       nextButton.style.display = "none";
-      var doneButton = document.createElement("button");
+      doneButton = document.createElement("button");
       doneButton.style.width = "75px";
       doneButton.style.height = "40px";
       doneButton.innerHTML = "Done";
@@ -488,6 +516,32 @@ function go() {
         window.location = "http://www.bcit.ca";
       });
     }
+    // scroll to the top of the web page 
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
+    // create the provious button
+    if(trackRoute == 2){
+      prevButtonDiv.style.display = "block";
+    }
+    console.log(trackRoute);
+  });
+  // onclick previous button 
+  prevButton.addEventListener("click", function(){
+    if(trackRoute == 4){
+      doneButton.style.display = "none";
+      nextButton.style.display = "block";
+    }
+    if(trackRoute == 2) {
+      destNames.innerHTML = "<em>From</em>: " + wholeTrip[trackRoute-2] + "<br><em>To</em>: " + myTrip[0][trackRoute-2];
+      startTriping(wholeTrip[trackRoute-2], wholeTrip[trackRoute-1]);
+      prevButtonDiv.style.display = "none";
+      trackRoute--;
+    } else {
+      destNames.innerHTML = "<em>From</em>: " + myTrip[0][trackRoute-3] + "<br><em>To</em>: " + myTrip[0][trackRoute-2];
+      startTriping(wholeTrip[trackRoute-2], wholeTrip[trackRoute-1]);
+      trackRoute--;
+    }
+    console.log(trackRoute);
     // scroll to the top of the web page 
     document.body.scrollTop = 0;
     document.documentElement.scrollTop = 0;
