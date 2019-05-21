@@ -78,7 +78,7 @@ function calculateAndDisplayRoute(directionsService, directionsDisplay) {
     optimizeWaypoints: false,
     travelMode: 'DRIVING'
   }, function (response, status) {
-    if (status == 'OK') {
+    if (status === 'OK') {
         directionsDisplay.setDirections(response);
         var route = response.routes[0];
         // For each route, display summary information.
@@ -176,7 +176,6 @@ function tripList(){
   trip2.appendChild(buttonDiv2);
   trip3.appendChild(buttonDiv3);
   trip4.appendChild(buttonDiv4);
-  
   buttonDiv1.appendChild(button1);
   buttonDiv2.appendChild(button2);
   buttonDiv3.appendChild(button3);
@@ -488,7 +487,6 @@ function go() {
   biking.value = "BICYCLING";
   trans.value = "TRANSIT";
   // innerhtml for destination names
-
   destNames.innerHTML = "<b>From</b> : " + wholeTrip[trackRoute] + "<br>&#8942;<br><b>To</b> : " + myTrip[0][trackRoute];
   // css for destination names, from ... to ...
   destNames.style.width = "300px";
@@ -505,15 +503,12 @@ function go() {
   prevButton.style.height = "45px";
   prevButton.innerHTML = "Previous";
   prevButton.style.textAlign = "center";
-
   mainDiv.style.marginTop = "35px";
   // css for method travel container
   options.style.fontSize = "12pt";
   methodTravel.style.margin = "20px 0";
   methodTravel.style.borderTop = "1px solid black";
   methodTravel.style.paddingTop = "10px";
-  methodTravel.style.margin = "-20px 0";
-  
   // css for next button
   nextButtonDiv.style.width = "100px";
   nextButtonDiv.style.height = "45px";
@@ -533,9 +528,7 @@ function go() {
   });
   // onlick next button
   nextButton.addEventListener("click", function(){
-
     destNames.innerHTML = "<b>From</b> : " + myTrip[0][trackRoute-1] + "<br>&#8942;<br><b>To</b> : " + myTrip[0][trackRoute];
-
     startTriping(wholeTrip[trackRoute], wholeTrip[++trackRoute]);
     if(trackRoute == 4){
       nextButton.style.display = "none";
@@ -553,7 +546,6 @@ function go() {
     if(trackRoute == 2){
       prevButtonDiv.style.display = "block";
     }
-
   });
   // onclick previous button 
   prevButton.addEventListener("click", function(){
@@ -562,21 +554,15 @@ function go() {
       nextButton.style.display = "block";
     }
     if(trackRoute == 2) {
-
       destNames.innerHTML = "<b>From</b> : " + wholeTrip[trackRoute-2] + "<br>&#8942;<br><b>To</b> : " + myTrip[0][trackRoute-2];
-
       startTriping(wholeTrip[trackRoute-2], wholeTrip[trackRoute-1]);
       prevButtonDiv.style.display = "none";
       trackRoute--;
     } else {
-
       destNames.innerHTML = "<b>From</b> : " + myTrip[0][trackRoute-3] + "<br>&#8942;<br><b>To</b> : " + myTrip[0][trackRoute-2];
       startTriping(wholeTrip[trackRoute-2], wholeTrip[trackRoute-1]);
       trackRoute--;
     }
-    // scroll to the top of the web page 
-    document.body.scrollTop = 0;
-    document.documentElement.scrollTop = 0;
   });
 }
 // show the route of two points and directions
@@ -592,7 +578,7 @@ function startTriping(startPoint, endPoint) {
     destination: endPoint,
     travelMode: selectedMode
   }, function (response, status) {
-    if (status == 'OK') {
+    if (status === 'OK') {
         directionsDisplay.setDirections(response);
     } else {
         window.alert('Directions request failed due to ' + status);
