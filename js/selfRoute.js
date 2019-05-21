@@ -3,6 +3,11 @@ var directionsService;
 var directionsDisplay;
 var dbRef;
 
+// marker with blue color to show starting address
+var markerBlue = "http://maps.google.com/mapfiles/ms/icons/blue-dot.png";
+// marker with red color to show destinations
+var markerRed = "http://maps.google.com/mapfiles/ms/icons/red-dot.png";
+
 // arrays to store place info
 // [[name],[address],[type], [description]]
 var actArr = [[], [], [], []];
@@ -20,6 +25,8 @@ var typeList;
 //button to show how many destinations user have selected
 var countDest = document.createElement("button");
 countDest.id = "count";
+
+var textHolder;
 
 function self() {
     // check if user entry is empty
@@ -41,8 +48,6 @@ function createEmptyMap() {
     getPlaces("Retailer");
 
     geocoder = new google.maps.Geocoder();
-    directionsService = new google.maps.DirectionsService;
-    directionsDisplay = new google.maps.DirectionsRenderer;
 
     map = new google.maps.Map(document.getElementById('map'), {
         zoom: 11,
@@ -55,7 +60,7 @@ function createEmptyMap() {
     showThreeOption();
     showDestinations(myDestinations);
     //show pinpoints of current location
-    showPinPoints(localStorage.getItem("myAddress"));
+    showPinPoints(localStorage.getItem("myAddress"), markerBlue);
     if (myDestinations[0].length > 0) {
         addStartBtn();
     }
@@ -67,12 +72,11 @@ function showDestinations(array) {
     document.getElementById("map").appendChild(countDest);
 
     for(var i = 0; i<myDestinations[1].length;i++){
-        showDestPinPoints(myDestinations[1][i]);
-    }
+        showPinPoints(myDestinations[1][i], markerRed);    }
 }
 
 // convert each address to lat and lng and place marker
-function showPinPoints(address) {
+function showPinPoints(address, markerURL) {
     geocoder.geocode({ "address": address }, function (results, status) {
         if ((status == google.maps.GeocoderStatus.OK)) {
             var latitude = results[0].geometry.location.lat();
@@ -83,26 +87,10 @@ function showPinPoints(address) {
             var marker = new google.maps.Marker({
                 position: myLatLng,
                 map: map,
-            });
-        }
-    });
-}
-
-// shows the destination location with blue marker
-function showDestPinPoints(address) {
-    geocoder.geocode({ "address": address }, function (results, status) {
-        if ((status == google.maps.GeocoderStatus.OK)) {
-            var latitude = results[0].geometry.location.lat();
-            var longitude = results[0].geometry.location.lng();
-            var myLatLng = {
-                lat: latitude, lng: longitude
-            }
-            var marker = new google.maps.Marker({
-                position: myLatLng,
-                map: map,
-                icon:{
-                    url:"http://maps.google.com/mapfiles/ms/icons/blue-dot.png"
-                }
+                icon: {
+                    url: markerURL,
+                },
+                animation: google.maps.Animation.DROP,
             });
         }
     });
@@ -115,22 +103,33 @@ function showThreeOption() {
 
     // one div, one btn for each option
     //FOOD
-    var optFood = document.createElement("div");
-    optFood.id = "optFood";
+    var optRestaurant = document.createElement("div");
+    optRestaurant.id = "optRestaurant";
+
     //button for Food
     var btnFood = document.createElement("button");
     btnFood.id = "Restaurant";
-    btnFood.innerHTML = "Restaurant";
-    optFood.appendChild(btnFood);
+
+//food icon div
+var iconFood = document.createElement("div");
+iconFood.id = "iconFood";
+btnFood.appendChild(iconFood);
+    btnFood.innerHTML += "Restaurant";
+    optRestaurant.appendChild(btnFood);
 
     //STORES
-    var optStores = document.createElement("div");
-    optStores.id = "optStores";
+    var optRetailer = document.createElement("div");
+    optRetailer.id = "optRetailer";
     //button for stores
-    var btnStores = document.createElement("button");
-    btnStores.id = "Retailer";
-    btnStores.innerHTML = "Retailer";
-    optStores.appendChild(btnStores);
+    var btnRetailer = document.createElement("button");
+    btnRetailer.id = "Retailer";
+
+    //store icon div
+    var iconRetailer = document.createElement("div");
+    iconRetailer.id = "iconRetailer";
+    btnRetailer.appendChild(iconRetailer);
+    btnRetailer.innerHTML += "Retailer";
+    optRetailer.appendChild(btnRetailer);
 
     //ACTIVITIES
     var optAct = document.createElement("div");
@@ -138,19 +137,24 @@ function showThreeOption() {
     //button for activities
     var btnAct = document.createElement("button");
     btnAct.id = "Activity";
-    btnAct.innerHTML = "Activity";
+
+    //act icon div
+    var iconAct = document.createElement("div");
+    iconAct.id = "iconAct";
+    btnAct.appendChild(iconAct);
+    btnAct.innerHTML += "Activity";
     optAct.appendChild(btnAct);
 
-    threeOptions.appendChild(optFood);
-    threeOptions.appendChild(optStores);
+    threeOptions.appendChild(optRestaurant);
+    threeOptions.appendChild(optRetailer);
     threeOptions.appendChild(optAct);
 
     //event handler
     btnFood.addEventListener("click", function () {
         showList(btnFood.id);
     })
-    btnStores.addEventListener("click", function () {
-        showList(btnStores.id);
+    btnRetailer.addEventListener("click", function () {
+        showList(btnRetailer.id);
     })
     btnAct.addEventListener("click", function () {
         showList(btnAct.id);
@@ -165,12 +169,15 @@ function showList(type) {
     content.innerHTML = "";
 
     var container = document.createElement("div");
+    container.id = "container";
     
-    //prints what users have selected either restaurant, retailer, activity
-    var category = document.createElement("div");
-    var title = type.toUpperCase();
-    category.innerHTML = title;
-    category.id = "category";
+   //div to print what users have selected either restaurant, retailer, activity
+   var category = document.createElement("div");
+   var categotyText = document.createElement("div");
+   categotyText.innerHTML = type.toUpperCase();
+   categotyText.id = "categoryText"
+   category.id = "category";
+   category.appendChild(categotyText);
 
     // back button to go back to three options screen
     var back = document.createElement("button");
@@ -198,25 +205,49 @@ function showList(type) {
     for (var i = 0; i < typeList[0].length; i++) {
         var smallDivs = document.createElement("div");
         smallDivs.id = "smallDivs" + i;
-        smallDivs.innerHTML = typeList[0][i] + "</br>";
+       // marker icon 
+       var markerImg = document.createElement("IMG");
+       markerImg.setAttribute("src", markerRed);
 
-        var btnMore = document.createElement("button");
-        btnMore.innerHTML = "MORE";
-        btnMore.id = "btnMore" + i;
+       // div for marker
+       var markerHolder = document.createElement("div");
+       markerHolder.id = "markerHolder";
+       markerHolder.appendChild(markerImg);
 
-        //event handler for more btn
-        showMoreInfo(btnMore, btnMore.id, type);
+       //div for text
+        textHolder = document.createElement("div");
+        textHolder.id = "textHolder" + i;
 
-        smallDivs.appendChild(btnMore);
-        container.appendChild(smallDivs);
+       var name = typeList[0][i];
+       textHolder.innerHTML = name + "<br><br>";
+       textHolder.innerHTML += type + "<br><br>";
+
+       var directionsService = new google.maps.DirectionsService;
+       calculateAndDisplayRouteDistance(directionsService, typeList[1][i], textHolder.id);
+
+       // div for button
+       var buttonHolder = document.createElement("div");
+       buttonHolder.id = "buttonHolder";
+
+       // i button for more info
+       var btnMore = document.createElement("button");
+       btnMore.innerHTML = "i";
+       btnMore.id = "btnMore" + i;
+
+       buttonHolder.appendChild(btnMore);
+
+       //event handler for more btn
+       showMoreInfo(btnMore, btnMore.id, type);
+
+       smallDivs.appendChild(markerHolder);
+       smallDivs.appendChild(textHolder);
+       smallDivs.appendChild(buttonHolder);
+       container.appendChild(smallDivs);
+
+       showPinPoints(typeList[1][i], markerRed);
 
     }
     content.appendChild(container);
-
-    // pin points for every places in the list
-    for (var i = 0; i < typeList[1].length; i++) {
-        showPinPoints(typeList[1][i]);
-    }
 }
 
 //extract number from string, so that the id matches with the index of firebase database
@@ -228,30 +259,57 @@ function getId(btnId) {
 
 function showMoreInfo(btn, btnId, type) {
     btn.addEventListener("click", function () {
+        var regMap = document.getElementById("map");
+        regMap.style.height = "500px";
+        regMap.style.position = "relative";
+        regMap.style.visibility = "visible";
+
+         // place holder for info
+         var info = document.createElement("div");
+         info.id = "placeHolder";
+        info.innerHTML  = "";
+
+        var infoContent = document.createElement("div");
+        infoContent.id = "infoContent";
+        infoContent.innerHTML = "DISTANCE &nbsp"
+ 
+
         var id = getId(btnId);
         // clear out the lists
         var content = document.getElementById("content");
         content.innerHTML = " ";
+        var latitude, longitude;
+
+        var directionsService = new google.maps.DirectionsService;
+        calculateAndDisplayRouteDistance(directionsService, typeList[1][id], infoContent.id)
+
+        // converting address into lat and lng for recentering the map
+        geocoder.geocode({ "address": typeList[1][id] }, function (results, status) {
+            if ((status == google.maps.GeocoderStatus.OK)) {
+                latitude = results[0].geometry.location.lat();
+                longitude = results[0].geometry.location.lng();
+                var myLatLng = {
+                    lat: latitude, lng: longitude
+                }
+
+                map.setCenter(myLatLng);
+                map.setZoom(15);
+            }
+        });
 
         // name of the place
         var name = document.createElement("div");
-        name.id = "placeName";
+        name.id = "category";
         name.innerHTML = typeList[0][id].toUpperCase();
-
-        // address of the place
-        var address = document.createElement("div");
-        address.id = "address";
-        address.innerHTML = typeList[1][id]
-
-        content.appendChild(name);
-        content.appendChild(address);
-
+       
+        // more info button
         var btnMoreInfo = document.createElement("button");
         btnMoreInfo.id = "moreInfo" + id;
         btnMoreInfo.innerHTML = "MORE INFO";
 
         showLocationDetails(btnMoreInfo, btnMoreInfo.id, type);
 
+        //Add To Trip button
         var btnAddToTrip = document.createElement("button");
         btnAddToTrip.id = "addToTrip" + id;
         btnAddToTrip.innerHTML = "ADD TO TRIP";
@@ -267,18 +325,21 @@ function showMoreInfo(btn, btnId, type) {
 
         //back to list
         var back = document.createElement("button");
-        back.innerHTML = "BACK";
-        back.id = "backToList";
+        back.innerHTML = "X";
+        back.id = "back";
         back.addEventListener("click", function () {
             showList(type);
         });
+        name.appendChild(back);
+        info.appendChild(infoContent);
 
+        content.appendChild(name);
+        content.appendChild(info);
         content.appendChild(btnMoreInfo);
         content.appendChild(btnAddToTrip);
-        content.appendChild(back);
     });
 }
-
+// once there is at least one place chose, user can start the route
 function addStartBtn() {
 
     var startTrip = document.createElement("button");
@@ -287,7 +348,9 @@ function addStartBtn() {
     document.getElementById("map").appendChild(startTrip);
 
     startTrip.addEventListener("click", function () {
+        // pass the myDestination array to localStorage
         localStorage.setItem("myDestination", JSON.stringify(myDestinations));
+        // then redirect to startRoute html
         window.location = "startRoute.html";
     })
 }
@@ -325,16 +388,27 @@ function setUpWayPoints() {
 function setUpDestination(){
     var addresses = JSON.parse(localStorage.getItem("myDestination"));
     var dest = [];
-    dest.push({
-        location: addresses[1][addresses.length-1],
-        stopover: true
-    })
-    return dest[0]['location'];   
+    if (addresses[1].length < 2) {
+        dest.push({
+            location: addresses[1][0],
+            stopover: true
+        })
+    } else {
+        dest.push({
+            // last place than user have selected
+            location: addresses[1][addresses.length - 1],
+            stopover: true
+        })
+    }
+    return dest[0]['location'];
 }
 
 function calculateAndDisplayRoute(directionsService, directionsDisplay) {
+        // last place that user have selected
     var destination = setUpDestination();
+        //every place between origin and destination
     var waypts = setUpWayPoints();
+        //initial location that user have entered
     var origin = localStorage.getItem("myAddress");
 
     directionsService.route({
@@ -354,18 +428,116 @@ function calculateAndDisplayRoute(directionsService, directionsDisplay) {
     });
 }
 
+// shows the distance to each place from the current location
+function calculateAndDisplayRouteDistance(directionsService, address, textHolder) {
+    var origin = localStorage.getItem("myAddress");
+    directionsService.route({
+        //convert origin and destinations into lat and lng
+        origin: origin,
+        destination: address,
+        travelMode: 'WALKING'
+    }, function (response, status) {
+        if (status === 'OK') {
+            var route = response.routes[0];
+            for (var i = 0; i < route.legs.length; i++) {
+                document.getElementById(textHolder).innerHTML += route.legs[i].distance.text;
+            }
+        } else {
+            window.alert('Directions request failed due to ' + status);
+        }
+    });
+}
+
 function showLocationDetails(btn, btnId, type) {
     btn.addEventListener("click", function () {
+        var picture = document.createElement("IMG");
+        picture.id = "myimg";
         var id = getId(btnId);
+        // download image from firebase storage
+        // Create a reference with an initial file path and name
+        var storage = firebase.storage();
+        var storageRef = storage.ref();
+        //path : 'EcoGo/[name of the file which is the name of each place]
+        storageRef.child('EcoGo/' + typeList[0][id]).getDownloadURL().then(function (url) {
+
+            var xhr = new XMLHttpRequest();
+            xhr.responseType = 'blob';
+            xhr.onload = function (event) {
+                var blob = xhr.response;
+            };
+            xhr.open('GET', url);
+            xhr.send();
+
+            //create image element
+            var img = document.getElementById('myimg');
+            img.src = url;
+            img.style.height = "300px";
+            img.style.width = "100%";
+
+        }).catch(function (error) {
+            // Handle any errors
+            console.log("IMAGE NOT FOUND")
+        });
+
+        document.getElementById("content").innerHTML = "";
+
+        var smallMap = document.getElementById("map");
+        smallMap.style.position = "absolute";
+        smallMap.style.visibility = "hidden";
+
         var info = document.getElementById("content");
         info.innerHTML = "";
+
+        //picture 
+        var pictureHolder = document.createElement("div");
+        pictureHolder.id = "pictureHolder";
+        pictureHolder.appendChild(picture);
+
         //name
-        info.innerHTML =typeList[0][id] + "</br>";
-        //address
-        info.innerHTML +=typeList[1][id]+ "</br>";
-        //desc
-        info.innerHTML +=typeList[3][id]+ "</br>";
-        })
+        var name = document.createElement("div");
+        name.id = "category";
+        name.innerHTML = typeList[0][id] + "</br>";
+
+        // detail
+        var detailHolder = document.createElement("div");
+        detailHolder.id = "detailHolder";
+        detailHolder.style.height = "250px";
+
+        var detailHolderContent  = document.createElement("div");
+        detailHolderContent.id = "detailHolderContent"
+        detailHolderContent.innerHTML = " &nbsp&nbsp&nbsp&nbsp" + typeList[1][id] + "<br><br>";
+        detailHolderContent.innerHTML += typeList[3][id] + "<br><br>";
+        detailHolder.appendChild(detailHolderContent);
+
+        var btnAddToTrip = document.createElement("button");
+        btnAddToTrip.id = "addToTrip" + id;
+        btnAddToTrip.innerHTML = "ADD TO TRIP";
+
+        // check if the place is alreay added to myDestination
+        for (var i = 0; i < myDestinations[0].length; i++) {
+            if (myDestinations[0][i] === typeList[0][id]) {
+                btnAddToTrip.innerHTML = "ADDED TO TRIP";
+                btnAddToTrip.disabled = true;
+            }
+        }
+
+        btnAddToTrip.style.position = "relative";
+        btnAddToTrip.style.left = "195px";
+
+        addToTrip(btnAddToTrip, btnAddToTrip.id);
+
+        var btnBack = document.createElement("button");
+        btnBack.id = "back"
+        btnBack.innerHTML = "X";
+        showMoreInfo(btnBack, btnId, type);
+
+        name.appendChild(btnBack);
+
+        info.appendChild(pictureHolder);
+        info.appendChild(name);
+        info.appendChild(detailHolder);
+        info.appendChild(btnAddToTrip);
+    })
     }
 
 //add selected location to myDestiantions
@@ -379,6 +551,10 @@ function addToTrip(btn, btnId) {
         document.getElementById("addToTrip" + id).innerHTML = "ADDED TO TRIP";
         document.getElementById("addToTrip" + id).disabled = true;
         document.getElementById("count").innerHTML = "DESTINATIONS: " + myDestinations[0].length;
+
+        if (myDestinations[0].length == 1) {
+            addStartBtn();
+        }
 
     });
 }
@@ -399,21 +575,23 @@ function getPlaces(type) {
             var zip = info[k].ZipCode;
             var type = info[k].Category;
             var des = info[k].Description;
+            var address = street + ", " + city + ", " + state;
+
 
             if (type == "Restaurant") {
                 restArr[0][i] = name;
-                restArr[1][i] = street + ", " + city + ", " + state;
+                restArr[1][i] = address;
                 restArr[2][i] = type;
                 restArr[3][i] = des;
             } else if (type == "Retailer") {
 
                 retArr[0][i] = name;
-                retArr[1][i] = street + " ," + city + " ," + state;
+                retArr[1][i] = address;
                 retArr[2][i] = type;
                 retArr[3][i] = des;
             } else {
                 actArr[0][i] = name;
-                actArr[1][i] = street + " ," + city + " ," + state;
+                actArr[1][i] = address;
                 actArr[2][i] = type;
                 actArr[3][i] = des;
             }
