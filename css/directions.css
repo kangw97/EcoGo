@@ -49,29 +49,57 @@
     top: 5%;
 }
 #driving_btn, #walk_btn, #bike_btn, #trans_btn {
-    position: relative;
-    top: 0px;
-    width: 60px;
-    height: 60px;
-    left: 10px;
+    width: 23%;
+    height: 50%;
     background-color: black;
     color: white;
     font-weight: bold;
-    font-size: 8pt;
+    font-size: 100%;
     border-radius: 10%;
 }
+#previousNext{
+    height: 10%;
+}
+
+#next_btn {
+    margin-top:10%;
+    width: 48%;
+    height: 50%;
+    background-color: aqua;
+    color: black;
+    font-weight: bold;
+    font-size: 100%;
+    border-radius: 10%;
+    float: right;
+}
+#prev_btn {
+    margin-top: 10%;
+    width: 48%;
+    height: 50%;
+    background-color: aqua;
+    color: black;
+    font-weight: bold;
+    font-size: 100%;
+    border-radius: 10%;
+    float: left;
+}
+
 /* Always set the map height explicitly to define the size of the div
         * element that contains the map. */
 #map {
-    position: absolute;
-    top: 10pt;
-    left: 0;
-   width: 400px;
     height: 500px;
-    text-align: center;
+}
+#startL {
+    margin-top: 10px;
+    float: left;
+    font-size: 25px;
+}
+#destL {
+    margin-top: 10px;
+    float: right;
+    font-size: 25px;
 }
 #content {
-    margin-top: 5px;
     height: 60px;
 }
 
@@ -82,31 +110,18 @@ body {
     font-weight: bolder;
     display: block;
     width: 100%;
-    font-size: 16px;
+    font-size: 20%;
     position: relative;
     z-index: -1;
     overflow: scroll;
 }
-#next_btn {
-    position: absolute;
-    width: 48px;
-    height: 48px;
-    top: 50px;
-    left: 320px;   
-}
 
-#prev_btn {
-    position: absolute;
-    width: 48px;
-    height: 48px;
-    top: 50px;
-    left: 50px;
-}
 
 #startL{
     font-size:1.2em;
-    position: relative;
-    left: 0px;
+    display: inline-block;
+    width: 33%;
+    height: 60px;
 }
 
 #destL {
@@ -128,8 +143,6 @@ body {
 }
 
 #right-panel {
-    position: relative;
-    top: 45rem;
     font-family: 'Roboto','sans-serif';
     line-height: 30px;
     padding-left: 10px;
@@ -150,18 +163,15 @@ body {
 #right-panel {
     height: 100%;
     float: right;
-    width: 390px;
+    width: 80%;
     overflow: auto;
 }
 
 
 
 #floating-panel {
-    position : absolute;
-    top: 400px;
     background: #fff;
-    padding: 5px;
-    font-size: 14px;
+    font-size: 10px;
     font-family: Arial;
     border: 1px solid #ccc;
     box-shadow: 0 2px 2px rgba(33, 33, 33, 0.4);
@@ -180,8 +190,4 @@ body {
     }
 }
 
-#twoPlaces {
-    position: relative;
-    top: 50px;
-    left: 520px;
-}
+
