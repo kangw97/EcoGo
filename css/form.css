@@ -9,6 +9,7 @@
 
 #send {
     position: absolute;
+    margin-bottom: 1em;
 }
 
 #description {
@@ -17,15 +18,20 @@
 
 label {
     margin-top: 2px;
+    font-size: 14pt;
+
 }
 
-input, select {
+input, select, textarea {
   display: block;
   width: 100%;
   padding: 12px;
   border: 1px solid #ccc;
   border-radius: 10px;
   resize: vertical;
+  font-size: 20px;
+  text-align: center;
+
 }
 
 button {
@@ -89,7 +95,7 @@ button:hover {
 .select-selected:after {
   position: absolute;
   content: "";
-  top: 14px;
+  top: 24px;
   right: 10px;
   width: 0;
   height: 0;
@@ -104,7 +110,9 @@ button:hover {
 
 .select-items div,.select-selected {
   color: #757575;
-  padding: 8px 16px;
+  padding: 12px 16px;
+  font-size: 15pt;
+  text-align: center;
   border: 1px solid transparent;
   border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
   cursor: pointer;
