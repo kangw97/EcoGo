@@ -1,0 +1,73 @@
+﻿/*entire side bar when it is opened*/
+.sidenav {
+    height: 100%;
+    position: fixed;
+    width: 0;
+    z-index: +2;
+    top: 0;
+    left: 0;
+    background-color: black;
+    overflow-x: hidden;
+    transition: 1s;
+    padding-top: 60px;
+    white-space: nowrap;
+}
+
+    /*content inside side bar*/
+    .sidenav a {
+        padding: 20px 8px 8px 20px;
+        font-size: 20pt;
+        color: white;
+        display: flex;
+        text-align: left;
+        transition: 0.3s;
+        text-decoration: none;
+    }
+
+    /*button to close side bar*/
+    .sidenav .closebtn {
+        position: absolute;
+        z-index: -1;
+        top: 0;
+        right: 25px;
+        font-size: 50px;
+        margin-left: 0;
+    }
+/*formatting menubar */
+#notindexspan {
+    border-radius: 7%;
+    position: absolute;
+    display: block;
+    color: black;
+    /* background-color: black; */
+    z-index: 1;
+    width: 9%;
+    height: 50px;
+    float: left;
+    left: 20px;
+    top: 5%;
+}
+#finishImg{
+	 margin-top: 20%; 
+    width: 100%;
+    height: 100%;
+   position: relative;
+  
+}
+body {
+    font-family: 'Rajdhani';
+    text-align: center;
+    font-weight: bolder;
+    display: block;
+    width: 100%;
+    font-size: 30px;
+    position: relative;
+    z-index: -1;
+    overflow: scroll;
+}
+#goodJob{
+    font-weight: bold;
+    margin-top: 10%;
+}
+
+
