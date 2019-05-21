@@ -12,17 +12,19 @@ myAddress[0] = currentLocation;
 
 //myAddress[0] = currentLocation;
 var destinations = JSON.parse(localStorage.getItem('myDestination'));
-console.log(destinations);
-for (var i = 0; i < destinations[0].length; i++) {
-    myAddress.push(destination[1][i]);
+
+for (var i = 0; i < destinations[1].length; i++) {
+    myAddress.push(destinations[1][i]);
 }
-
-//myAddress.push(localStorage.getItem('myDestination'));
+//myAddress.push(localStorage.getItem('myDestination'))
 console.log(myAddress);
+var bName = ["currentLocation"];
 
+for (var i = 0; i < destinations[0].length; i++) {
+    bName.push(destinations[0][i]);
+}
 //myAddress.push(myAddresses[0]);
 //console.log(myAddress);
-var bName = ["currentLocation"];
 //bName.push(myDestination[0]);
 //var length = myAddress.length;
 //initialize google map API
