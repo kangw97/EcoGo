@@ -2,10 +2,31 @@ var map, localStorage, address;
 var index=0;
 //array to store all the addresses.
 //var myAddress = ["5089 Dominion St, Burnaby, BC V5G 1C8", "3700 Wilingdon Ave, Burnaby BC V5G 3H2", "4670 Assembly Way, Burnaby, BC V5H 0H3","4500 Still Creek Dr, Burnaby, BC V5C 0E5"];
-var myAddress = ["3950 Main Street, Vancouver, BC V5V 3P2","550 Clark Drive,Vancouver, BC V5L 3H7", "3995 Main Street, Vancouver, BC V5V 3P3","1185 West Georgia Street, Vancouver, BC V6E 4E6"];
+//var myAddress = ["3950 Main Street, Vancouver, BC V5V 3P2","550 Clark Drive,Vancouver, BC V5L 3H7", "3995 Main Street, Vancouver, BC V5V 3P3","1185 West Georgia Street, Vancouver, BC V6E 4E6"];
 //the number of addresses in array "myAddress"
-var bName = ["Nomad","Agro Coffee Roasters","The Acorn Restaurant","Freshii"];
-var length = myAddress.length;
+//var bName = ["Nomad","Agro Coffee Roasters","The Acorn Restaurant","Freshii"];
+
+var currentLocation = localStorage.getItem("myAddress");
+var myAddress = [];
+myAddress[0] = currentLocation;
+
+//myAddress[0] = currentLocation;
+var destinations = JSON.parse(localStorage.getItem('myDestination'));
+
+for (var i = 0; i < destinations[1].length; i++) {
+    myAddress.push(destinations[1][i]);
+}
+//myAddress.push(localStorage.getItem('myDestination'))
+console.log(myAddress);
+var bName = ["currentLocation"];
+
+for (var i = 0; i < destinations[0].length; i++) {
+    bName.push(destinations[0][i]);
+}
+//myAddress.push(myAddresses[0]);
+//console.log(myAddress);
+//bName.push(myDestination[0]);
+//var length = myAddress.length;
 //initialize google map API
 var geocoder;
 //count the number of next button to prevent creating more than 2 next button.
@@ -23,6 +44,8 @@ var count = 0;
 var previndex = 0;
 // the address of destination
 var destLocation = 0;
+var prevdiv = 0;
+
 // start location.
 var startLocation=0;
 var directionsDisplay;
@@ -90,76 +113,78 @@ function initPoint() {
 }
 function next() {
     if (nCount == 0) {
-        var content = document.getElementById("content");
+        var content = document.getElementById("previousNext");
         var nextdiv = document.createElement("div");
         nextdiv.id = "nextdiv";
-        //nextBtn = document.createElement("button");
-        //nextBtn.id = "next_btn";
-        //nextBtn.innerHTML = "NEXT";
-        //nextdiv.appendChild(nextBtn);
+
+        nextBtn = document.createElement("button");
+        nextBtn.id = "next_btn";
+        nextBtn.innerHTML = "NEXT";
+        nextdiv.appendChild(nextBtn);
         //content.appendChild(nextdiv);
-        var arrow_right = document.createElement("img");
-        arrow_right.src = "../image/arrow_right.png";
-        arrow_right.id = "next_btn"
-        nextdiv.appendChild(arrow_right);
+        //var arrow_right = document.createElement("img");
+        //arrow_right.src = "../image/arrow_right.png";
+        //arrow_right.id = "next_btn";
+        //nextdiv.appendChild(arrow_right);
         content.appendChild(nextdiv);
     }
-  
     // when right arrow button is clicked ,"right-panel" is initialized.
-    arrow_right.addEventListener("click", function () {
+    nextBtn.addEventListener("click", function () {
         nCount++;
         index++;
+        console.log(index);
+
+        document.getElementById("nameL").innerHTML = "";
         document.getElementById("right-panel").innerHTML = "";
         twoP();
         nextMap();
+
         if (index != 0) {
             document.getElementById("prevdiv").style.position = "relative";
-          document.getElementById("prevdiv").style.visibility = "visible";
+            document.getElementById("prevdiv").style.visibility = "visible";
         }
-
+       
     })
 }
 //create previous button to go previous directions.
 function prev() {
-    var prevdiv = 0;
-    var arrow_left;
-    var content = document.getElementById("content");
+    var content = document.getElementById("previousNext");
     if (nCount == 1) {
-      
-        
-            content = document.getElementById("content");
+        if (index == 0) {
+            
+        }
+        else {
+            content = document.getElementById("previousNext");
         prevdiv = document.createElement("div");
         prevdiv.id = "prevdiv";
-       //prevBtn = document.createElement("button");
-       //prevBtn.id = "prev_btn";
-       //prevBtn.innerHTML = "PREVIOUS";
-       //prevdiv.appendChild(prevBtn);
-       //content.appendChild(prevdiv);
+       prevBtn = document.createElement("button");
+       prevBtn.id = "prev_btn";
+       prevBtn.innerHTML = "PREVIOUS";
+       prevdiv.appendChild(prevBtn);
+       content.appendChild(prevdiv);
        
         
-            arrow_left = document.createElement("img");
-            arrow_left.src = "../image/arrow_left.png";
-            arrow_left.id = "prev_btn"
-            prevdiv.appendChild(arrow_left);
-            content.appendChild(prevdiv);
+           //arrow_left = document.createElement("img");
+           //arrow_left.src = "../image/arrow_left.png";
+           //arrow_left.id = "prev_btn"
+           //prevdiv.appendChild(arrow_left);
+          // arrowNname.appendChild(prevdiv);
             nCount++;
-        
+        }
     }
- 
   
    
-    arrow_left.addEventListener("click", function () {
+    prevBtn.addEventListener("click", function () {
         index--;
         console.log(index);
         if (index == 0) {
             console.log("hi");
-            document.getElementById("prevdiv").style.position = "relative";
-            document.getElementById("prevdiv").style.visibility = "hidden";
-            
+            document.getElementById("prevdiv").innerHTML = "";
 
-        } 
-       previndex++;
-        document.getElementById("right-panel").innerHTML = "";
+        }
+        previndex++;
+        document.getElementById("nameL").innerHTML = "";
+
         twoP();
         prevMap();
     })
@@ -170,7 +195,7 @@ function twoP() {
     twoPlace.id = "twoPl";
 
     //connect to "right-panel" in html page.
-    var right_Panel = document.getElementById("right-panel");
+    var nameL = document.getElementById("nameL");
     var startL = document.createElement("div");
     startL.id = "startL";
     //show the name of eco-friendly places in the name array.
@@ -189,13 +214,13 @@ function twoP() {
     destL.innerHTML = bName[index + 1];
     arrowsdiv.appendChild(destL);
     twoPlace.appendChild(arrowsdiv);
-    right_Panel.appendChild(twoPlace);
+    nameL.appendChild(twoPlace);
 
 }
 // create buttons for selecting vehicles to travel. 
 function vehicle() {
 
-        var header = document.getElementById("header");
+        var selectV = document.getElementById("selectV");
         //A section for button group("Driving, Transit, Walk, Byke")
         var vehdiv = document.createElement("div");
         vehdiv.id = "vehdiv";
@@ -224,7 +249,7 @@ function vehicle() {
         bikeBtn.innerHTML = "BIKE";
         vehdiv.appendChild(bikeBtn);
 
-        header.appendChild(vehdiv);
+        selectV.appendChild(vehdiv);
 
         
         drivingBtn.addEventListener("click", function () {
@@ -255,8 +280,8 @@ function travel_b(directionsService, directionsDisplay) {
     if (previndex == 1) {
         directionsService.route({
 
-            origin: myAddress[i + 2],
-            destination: myAddress[i + 1],
+            origin: myAddress[i + 1],
+            destination: myAddress[i + 2],
             travelMode: 'BICYCLING'
         }, function (response, status) {
             if (status === 'OK') {
@@ -386,7 +411,7 @@ function travel_t(directionsService, directionsDisplay) {
 }
 
 function suggestion() {
-    if (confirm("Why don't we use transit today? If you still want to drive please press 'Cancel' button!")) {
+    if (confirm("Why don't we use transit today? If you still want to drive, please press 'Cancel' button!")) {
         confirmNum = 1;
     } else {
         confirmNum =0;

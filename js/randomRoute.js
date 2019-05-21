@@ -180,6 +180,7 @@ function tripList(){
   trip2.appendChild(buttonDiv2);
   trip3.appendChild(buttonDiv3);
   trip4.appendChild(buttonDiv4);
+  
   buttonDiv1.appendChild(button1);
   buttonDiv2.appendChild(button2);
   buttonDiv3.appendChild(button3);

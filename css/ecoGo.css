@@ -99,9 +99,11 @@ legend {
     margin: 0 12pt 12pt 12pt;
 }
 #errorHtml {
-    background-image: url("../image/factory.jpg");
-    background-repeat: no-repeat;
-    background-color: #3b3f4a;
+    background: url("../image/factory.png") no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
 #errorBody {
     margin-top: -3em;
