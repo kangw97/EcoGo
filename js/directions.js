@@ -56,32 +56,34 @@ var confirmNum=0;
 var time = today.getHours() + ":" + today.getMinutes();
 //initialize google API map.
 function initMap() {
-    if (nCount == 0) {
-        //make buttons once which is needed for   
-        twoP();
-        next();
-        vehicle();
-    }
-    directionsDisplay = new google.maps.DirectionsRenderer;
-    directionsService = new google.maps.DirectionsService;
-    map = new google.maps.Map(document.getElementById("map"), {
-        center: { lat: 49.2827, lng: -123.1207 },
-        zoom: 12,
-        disableDefaultUI: true,
-        zoomControl: true
-    });
-    geocoder = new google.maps.Geocoder();
-    directionsDisplay.setMap(map);
-    directionsDisplay.setPanel(document.getElementById('right-panel'));
-    var control = document.getElementById('floating-panel');
-    map.controls[google.maps.ControlPosition.TOP_CENTER].push(control);
+   
+        if (nCount == 0) {
+            //make buttons once which is needed for   
+            twoP();
+            next();
+            vehicle();
+        }
+        directionsDisplay = new google.maps.DirectionsRenderer;
+        directionsService = new google.maps.DirectionsService;
+        map = new google.maps.Map(document.getElementById("map"), {
+            center: { lat: 49.2827, lng: -123.1207 },
+            zoom: 12,
+            disableDefaultUI: true,
+            zoomControl: true
+        });
+        geocoder = new google.maps.Geocoder();
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('right-panel'));
+        var control = document.getElementById('floating-panel');
+        map.controls[google.maps.ControlPosition.TOP_CENTER].push(control);
 
-    initPoint();
-  
+        initPoint();
+
     
 }
 //bring the first two places to make a route.
 function initPoint() {
+   
     var latitude = 0;
     var longitude = 0;
     var pageIndex = index;
@@ -105,13 +107,15 @@ function initPoint() {
                 map.setZoom(12);
                // map.panTo(marker.postion);
             } else {
-                alert('This is the last location! ' + status);
+                window.location = '../html/finishdirection.html';
+
             }
         });
     }
 
 }
 function next() {
+   
     if (nCount == 0) {
         var content = document.getElementById("previousNext");
         var nextdiv = document.createElement("div");
@@ -128,12 +132,16 @@ function next() {
         //nextdiv.appendChild(arrow_right);
         content.appendChild(nextdiv);
     }
+   
     // when right arrow button is clicked ,"right-panel" is initialized.
     nextBtn.addEventListener("click", function () {
+        
         nCount++;
         index++;
-        console.log(index);
-
+        if (index == myAddress.length - 1) {
+            window.location = '../html/finishdirection.html';
+        }
+        
         document.getElementById("nameL").innerHTML = "";
         document.getElementById("right-panel").innerHTML = "";
         twoP();
@@ -143,6 +151,7 @@ function next() {
             document.getElementById("prevdiv").style.position = "relative";
             document.getElementById("prevdiv").style.visibility = "visible";
         }
+     
        
     })
 }
@@ -150,10 +159,8 @@ function next() {
 function prev() {
     var content = document.getElementById("previousNext");
     if (nCount == 1) {
-        if (index == 0) {
-            
-        }
-        else {
+        
+ 
             content = document.getElementById("previousNext");
         prevdiv = document.createElement("div");
         prevdiv.id = "prevdiv";
@@ -171,7 +178,6 @@ function prev() {
           // arrowNname.appendChild(prevdiv);
             nCount++;
         }
-    }
   
    
     prevBtn.addEventListener("click", function () {
@@ -189,6 +195,7 @@ function prev() {
         prevMap();
     })
 }
+
 // show the name of start location and destination.
 function twoP() {
     var twoPlace = document.createElement("div");
@@ -468,8 +475,6 @@ function prevMap() {
         }
     
 }
-function finishMap() {
-    
-}
+
 
 
