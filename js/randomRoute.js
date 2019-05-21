@@ -2,10 +2,6 @@
 var map, localStorage, startingAddress;
 // firebase root
 var dbRef;
-// marker with blue color to show starting address
-var markerBlue = "http://maps.google.com/mapfiles/ms/icons/blue-dot.png";
-// marker with red color to show destinations
-var markerRed = "http://maps.google.com/mapfiles/ms/icons/red-dot.png";
 // geoCoder variable to change address to lat and lng
 var geocoder;
 // random ints for randomizing the trip
@@ -133,14 +129,14 @@ function tripList(){
   var markerImg2 = document.createElement("img");
   var markerImg3 = document.createElement("img");
   var markerImg4 = document.createElement("img");
-  markerImg1.src = "http://maps.google.com/mapfiles/ms/icons/red-dot.png";
-  markerImg1.alt = "Red Marker Image";
-  markerImg2.src = "http://maps.google.com/mapfiles/ms/icons/blue-dot.png";
-  markerImg2.alt = "Blue Marker Image";
-  markerImg3.src = "http://maps.google.com/mapfiles/ms/icons/orange-dot.png";
-  markerImg3.alt = "Orange Marker Image";
-  markerImg4.src = "http://maps.google.com/mapfiles/ms/icons/purple-dot.png";
-  markerImg4.alt = "Purple Marker Image";
+  markerImg1.src = "../image/mapMarkerB.png";
+  markerImg1.alt = "B Marker Image";
+  markerImg2.src = "../image/mapMarkerC.png";
+  markerImg2.alt = "C Marker Image";
+  markerImg3.src = "../image/mapMarkerD.png";
+  markerImg3.alt = "D Marker Image";
+  markerImg4.src = "../image/mapMarkerE.png";
+  markerImg4.alt = "E Marker Image";
 
   // appending images
   trip1.appendChild(markerImgDiv1);
@@ -180,7 +176,6 @@ function tripList(){
   trip2.appendChild(buttonDiv2);
   trip3.appendChild(buttonDiv3);
   trip4.appendChild(buttonDiv4);
-  
   buttonDiv1.appendChild(button1);
   buttonDiv2.appendChild(button2);
   buttonDiv3.appendChild(button3);
@@ -192,6 +187,13 @@ function tripList(){
   trip3.setAttribute("class", "trip");
   trip4.setAttribute("class", "trip");
   var trips = document.getElementsByClassName("trip");
+
+  // generializing images with class
+  markerImg1.setAttribute("class", "markerImg");
+  markerImg2.setAttribute("class", "markerImg");
+  markerImg3.setAttribute("class", "markerImg");
+  markerImg4.setAttribute("class", "markerImg");
+  var markerImgs = document.getElementsByClassName("markerImg");
 
   // generilizing trips with class
   markerImgDiv1.setAttribute("class", "marker");
@@ -224,8 +226,10 @@ function tripList(){
   // Css for mainDiv
   mainDiv.style.width = "90%";
   mainDiv.style.margin = "90px auto";
-
   for(var i = 0; i < 4; i++) {
+    //css for images
+    markerImgs[i].style.width = "30px";
+    markerImgs[i].style.height = "45px";
     // css for 4 trip divs
     trips[i].style.width = "100%";
     trips[i].style.height = "100px";
@@ -270,35 +274,8 @@ function tripList(){
 // show more info after clicking i button
 function showMoreInfo(btnMoreInfo){
   btnMoreInfo.addEventListener("click", function(){
-    var latitude, longitude;
-    // converting address into lat and lng for recentering the map
-    geocoder.geocode({ "address": myTrip[1][btnMoreInfo.id]}, function (results, status) {
-      if ((status == google.maps.GeocoderStatus.OK)) {
-        latitude = results[0].geometry.location.lat();
-        longitude = results[0].geometry.location.lng();
-        var myLatLng = {
-          lat: latitude, lng: longitude
-        }
-        // reinitializing the map to the location associated with the info button
-        map = new google.maps.Map(document.getElementById('map'), {
-          center: myLatLng,
-          disableDefaultUI: true,
-          zoom: 15,
-          zoomControl: true,
-          gestureHandling: 'greedy'
-        });
-        // place the marker
-        var marker = new google.maps.Marker({
-          position: myLatLng,
-          map: map,
-          icon:{
-            url:"http://maps.google.com/mapfiles/ms/icons/blue-dot.png"
-          },
-          animation: google.maps.Animation.DROP
-        });
-      }
-    });
       // reCssing using dom after more info button is clicked
+      document.getElementById("map").style.display = "none";
       trip1.style.display = "none";
       trip2.style.display = "none";
       trip3.style.display = "none";
@@ -316,7 +293,9 @@ function showMoreInfo(btnMoreInfo){
       back.style.width = "25px";
       back.style.height = "25px";
       back.style.margin = "-50px 0 0 300px";
-      back.style.border = "1px solid black";
+      back.style.border = "1px solid white";
+      back.style.backgroundColor = "white";
+      back.style.color = "black";
       // css for description in more info
       desMoreInfo.style.width = "300px";
       desMoreInfo.style.height = "200px";
@@ -334,6 +313,7 @@ function showMoreInfo(btnMoreInfo){
       // onClickFunction for back button
       back.addEventListener("click", function () {
       showRoute();
+      document.getElementById("map").style.display = "block";
       back.style.display = "none";
       desMoreInfo.style.display = "none";
       trip1.style.display = "block";
@@ -465,11 +445,12 @@ function go() {
   biking.value = "BICYCLING";
   trans.value = "TRANSIT";
   // innerhtml for destination names
-  destNames.innerHTML = "<em>From</em>: " + wholeTrip[trackRoute] + "<br><em>To</em>: " + myTrip[0][trackRoute];
+  destNames.innerHTML = "<b>From</b> : " + wholeTrip[trackRoute] + "<br>&#8942;<br><b>To</b> : " + myTrip[0][trackRoute];
   // css for destination names, from ... to ...
   destNames.style.width = "300px";
-  destNames.style.height = "50px";
   destNames.style.fontSize = "13pt";
+  destNames.style.marginTop = "10px";
+
   // css for previous button
   prevButtonDiv.style.display = "none";
   prevButtonDiv.style.width = "95px";
@@ -480,10 +461,10 @@ function go() {
   prevButton.style.height = "40px";
   prevButton.innerHTML = "Previous";
   prevButton.style.textAlign = "center";
+  mainDiv.style.marginTop = "35px";
   // css for method travel container
   options.style.fontSize = "12pt";
-  methodTravel.style.position = "absolute";
-  methodTravel.style.margin = "-50px 0";
+  methodTravel.style.margin = "-20px 0";
   // css for next button
   nextButtonDiv.style.width = "85px";
   nextButtonDiv.style.height = "50px";
@@ -503,7 +484,7 @@ function go() {
   });
   // onlick next button
   nextButton.addEventListener("click", function(){
-    destNames.innerHTML = "<em>From</em>: " + myTrip[0][trackRoute-1] + "<br><em>To</em>: " + myTrip[0][trackRoute];
+    destNames.innerHTML = "<b>From</b> : " + myTrip[0][trackRoute-1] + "<br>&#8942;<br><b>To</b> : " + myTrip[0][trackRoute];
     startTriping(wholeTrip[trackRoute], wholeTrip[++trackRoute]);
     if(trackRoute == 4){
       nextButton.style.display = "none";
@@ -514,7 +495,7 @@ function go() {
       doneButton.style.textAlign = "center";
       nextButtonDiv.appendChild(doneButton);
       doneButton.addEventListener("click", function(){
-        window.location = "http://www.bcit.ca";
+        window.location = "../index.html";
       });
     }
     // scroll to the top of the web page 
@@ -524,7 +505,6 @@ function go() {
     if(trackRoute == 2){
       prevButtonDiv.style.display = "block";
     }
-    console.log(trackRoute);
   });
   // onclick previous button 
   prevButton.addEventListener("click", function(){
@@ -533,16 +513,15 @@ function go() {
       nextButton.style.display = "block";
     }
     if(trackRoute == 2) {
-      destNames.innerHTML = "<em>From</em>: " + wholeTrip[trackRoute-2] + "<br><em>To</em>: " + myTrip[0][trackRoute-2];
+      destNames.innerHTML = "<b>From</b> : " + wholeTrip[trackRoute-2] + "<br>&#8942;<br><b>To</b> : " + myTrip[0][trackRoute-2];
       startTriping(wholeTrip[trackRoute-2], wholeTrip[trackRoute-1]);
       prevButtonDiv.style.display = "none";
       trackRoute--;
     } else {
-      destNames.innerHTML = "<em>From</em>: " + myTrip[0][trackRoute-3] + "<br><em>To</em>: " + myTrip[0][trackRoute-2];
+      destNames.innerHTML = "<b>From</b> : " + myTrip[0][trackRoute-3] + "<br>&#8942;<br><b>To</b> : " + myTrip[0][trackRoute-2];
       startTriping(wholeTrip[trackRoute-2], wholeTrip[trackRoute-1]);
       trackRoute--;
     }
-    console.log(trackRoute);
     // scroll to the top of the web page 
     document.body.scrollTop = 0;
     document.documentElement.scrollTop = 0;
