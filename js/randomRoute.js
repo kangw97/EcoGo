@@ -78,7 +78,7 @@ function calculateAndDisplayRoute(directionsService, directionsDisplay) {
     optimizeWaypoints: false,
     travelMode: 'DRIVING'
   }, function (response, status) {
-    if (status === 'OK') {
+    if (status == 'OK') {
         directionsDisplay.setDirections(response);
         var route = response.routes[0];
         // For each route, display summary information.
@@ -264,6 +264,7 @@ function tripList(){
     buttons[i].style.margin = "25px 0 0 75%";
     buttons[i].style.border = "2px solid black";
     buttons[i].style.borderRadius = "50%";
+    buttons[i].style.textAlign = "center";
     buttons[i].innerHTML = "i";
     buttons[i].style.fontSize = "20pt";
     buttons[i].style.color = "black";
@@ -275,8 +276,33 @@ function tripList(){
 // show more info after clicking i button
 function showMoreInfo(btnMoreInfo){
   btnMoreInfo.addEventListener("click", function(){
+       var picture = document.createElement("IMG");
+       // download image from firebase storage
+       // Create a reference with an initial file path and name
+       var storage = firebase.storage();
+       var storageRef = storage.ref();
+       //path : 'EcoGo/[name of the file which is the name of each place]
+       storageRef.child('EcoGo/' + myTrip[0][btnMoreInfo.id]).getDownloadURL().then(function (url) {
+
+           var xhr = new XMLHttpRequest();
+           xhr.responseType = 'blob';
+           xhr.onload = function (event) {
+               var blob = xhr.response;
+           };
+           xhr.open('GET', url);
+           xhr.send();
+
+           //create imagr\
+           picture.src = url;
+           picture.style.height = "300px";
+           picture.style.width = "100%";
+       }).catch(function (error) {
+           // Handle any errors
+           console.log("IMAGE NOT FOUND")
+       });
+
       // reCssing using dom after more info button is clicked
-      document.getElementById("map").style.display = "none";
+      document.getElementById("map").style.visibility = "hidden";
       trip1.style.display = "none";
       trip2.style.display = "none";
       trip3.style.display = "none";
@@ -286,35 +312,51 @@ function showMoreInfo(btnMoreInfo){
       // creating elements using dom
       var back = document.createElement("button");
       var desMoreInfo = document.createElement("div");
+      var imgProfileDiv = document.createElement("div");
+      var titleDiv = document.createElement("div");
+      mainDiv.style.marginTop = "-80px";
+      // css for titleDiv
+      titleDiv.style.height = "50px";
+      titleDiv.style.position = "absolute";
+      titleDiv.style.margin = "-320px 0";
+      titleDiv.innerHTML = myTrip[0][btnMoreInfo.id];
+      titleDiv.style.fontSize = "27px";
+      titleDiv.style.fontWeight = "bold";
+      titleDiv.style.fontFamily = "sans-serif";
       // css for bakc button 
       back.innerHTML = "X";
-      back.style.fontSize = "12pt";
+      back.style.fontSize = "20px";
       back.style.textAlign = "center";
       back.style.position = "absolute";
-      back.style.width = "25px";
-      back.style.height = "25px";
-      back.style.margin = "-50px 0 0 300px";
-      back.style.border = "1px solid white";
+      back.style.width = "35px";
+      back.style.height = "35px";
+      back.style.margin = "-57px 0 0 300px";
+      back.style.border = "1px solid black";
       back.style.backgroundColor = "white";
       back.style.color = "black";
       // css for description in more info
-      desMoreInfo.style.width = "300px";
       desMoreInfo.style.height = "200px";
-      desMoreInfo.style.margin = "60px auto";
-      desMoreInfo.innerHTML = myTrip[3][btnMoreInfo.id] + "<br><br>";
-      desMoreInfo.innerHTML += myTrip[1][btnMoreInfo.id];
-      
-      //css for mainDive
-      mainDiv.style.marginTop = "0px";
-
+      desMoreInfo.style.margin = "60px 5px";
+      desMoreInfo.innerHTML = myTrip[3][btnMoreInfo.id];
+      desMoreInfo.style.fontFamily = "sans-serif";
+      desMoreInfo.style.fontSize = "20px";
+      // css for img profile div
+      imgProfileDiv.style.position = "absolute";
+      imgProfileDiv.style.height = "300px";
+      imgProfileDiv.style.width = "95%";
+      imgProfileDiv.style.margin = "-390px auto";
       // appending elements into mainDiv
+      document.getElementById("container").appendChild(imgProfileDiv);
+      imgProfileDiv.appendChild(picture);
       mainDiv.appendChild(back);
       mainDiv.appendChild(desMoreInfo);
-
+      mainDiv.appendChild(titleDiv);
       // onClickFunction for back button
       back.addEventListener("click", function () {
       showRoute();
-      document.getElementById("map").style.display = "block";
+      document.getElementById("map").style.visibility = "visible";
+      imgProfileDiv.style.display = "none";
+      titleDiv.style.display = "none";
       back.style.display = "none";
       desMoreInfo.style.display = "none";
       trip1.style.display = "block";
@@ -426,6 +468,8 @@ function go() {
   methodTravel = document.createElement("div");
 
   // appending elements
+  mainDiv.appendChild(nextButtonDiv);
+  mainDiv.appendChild(prevButtonDiv);
   mainDiv.appendChild(methodTravel);
   methodTravel.appendChild(options);
   options.appendChild(biking);
@@ -433,9 +477,7 @@ function go() {
   options.appendChild(trans);
   methodTravel.appendChild(destNames);
   mainDiv.appendChild(directionPanel);
-  mainDiv.appendChild(nextButtonDiv);
   nextButtonDiv.appendChild(nextButton);
-  mainDiv.appendChild(prevButtonDiv);
   prevButtonDiv.appendChild(prevButton);
   trip1.style.borderBottom = "0px";
   // values for options
@@ -455,32 +497,35 @@ function go() {
 
   // css for previous button
   prevButtonDiv.style.display = "none";
-  prevButtonDiv.style.width = "95px";
-  prevButtonDiv.style.height = "50px";
+  prevButtonDiv.style.width = "100px";
+  prevButtonDiv.style.height = "45px";
   prevButtonDiv.style.position = "absolute";
-  prevButtonDiv.style.marginTop = "-50px";
+  prevButtonDiv.style.marginTop = "-45px";
   prevButton.style.width = "100px";
-  prevButton.style.height = "40px";
+  prevButton.style.height = "45px";
   prevButton.innerHTML = "Previous";
   prevButton.style.textAlign = "center";
 
   mainDiv.style.marginTop = "35px";
   // css for method travel container
   options.style.fontSize = "12pt";
+  methodTravel.style.margin = "20px 0";
+  methodTravel.style.borderTop = "1px solid black";
+  methodTravel.style.paddingTop = "10px";
   methodTravel.style.margin = "-20px 0";
-
+  
   // css for next button
-  nextButtonDiv.style.width = "85px";
-  nextButtonDiv.style.height = "50px";
-  nextButtonDiv.style.margin = "10px 0 0 250px";
-  nextButton.style.width = "75px";
-  nextButton.style.height = "40px";
+  nextButtonDiv.style.width = "100px";
+  nextButtonDiv.style.height = "45px";
+  nextButtonDiv.style.margin = "-30px 0 0 230px";
+  nextButton.style.width = "100px";
+  nextButton.style.height = "45px";
+  nextButton.style.position = "absolute";
   nextButton.innerHTML = "Next";
   nextButton.style.textAlign = "center";
   // css for direction panel
   directionPanel.style.width = "95%";
   directionPanel.style.margin = "-10px auto";
-  directionPanel.style.paddingTop = "30px";
   // zoom in map
   startTriping(wholeTrip[trackRoute], wholeTrip[++trackRoute]);
   options.addEventListener('change', function() {
@@ -495,8 +540,8 @@ function go() {
     if(trackRoute == 4){
       nextButton.style.display = "none";
       doneButton = document.createElement("button");
-      doneButton.style.width = "75px";
-      doneButton.style.height = "40px";
+      doneButton.style.width = "100px";
+      doneButton.style.height = "45px";
       doneButton.innerHTML = "Done";
       doneButton.style.textAlign = "center";
       nextButtonDiv.appendChild(doneButton);
@@ -504,9 +549,6 @@ function go() {
         window.location = "../index.html";
       });
     }
-    // scroll to the top of the web page 
-    document.body.scrollTop = 0;
-    document.documentElement.scrollTop = 0;
     // create the provious button
     if(trackRoute == 2){
       prevButtonDiv.style.display = "block";
@@ -532,7 +574,6 @@ function go() {
       startTriping(wholeTrip[trackRoute-2], wholeTrip[trackRoute-1]);
       trackRoute--;
     }
-
     // scroll to the top of the web page 
     document.body.scrollTop = 0;
     document.documentElement.scrollTop = 0;
@@ -551,7 +592,7 @@ function startTriping(startPoint, endPoint) {
     destination: endPoint,
     travelMode: selectedMode
   }, function (response, status) {
-    if (status === 'OK') {
+    if (status == 'OK') {
         directionsDisplay.setDirections(response);
     } else {
         window.alert('Directions request failed due to ' + status);
