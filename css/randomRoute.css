@@ -57,14 +57,15 @@ button {
   }
   /*formatting menubar */
   #notindexspan {
-      border-radius: 7%;
-      position: absolute;
-      display: block;
-      color: black;
-      width: 95%;
-      height: 40px;
-      margin: -390px 0 0 0;
-      text-decoration: none;
+    border-radius: 7%;
+    position: absolute;
+    display: block;
+    color: black;
+    width: 95%;
+    height: 40px;
+    margin: -385px 0 0 10px;
+    text-decoration: none;
+    z-index: 1;
   }
 
   /* disable outlining when clicking on the buttons */
