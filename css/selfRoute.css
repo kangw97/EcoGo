@@ -1,19 +1,51 @@
 body{
+    height: 100%;
     font-family: 'Rajdhani';
     font-weight: bold;
 }
+html{
+    height: 100%;
+    overflow: auto;
+}
 /* margin : top right bottom left */
 #map {
-    height: 550px;
+    height: 500px;
 }
+/* div underneath the map */
 #content{
-     margin-top: 5px;
-     height: 60px;
+    margin: 10px auto;
+    height: 90%;
 }
+/* three divs for each option */
 div[id *= "opt"]{
     display: inline-block;
     width: 33%;
-    height: 60px;
+    height: 140px;
+    vertical-align:top;
+    margin-right: 1px;
+}
+/* div for icon */
+div [id *= "icon"]{
+    border-radius: 50%;
+    background-color: white;
+    z-index: 2;
+    width: 90%;
+    height: 70%;
+    margin: 2px auto 15px auto;
+    border: solid 2px;
+}
+/* actual button for three options */
+#Restaurant, #Retailer, #Activity{
+    width: 100%;
+    height: 100%;
+    color: white;
+    font-weight: bold;
+    font-size: 10pt;
+    border-radius: 10%;
+    bottom: 0;
+    border: solid 2px;
+    background-color: white;
+    color: black;
 }
 button{
     width: 100%;
@@ -23,86 +55,183 @@ button{
     font-weight: bold;
     font-size: 10pt;
     border-radius: 10%;
-    
 }
+/* always header of each list? each text area */
 #category{
     font-size: 35px;
-    height: 60px;
+    margin-left: 10px;
     text-align: left;
+    position: relative;
 }
+
+#categoryText{
+    padding: 5px 0 5px 5px; 
+}
+/* contains info for each place */
 div[id*="smallDivs"]{
     margin-top: 5px;
-    height: 90px;
-    background-color: aliceblue;
-    font-size: 20px;
-    text-align: left;
-    padding: 5px;
-    /* border-bottom: solid 2px; */
+    height: 100px;
+    width: 100%;
+    font-family: sans-serif;
+    padding-bottom: 10px;
+    border-bottom: solid 0.5px;
 
 }
-#list{
-    top:200px;
- /* color: red; */
-}
+/* back button : X*/
 #back{
-    position: relative;
     width: 35px;
    height: 35px; 
     background-color: white;
     color: black;
     font-weight: bold;
     border-radius: 10%;
-    bottom: 8px;
-    left: 120px;
+    position: absolute;
+    right: 10px;
+    top: 10px;
     font-size: 20px;
 }
 /* any btn that contains btnMore as id */
 button[id *="btnMore"]{
-    width: 55px;
-    height: 55px;
-    margin: 2px 2px;
+    width: 50px;
+    height: 50px;
+    margin: 25px 0 0 75%;
     border-radius: 50%;
-    bottom: 35px;
-    left: 150px;
     background-color: white;
     color: black;
+    border: 2px solid black;
+    font-size: 20pt;
+    background: transparent;
 
 }
 /* any btn that contains moreInfo or addToTrip as id */
 button[id *= "moreInfo"], [id *= "addToTrip"]{
     display: inline-block;
+    height: 60px;
     width: 50%;
     font-size: 20px;
 }
 #buttonContainer{
     top: 250px;
 }
+/* wider back button : ADD MORE PLACES */
 #backToList{
    font-size: 20px;
+   height: 60px;
 }
+/* Start button to show the route */
 #startTrip{
     z-index: 1;
-    width: 100px;
+    width: 120px;
     height: 10%;;
     position: relative;
-    top: 8px;
-
+    left: 120px;
+    float: right;
+    top: 14%;
 }
-
+/* destination counter button */
 #count{
     z-index: 1;
     width: 120px;
     height: 10%;;
     position: relative;
+    float: right;
+    top: 4%;
+    
 }
-#details{
-    background:rgba(0,0,0,.4);
-    cursor:pointer;
-    display:none;
-    height:100%;
-    position:fixed;
-    text-align:center;
-    top:0;
-    width:100%;
-    z-index:10000;
+
+/*entire side bar when it is opened*/
+.sidenav {
+    height: 100%;
+    position: fixed;
+    width: 0;
+    z-index: +2;
+    top: 0;
+    left: 0;
+    background-color:black;
+    overflow-x: hidden;
+    transition: 1s;
+    padding-top: 60px;
+    white-space: nowrap;
+  }
+  
+/*content inside side bar*/
+  .sidenav a {
+    padding: 20px 8px 8px 20px;
+    font-size: 20pt;
+    color: white;
+    display: flex;
+    text-align: left;
+    transition: 0.3s;
+    text-decoration: none;
+  }
+  
+  /*button to close side bar*/
+  .sidenav .closebtn {
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    right: 25px;
+    font-size: 50px;
+    margin-left: 0;  
+  }
+  /*formatting menubar */
+  #notindexspan {
+      border-radius: 7%;
+      position: absolute;
+      display: block;
+      color: black;
+      z-index: 1;
+      width: 9%;
+    height: 50px;
+    float: left;
+    left: 20px;
+    top: 5%;
+  }
+
+/*  FOR SMALLDIVS */
+/* div for each marker */
+#markerHolder{
+    height: 32px;
+    width: 32px;
+    margin: 30px 0 0 15px;
+    position: absolute;
+}
+/* div for description of each place */
+div[id *= "textHolder"]{
+    margin: 5px 0 0 80px;
+    width:50%;
+    height: 90px;
+    position: absolute;
+}
+#container{
+    width: 90%;
+    margin: 10px auto;
+}
+
+/* button holder to hold more buttons */
+#buttonHolder{
+    width: 50px;
+    height: 50px;
+    margin: 25px 0 0 75%;
+}
+/* info container when showing more info for each place */
+#placeHolder{
+    height: 70px;
+    margin-bottom: 10px;
+}
+/* get appended to place */
+#infoContent{
+    margin: 5px auto auto 10px;
+    /* height: 70px; */
+    font-size: 20px;
+}
+/* div to hold the picture of each place */
+#pictureHolder{
+    margin-top: 20px;
+    height: 300px;
+}
+/* div under the picture */
+#detailHolderContent{
+    margin: auto 8px 20px 8px;
+    font-size: 20px;
 }
