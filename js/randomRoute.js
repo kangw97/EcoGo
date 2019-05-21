@@ -446,6 +446,7 @@ function go() {
   biking.value = "BICYCLING";
   trans.value = "TRANSIT";
   // innerhtml for destination names
+
   destNames.innerHTML = "<b>From</b> : " + wholeTrip[trackRoute] + "<br>&#8942;<br><b>To</b> : " + myTrip[0][trackRoute];
   // css for destination names, from ... to ...
   destNames.style.width = "300px";
@@ -462,10 +463,12 @@ function go() {
   prevButton.style.height = "40px";
   prevButton.innerHTML = "Previous";
   prevButton.style.textAlign = "center";
+
   mainDiv.style.marginTop = "35px";
   // css for method travel container
   options.style.fontSize = "12pt";
   methodTravel.style.margin = "-20px 0";
+
   // css for next button
   nextButtonDiv.style.width = "85px";
   nextButtonDiv.style.height = "50px";
@@ -485,7 +488,9 @@ function go() {
   });
   // onlick next button
   nextButton.addEventListener("click", function(){
+
     destNames.innerHTML = "<b>From</b> : " + myTrip[0][trackRoute-1] + "<br>&#8942;<br><b>To</b> : " + myTrip[0][trackRoute];
+
     startTriping(wholeTrip[trackRoute], wholeTrip[++trackRoute]);
     if(trackRoute == 4){
       nextButton.style.display = "none";
@@ -506,6 +511,7 @@ function go() {
     if(trackRoute == 2){
       prevButtonDiv.style.display = "block";
     }
+
   });
   // onclick previous button 
   prevButton.addEventListener("click", function(){
@@ -514,15 +520,19 @@ function go() {
       nextButton.style.display = "block";
     }
     if(trackRoute == 2) {
+
       destNames.innerHTML = "<b>From</b> : " + wholeTrip[trackRoute-2] + "<br>&#8942;<br><b>To</b> : " + myTrip[0][trackRoute-2];
+
       startTriping(wholeTrip[trackRoute-2], wholeTrip[trackRoute-1]);
       prevButtonDiv.style.display = "none";
       trackRoute--;
     } else {
+
       destNames.innerHTML = "<b>From</b> : " + myTrip[0][trackRoute-3] + "<br>&#8942;<br><b>To</b> : " + myTrip[0][trackRoute-2];
       startTriping(wholeTrip[trackRoute-2], wholeTrip[trackRoute-1]);
       trackRoute--;
     }
+
     // scroll to the top of the web page 
     document.body.scrollTop = 0;
     document.documentElement.scrollTop = 0;
