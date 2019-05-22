@@ -1,13 +1,25 @@
 var map;
-var directionsService;
-var directionsDisplay;
 var dbRef;
+// for getting direction service api
+var directionsService;
+// for show directions on map service api
+var directionsDisplay;
+// stores all the destinations
+var wholeTrip = [];
 
+var addOneTime = 0;
 // marker with blue color to show starting address
 var markerBlue = "http://maps.google.com/mapfiles/ms/icons/blue-dot.png";
 // marker with red color to show destinations
 var markerRed = "http://maps.google.com/mapfiles/ms/icons/red-dot.png";
-
+//  stores all the info
+var mainDiv;
+// diretionPanel holds the diretions
+var directionPanel;
+// method of travel
+var methodTravel, options, selectedMode;
+// trackRoute to keep track of index
+var trackRoute = 0;
 // arrays to store place info
 // [[name],[address],[type], [description]]
 var actArr = [[], [], [], []];
@@ -61,7 +73,7 @@ function createEmptyMap() {
     showDestinations(myDestinations);
     //show pinpoints of current location
     showPinPoints(localStorage.getItem("myAddress"), markerBlue);
-    if (myDestinations[0].length > 0) {
+    if (addOneTime > 0) {
         addStartBtn();
     }
 }
@@ -222,7 +234,7 @@ function showList(type) {
        textHolder.innerHTML = name + "<br><br>";
        textHolder.innerHTML += type + "<br><br>";
 
-       var directionsService = new google.maps.DirectionsService;
+       directionsService = new google.maps.DirectionsService;
        calculateAndDisplayRouteDistance(directionsService, typeList[1][i], textHolder.id);
 
        // div for button
@@ -280,7 +292,8 @@ function showMoreInfo(btn, btnId, type) {
         content.innerHTML = " ";
         var latitude, longitude;
 
-        var directionsService = new google.maps.DirectionsService;
+        directionsService = new google.maps.DirectionsService;
+        directionsDisplay = new google.maps.DirectionsRenderer;
         calculateAndDisplayRouteDistance(directionsService, typeList[1][id], infoContent.id)
 
         // converting address into lat and lng for recentering the map
@@ -348,88 +361,172 @@ function addStartBtn() {
     document.getElementById("map").appendChild(startTrip);
 
     startTrip.addEventListener("click", function () {
-        // pass the myDestination array to localStorage
-        localStorage.setItem("myDestination", JSON.stringify(myDestinations));
-        // then redirect to startRoute html
-        
-        window.location = "directions.html";
+        document.getElementById("count").style.display = "none";
+        document.getElementById("startTrip").style.display = "none";
+        document.getElementById("map").style.height = "400px";
+        document.getElementById("content").style.display = "none";
 
-    })
+        // store trip address into one array
+        wholeTrip.push(localStorage.getItem("myAddress"));
+        for(var i = 0; i < myDestinations[1].length; i++){
+            wholeTrip.push(myDestinations[1][i]);
+        }
+        // creating elements
+        mainDiv = document.createElement("div");
+        document.body.appendChild(mainDiv);
+        var doneButton;
+        var nextButtonDiv = document.createElement("div");
+        var nextButton = document.createElement("button");
+        var prevButtonDiv = document.createElement("div");
+        var prevButton = document.createElement("button");
+        var destNames = document.createElement("div");
+        options = document.createElement("select");
+        var walking = document.createElement("option");
+        var biking = document.createElement("option");
+        var trans = document.createElement("option");
+        directionPanel = document.createElement("div");
+        methodTravel = document.createElement("div");
+
+        // appending elements
+        mainDiv.appendChild(nextButtonDiv);
+        mainDiv.appendChild(prevButtonDiv);
+        mainDiv.appendChild(methodTravel);
+        methodTravel.appendChild(options);
+        options.appendChild(biking);
+        options.appendChild(walking);
+        options.appendChild(trans);
+        methodTravel.appendChild(destNames);
+        mainDiv.appendChild(directionPanel);
+        nextButtonDiv.appendChild(nextButton);
+        prevButtonDiv.appendChild(prevButton);
+        // values for options
+        walking.innerHTML = "Walking";
+        biking.innerHTML = "Bicycling";
+        trans.innerHTML = "Transit";
+        walking.value = "WALKING";
+        biking.value = "BICYCLING";
+        trans.value = "TRANSIT";
+        // innerhtml for destination names
+        destNames.innerHTML = "<b>From</b> : " + wholeTrip[trackRoute] + "<br>&#8942;<br><b>To</b> : " + myDestinations[0][trackRoute];
+        // css for destination names, from ... to ...
+        destNames.style.width = "300px";
+        destNames.style.fontSize = "13pt";
+        destNames.style.marginTop = "10px";
+
+        // css for previous button
+        prevButtonDiv.style.display = "none";
+        prevButtonDiv.style.width = "100px";
+        prevButtonDiv.style.height = "45px";
+        prevButtonDiv.style.position = "absolute";
+        prevButtonDiv.style.margin = "-44px 0 0 0";
+        prevButton.style.width = "100px";
+        prevButton.style.height = "45px";
+        prevButton.style.fontSize = "15pt";
+        prevButton.innerHTML = "Previous";
+        prevButton.style.textAlign = "center";
+        mainDiv.style.margin = "35px auto";
+        mainDiv.style.width = "90%";
+        // css for method travel container
+        options.style.fontSize = "12pt";
+        methodTravel.style.margin = "20px 0";
+        methodTravel.style.borderTop = "1px solid black";
+        methodTravel.style.paddingTop = "10px";
+        // css for next button
+        nextButtonDiv.style.width = "100px";
+        nextButtonDiv.style.height = "45px";
+        nextButtonDiv.style.margin = "-20px 0 0 230px";
+        nextButton.style.width = "100px";
+        nextButton.style.height = "45px";
+        nextButton.style.position = "absolute";
+        nextButton.style.fontSize = "15pt";
+        nextButton.innerHTML = "Next";
+        nextButton.style.textAlign = "center";
+        // css for direction panel
+        directionPanel.style.width = "95%";
+        directionPanel.style.margin = "-10px auto";
+        doneButton = document.createElement("button");
+        doneButton.style.width = "100px";
+        doneButton.style.height = "45px";
+        doneButton.style.fontSize = "15pt";
+        doneButton.innerHTML = "Done";
+        doneButton.style.textAlign = "center";
+        nextButtonDiv.appendChild(doneButton);
+        doneButton.style.display = "none";
+        // redirecte to home page
+        doneButton.addEventListener("click", function(){
+            window.location = "../html/finishdirection.html";
+        });
+        // zoom in map
+        startTriping(wholeTrip[trackRoute], wholeTrip[++trackRoute]);
+        if(wholeTrip.length == 2) {
+            nextButton.style.display = "none";
+            doneButton.style.display = "block";
+        }
+        options.addEventListener('change', function() {
+            startTriping(wholeTrip[trackRoute-1], wholeTrip[trackRoute]);
+            console.log(selectedMode);
+        });
+        // onlick next button
+        nextButton.addEventListener("click", function(){
+            destNames.innerHTML = "<b>From</b> : " + myDestinations[0][trackRoute-1] + "<br>&#8942;<br><b>To</b> : " + myDestinations[0][trackRoute];
+            startTriping(wholeTrip[trackRoute], wholeTrip[++trackRoute]);
+            if(trackRoute == wholeTrip.length - 1 || wholeTrip.length == 2){
+                nextButton.style.display = "none";
+                doneButton.style.display = "block";
+            }
+            // create the provious button
+            if(trackRoute == 2){
+                prevButtonDiv.style.display = "block";
+            }
+        });
+        // onclick previous button 
+        prevButton.addEventListener("click", function(){
+            if(trackRoute == wholeTrip.length - 1 || wholeTrip.length == 2){
+            doneButton.style.display = "none";
+            nextButton.style.display = "block";
+            }
+            if(trackRoute == 2) {
+            destNames.innerHTML = "<b>From</b> : " + wholeTrip[trackRoute-2] + "<br>&#8942;<br><b>To</b> : " + myDestinations[0][trackRoute-2];
+            startTriping(wholeTrip[trackRoute-2], wholeTrip[trackRoute-1]);
+            prevButtonDiv.style.display = "none";
+            trackRoute--;
+            } else {
+            destNames.innerHTML = "<b>From</b> : " + myDestinations[0][trackRoute-3] + "<br>&#8942;<br><b>To</b> : " + myDestinations[0][trackRoute-2];
+            startTriping(wholeTrip[trackRoute-2], wholeTrip[trackRoute-1]);
+            trackRoute--;
+            }
+        });
+    });
 }
 
-// shows the route
-function showRoute() {
-    console.log("trip started");
-
-    var directionsService = new google.maps.DirectionsService;
-    var directionsDisplay = new google.maps.DirectionsRenderer;
-    var map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 11.5,
+// show the route of two points and directions
+function startTriping(startPoint, endPoint) {
+    selectedMode = options.value;
+    map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 11,
         center: { lat: 49.2827, lng: -123.1207 },//downtown vancouver
         disableDefaultUI: true,
         zoomControl: true,
         gestureHandling: 'greedy'
     });
+    // show the route on map
     directionsDisplay.setMap(map);
-    calculateAndDisplayRoute(directionsService, directionsDisplay);
-}
-// set up the places to be stopped by
-function setUpWayPoints() {
-    var addresses = JSON.parse(localStorage.getItem("myDestination"));
-    var waypts = [];
-    for (var i = 0; i < addresses[0].length-1; i++) {
-        waypts.push({
-            location: addresses[1][i],
-            stopover: true
-        });
-    }
-    return waypts;
-}
-
-//set up the final destination of the trip, which is the last location that user selected
-function setUpDestination(){
-    var addresses = JSON.parse(localStorage.getItem("myDestination"));
-    var dest = [];
-    if (addresses[1].length < 2) {
-        dest.push({
-            location: addresses[1][0],
-            stopover: true
-        })
-    } else {
-        dest.push({
-            // last place than user have selected
-            location: addresses[1][addresses.length - 1],
-            stopover: true
-        })
-    }
-    return dest[0]['location'];
-}
-
-function calculateAndDisplayRoute(directionsService, directionsDisplay) {
-        // last place that user have selected
-    var destination = setUpDestination();
-        //every place between origin and destination
-    var waypts = setUpWayPoints();
-        //initial location that user have entered
-    var origin = localStorage.getItem("myAddress");
-
+    // show the directions in directionPanel
+    directionsDisplay.setPanel(directionPanel);
     directionsService.route({
-        //convert origin and destinations into lat and lng
-        origin: origin,
-        destination: destination,
-        waypoints: waypts,
-        optimizeWaypoints: true,
-        travelMode: 'WALKING'
+      //convert origin and destinations into lat and lng
+      origin: startPoint,
+      destination: endPoint,
+      travelMode: selectedMode
     }, function (response, status) {
-        if (status === 'OK') {
-            directionsDisplay.setDirections(response);
-            var route = response.routes[0];
-        } else {
-            window.alert('Directions request failed due to ' + status);
-        }
+      if (status == 'OK') {
+          directionsDisplay.setDirections(response);
+      } else {
+          window.alert('Directions request failed due to ' + status);
+      }
     });
-}
-
+  }
+  
 // shows the distance to each place from the current location
 function calculateAndDisplayRouteDistance(directionsService, address, textHolder) {
     var origin = localStorage.getItem("myAddress");
@@ -545,16 +642,15 @@ function showLocationDetails(btn, btnId, type) {
 //add selected location to myDestiantions
 function addToTrip(btn, btnId) {
     btn.addEventListener("click", function () {
-
         var id = getId(btnId);
         myDestinations[0].push(typeList[0][id]);
         myDestinations[1].push(typeList[1][id]);
-
+        addOneTime++;
         document.getElementById("addToTrip" + id).innerHTML = "ADDED TO TRIP";
         document.getElementById("addToTrip" + id).disabled = true;
         document.getElementById("count").innerHTML = "DESTINATIONS: " + myDestinations[0].length;
 
-        if (myDestinations[0].length == 1) {
+        if (addOneTime == 1) {
             addStartBtn();
         }
 
