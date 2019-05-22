@@ -59,6 +59,12 @@ button {
     margin-top: 30px; 
     border-radius: 10%;
 }
+
+/* css for hovering over buttons */
+button:hover {
+  background-color: #1e1d1d;
+}
+
 /* css for legend */
 legend {
     font-size: 15pt;
