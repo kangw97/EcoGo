@@ -55,8 +55,8 @@ function createMap() {
 
 // initial the map and show the route of entire trip
 function showRoute() {
-  directionsService = new google.maps.DirectionsService;
-  directionsDisplay = new google.maps.DirectionsRenderer;
+  directionsService = new google.maps.DirectionsService();
+  directionsDisplay = new google.maps.DirectionsRenderer();
   map = new google.maps.Map(document.getElementById('map'), {
     zoom: 11,
     center: { lat: 49.2827, lng: -123.1207 },//downtown vancouver
@@ -240,7 +240,7 @@ function tripList(){
 
     // css for 4 marker divs
     markers[i].style.width = "32px";
-    markers[i].style.height = "32px"
+    markers[i].style.height = "32px";
     markers[i].style.margin = "30px 0 0 15px";
     markers[i].style.position = "absolute";
 
@@ -298,7 +298,7 @@ function showMoreInfo(btnMoreInfo){
            picture.style.width = "100%";
        }).catch(function (error) {
            // Handle any errors
-           console.log("IMAGE NOT FOUND")
+           console.log("IMAGE NOT FOUND");
        });
 
       // reCssing using dom after more info button is clicked
