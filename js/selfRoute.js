@@ -84,7 +84,9 @@ function showDestinations(array) {
     document.getElementById("map").appendChild(countDest);
 
     for(var i = 0; i<myDestinations[1].length;i++){
-        showPinPoints(myDestinations[1][i], markerRed);    }
+        console.log(myDestinations[1][i]);
+        showPinPoints(myDestinations[1][i], markerRed);    
+    }
 }
 
 // convert each address to lat and lng and place marker
@@ -110,6 +112,9 @@ function showPinPoints(address, markerURL) {
 
 // shows [FOOD STORES ACTIVITIES]
 function showThreeOption() {
+    var regMap = document.getElementById("map");
+    regMap.style.height = "550px";
+    showPinPoints(localStorage.getItem("myAddress"), markerBlue);
     // div underneath the map
     var threeOptions = document.getElementById("content");
 
@@ -125,8 +130,12 @@ function showThreeOption() {
 //food icon div
 var iconFood = document.createElement("div");
 iconFood.id = "iconFood";
+var iconForFood = document.createElement("IMG");
+iconForFood.id = "iconFor";
+iconForFood.src = "../image/Restaurant_icon.png";
+iconFood.appendChild(iconForFood);
 btnFood.appendChild(iconFood);
-    btnFood.innerHTML += "Restaurant";
+    btnFood.innerHTML += "RESTAURANTS";
     optRestaurant.appendChild(btnFood);
 
     //STORES
@@ -139,8 +148,12 @@ btnFood.appendChild(iconFood);
     //store icon div
     var iconRetailer = document.createElement("div");
     iconRetailer.id = "iconRetailer";
+    var iconForRet = document.createElement("IMG");
+    iconForRet.id = "iconFor";
+    iconForRet.src  = "../image/Retailer_icon.png";
+    iconRetailer.appendChild(iconForRet);
     btnRetailer.appendChild(iconRetailer);
-    btnRetailer.innerHTML += "Retailer";
+    btnRetailer.innerHTML += "RETAILERS";
     optRetailer.appendChild(btnRetailer);
 
     //ACTIVITIES
@@ -153,8 +166,12 @@ btnFood.appendChild(iconFood);
     //act icon div
     var iconAct = document.createElement("div");
     iconAct.id = "iconAct";
+    var iconForAct = document.createElement("IMG");
+    iconForAct.id = "iconFor";
+    iconForAct.src = "../image/Activity_icon.png";
+    iconAct.appendChild(iconForAct);
     btnAct.appendChild(iconAct);
-    btnAct.innerHTML += "Activity";
+    btnAct.innerHTML += "ACTIVITY";
     optAct.appendChild(btnAct);
 
     threeOptions.appendChild(optRestaurant);
@@ -173,26 +190,172 @@ btnFood.appendChild(iconFood);
     })
 }
 
+
+// function showListBack(type){
+    
+
+//      // empty the previous content
+//      var content = document.getElementById("content");
+//      content.innerHTML = "";
+ 
+//      var container = document.createElement("div");
+//      container.id = "container";
+//      var smallIcon = document.createElement("IMG");
+//      smallIcon.id = "smallIcon";
+//      smallIcon.src = "../image/"+type+"_icon.png";
+ 
+//      var smallIconDiv = document.createElement("div");
+//      smallIconDiv.id = "smallIconDiv";
+//      smallIconDiv.appendChild(smallIcon);
+
+//     //  var count = document.getElementById("count");
+//     //  count.style.height = "10%";
+ 
+//     //div to print what users have selected either restaurant, retailer, activity
+//     var category = document.createElement("div");
+    
+//     var categotyText = document.createElement("div");
+//    categotyText.innerHTML += "<b>"+ type.toUpperCase()+"</b>";
+//  //   categotyText.style.fontWeight = "bold";
+//     categotyText.id = "categoryText"
+    
+//     categotyText.style.fontSize = "25px";
+//     category.id = "category";
+//      categotyText.appendChild(smallIconDiv);
+//     category.appendChild(categotyText);
+ 
+//      // back button to go back to three options screen
+//      var back = document.createElement("button");
+//      back.style.position = "absolute";
+//      back.style.right = "25px";
+//      back.style.top = "25px";
+ 
+//      back.id = "back";
+//      back.innerHTML = "X";
+//      back.addEventListener("click", function () {
+//          //shows three options again
+//          content.innerHTML = "";
+//          //showThreeOption();
+//          createEmptyMap();
+//      })
+ 
+//      category.appendChild(back);
+ 
+//      content.appendChild(category);
+ 
+//      if (type == "Restaurant") {
+//          typeList = restArr;
+//      } else if (type == "Retailer") {
+//          typeList = retArr;
+//      } else {
+//          typeList = actArr;
+//      }
+ 
+//      //one div for each place, create the more btn as well
+//      for (var i = 0; i < typeList[0].length; i++) {
+//          var smallDivs = document.createElement("div");
+//          smallDivs.id = "smallDivs" + i;
+//         // marker icon 
+//         var markerImg = document.createElement("IMG");
+//         markerImg.setAttribute("src", markerRed);
+ 
+//         // div for marker
+//         var markerHolder = document.createElement("div");
+//         markerHolder.id = "markerHolder";
+//         markerHolder.appendChild(markerImg);
+ 
+//         //div for text
+//          textHolder = document.createElement("div");
+//          textHolder.id = "textHolder" + i;
+ 
+//         var name = typeList[0][i];
+//         var desc = typeList[3][i];
+//         desc = desc.substr(0, 40);
+//         desc += "...";
+//         textHolder.innerHTML = "<b>"+name + "</b><br><br>";
+//         textHolder.innerHTML += desc + "<br><br>";
+ 
+//         directionsService = new google.maps.DirectionsService;
+//         calculateAndDisplayRouteDistance(directionsService, typeList[1][i], textHolder.id);
+ 
+//         // div for button
+//         var buttonHolder = document.createElement("div");
+//         buttonHolder.id = "buttonHolder";
+ 
+//         // i button for more info
+//         var btnMore = document.createElement("button");
+//         btnMore.innerHTML = "i";
+//         btnMore.id = "btnMore" + i;
+ 
+//         buttonHolder.appendChild(btnMore);
+ 
+//         //event handler for more btn
+//         showMoreInfo(btnMore, btnMore.id, type);
+ 
+//         smallDivs.appendChild(markerHolder);
+//         smallDivs.appendChild(textHolder);
+//         smallDivs.appendChild(buttonHolder);
+//         container.appendChild(smallDivs);
+//         var map = new google.maps.Map(document.getElementById('map'), {
+//             zoom: 11.5,
+//             center: { lat: 49.2827, lng: -123.1207 },//downtown vancouver
+//             disableDefaultUI: true,
+//             zoomControl: true,
+//             gestureHandling: 'greedy',
+    
+//         });
+
+        
+       
+//     showPinPoints(typeList[1][i], markerRed);
+ 
+//      }
+//      content.appendChild(container);
+
+// }
+
 // shows the list of place, type is either food, store, activity
 function showList(type) {
 
+
+    var regMap = document.getElementById("map");
+        regMap.style.height = "300px";
+
+        // var count = document.getElementById("count");
+        // count.style.height = "20%";
     // empty the previous content
     var content = document.getElementById("content");
     content.innerHTML = "";
 
     var container = document.createElement("div");
     container.id = "container";
-    
+    var smallIcon = document.createElement("IMG");
+    smallIcon.id = "smallIcon";
+    smallIcon.src = "../image/"+type+"_icon.png";
+
+    var smallIconDiv = document.createElement("div");
+    smallIconDiv.id = "smallIconDiv";
+    smallIconDiv.appendChild(smallIcon);
+
    //div to print what users have selected either restaurant, retailer, activity
    var category = document.createElement("div");
+   
    var categotyText = document.createElement("div");
-   categotyText.innerHTML = type.toUpperCase();
+  categotyText.innerHTML += "<b>"+ type.toUpperCase()+"</b>";
+//   categotyText.style.fontWeight = "bold";
    categotyText.id = "categoryText"
+   
+   categotyText.style.fontSize = "25px";
    category.id = "category";
+    categotyText.appendChild(smallIconDiv);
    category.appendChild(categotyText);
 
     // back button to go back to three options screen
     var back = document.createElement("button");
+    back.style.position = "absolute";
+    back.style.right = "25px";
+    back.style.top = "25px";
+
     back.id = "back";
     back.innerHTML = "X";
     back.addEventListener("click", function () {
@@ -201,6 +364,7 @@ function showList(type) {
         //showThreeOption();
         createEmptyMap();
     })
+
     category.appendChild(back);
 
     content.appendChild(category);
@@ -231,10 +395,13 @@ function showList(type) {
         textHolder.id = "textHolder" + i;
 
        var name = typeList[0][i];
-       textHolder.innerHTML = name + "<br><br>";
-       textHolder.innerHTML += type + "<br><br>";
+       var desc = typeList[3][i];
+       desc = desc.substr(0, 40);
+       desc += "...";
+       textHolder.innerHTML = "<b>"+name + "</b><br><br>";
+       textHolder.innerHTML += desc + "<br><br>";
 
-       directionsService = new google.maps.DirectionsService;
+        directionsService = new google.maps.DirectionsService;
        calculateAndDisplayRouteDistance(directionsService, typeList[1][i], textHolder.id);
 
        // div for button
@@ -256,10 +423,14 @@ function showList(type) {
        smallDivs.appendChild(buttonHolder);
        container.appendChild(smallDivs);
 
+      
        showPinPoints(typeList[1][i], markerRed);
 
     }
     content.appendChild(container);
+    // if(myDestinations[0].length>0){
+    //     addStartBtn();
+    // }
 }
 
 //extract number from string, so that the id matches with the index of firebase database
@@ -270,11 +441,18 @@ function getId(btnId) {
 }
 
 function showMoreInfo(btn, btnId, type) {
+
     btn.addEventListener("click", function () {
+       
+     
         var regMap = document.getElementById("map");
-        regMap.style.height = "500px";
+        regMap.style.height = "550px";
         regMap.style.position = "relative";
         regMap.style.visibility = "visible";
+
+    
+
+        // var document.getElementById("count")
 
          // place holder for info
          var info = document.createElement("div");
@@ -296,6 +474,18 @@ function showMoreInfo(btn, btnId, type) {
         directionsDisplay = new google.maps.DirectionsRenderer;
         calculateAndDisplayRouteDistance(directionsService, typeList[1][id], infoContent.id)
 
+        var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 11.5,
+            center: { lat: 49.2827, lng: -123.1207 },//downtown vancouver
+            disableDefaultUI: true,
+            zoomControl: true,
+            gestureHandling: 'greedy',
+ 
+        });
+        showDestinations(myDestinations);
+        // var c = document.getElementById("count");
+        // c.style.height = "10%";
+
         // converting address into lat and lng for recentering the map
         geocoder.geocode({ "address": typeList[1][id] }, function (results, status) {
             if ((status == google.maps.GeocoderStatus.OK)) {
@@ -308,12 +498,22 @@ function showMoreInfo(btn, btnId, type) {
                 map.setCenter(myLatLng);
                 map.setZoom(15);
             }
+            var marker = new google.maps.Marker({
+                position: myLatLng,
+                map: map,
+                icon: {
+                    url: markerRed,
+                },
+                animation: google.maps.Animation.DROP,
+            });
         });
-
+      
         // name of the place
         var name = document.createElement("div");
         name.id = "category";
         name.innerHTML = typeList[0][id].toUpperCase();
+        name.style.border = "0";
+        name.style.height = "60px"
        
         // more info button
         var btnMoreInfo = document.createElement("button");
@@ -335,6 +535,9 @@ function showMoreInfo(btn, btnId, type) {
                 btnAddToTrip.disabled = true;
             }
         }
+        if(myDestinations[0].length>0){
+        addStartBtn();
+    }
 
         //back to list
         var back = document.createElement("button");
@@ -596,15 +799,15 @@ function showLocationDetails(btn, btnId, type) {
         var name = document.createElement("div");
         name.id = "category";
         name.innerHTML = typeList[0][id] + "</br>";
+        name.style.border = "0";
 
         // detail
         var detailHolder = document.createElement("div");
         detailHolder.id = "detailHolder";
-        detailHolder.style.height = "250px";
+        // detailHolder.style.height = "250px";
 
         var detailHolderContent  = document.createElement("div");
         detailHolderContent.id = "detailHolderContent"
-        detailHolderContent.innerHTML = " &nbsp&nbsp&nbsp&nbsp" + typeList[1][id] + "<br><br>";
         detailHolderContent.innerHTML += typeList[3][id] + "<br><br>";
         detailHolder.appendChild(detailHolderContent);
 
@@ -650,9 +853,9 @@ function addToTrip(btn, btnId) {
         document.getElementById("addToTrip" + id).disabled = true;
         document.getElementById("count").innerHTML = "DESTINATIONS: " + myDestinations[0].length;
 
-        if (addOneTime == 1) {
+       if (addOneTime == 1) {
             addStartBtn();
-        }
+       }
 
     });
 }
