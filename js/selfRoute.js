@@ -434,7 +434,7 @@ function addStartBtn() {
         // css for next button
         nextButtonDiv.style.width = "100px";
         nextButtonDiv.style.height = "45px";
-        nextButtonDiv.style.margin = "-20px 0 0 230px";
+        nextButtonDiv.style.margin = "-20px 0 0 260px";
         nextButton.style.width = "100px";
         nextButton.style.height = "45px";
         nextButton.style.position = "absolute";
