@@ -1,4 +1,5 @@
 var map;
+var marker;
 var dbRef;
 // for getting direction service api
 var directionsService;
@@ -6,7 +7,6 @@ var directionsService;
 var directionsDisplay;
 // stores all the destinations
 var wholeTrip = [];
-
 var addOneTime = 0;
 // marker with blue color to show starting address
 var markerBlue = "http://maps.google.com/mapfiles/ms/icons/blue-dot.png";
@@ -23,8 +23,8 @@ var trackRoute = 0;
 // arrays to store place info
 // [[name],[address],[type], [description]]
 var actArr = [[], [], [], [], []];
-var retArr = [[], [], [], [],[]];
-var restArr = [[], [], [], [],[]];
+var retArr = [[], [], [], [], []];
+var restArr = [[], [], [], [], []];
 
 //array to store the destinations selected by users
 //[[name],[address]]
@@ -60,6 +60,7 @@ function createEmptyMap() {
     getPlaces("Retailer");
 
     geocoder = new google.maps.Geocoder();
+    showThreeOption();
 
     map = new google.maps.Map(document.getElementById('map'), {
         zoom: 11,
@@ -67,9 +68,30 @@ function createEmptyMap() {
         disableDefaultUI: true,
         zoomControl: true,
         gestureHandling: 'greedy'
-    });
 
-    showThreeOption();
+
+    });
+    for (var i = 0; i < myDestinations[1].length; i++) {
+        geocoder.geocode({ "address": myDestinations[1][i] }, function (results, status) {
+            if ((status == google.maps.GeocoderStatus.OK)) {
+                var latitude = results[0].geometry.location.lat();
+                var longitude = results[0].geometry.location.lng();
+                var myLatLng = {
+                    lat: latitude, lng: longitude
+                }
+                marker = new google.maps.Marker({
+                    position: myLatLng,
+                    map: map,
+                    icon: {
+                        url: markerRed,
+                    },
+                    animation: google.maps.Animation.DROP,
+                });
+            }
+        });
+    }
+
+    // showThreeOption();
     showDestinations(myDestinations);
     //show pinpoints of current location
     showPinPoints(localStorage.getItem("myAddress"), markerBlue);
@@ -78,14 +100,13 @@ function createEmptyMap() {
     }
 }
 
- //updates destination count
+//updates destination count
 function showDestinations(array) {
     countDest.innerHTML = "DESTINATIONS: " + array[0].length;
     document.getElementById("map").appendChild(countDest);
 
-    for(var i = 0; i<myDestinations[1].length;i++){
-        console.log(myDestinations[1][i]);
-        showPinPoints(myDestinations[1][i], markerRed);    
+    for (var i = 0; i < array[1].length; i++) {
+        showPinPoints(array[1][i], markerRed);
     }
 }
 
@@ -98,7 +119,7 @@ function showPinPoints(address, markerURL) {
             var myLatLng = {
                 lat: latitude, lng: longitude
             }
-            var marker = new google.maps.Marker({
+            marker = new google.maps.Marker({
                 position: myLatLng,
                 map: map,
                 icon: {
@@ -127,14 +148,14 @@ function showThreeOption() {
     var btnFood = document.createElement("button");
     btnFood.id = "Restaurant";
 
-//food icon div
-var iconFood = document.createElement("div");
-iconFood.id = "iconFood";
-var iconForFood = document.createElement("IMG");
-iconForFood.id = "iconFor";
-iconForFood.src = "../image/Restaurant_icon.png";
-iconFood.appendChild(iconForFood);
-btnFood.appendChild(iconFood);
+    //food icon div
+    var iconFood = document.createElement("div");
+    iconFood.id = "iconFood";
+    var iconForFood = document.createElement("IMG");
+    iconForFood.id = "iconFor";
+    iconForFood.src = "../image/Restaurant_icon.png";
+    iconFood.appendChild(iconForFood);
+    btnFood.appendChild(iconFood);
     btnFood.innerHTML += "RESTAURANTS";
     optRestaurant.appendChild(btnFood);
 
@@ -150,7 +171,7 @@ btnFood.appendChild(iconFood);
     iconRetailer.id = "iconRetailer";
     var iconForRet = document.createElement("IMG");
     iconForRet.id = "iconFor";
-    iconForRet.src  = "../image/Retailer_icon.png";
+    iconForRet.src = "../image/Retailer_icon.png";
     iconRetailer.appendChild(iconForRet);
     btnRetailer.appendChild(iconRetailer);
     btnRetailer.innerHTML += "RETAILERS";
@@ -194,12 +215,8 @@ btnFood.appendChild(iconFood);
 // shows the list of place, type is either food, store, activity
 function showList(type) {
 
-
     var regMap = document.getElementById("map");
-        regMap.style.height = "300px";
-
-        // var count = document.getElementById("count");
-        // count.style.height = "20%";
+    regMap.style.height = "300px";
     // empty the previous content
     var content = document.getElementById("content");
     content.innerHTML = "";
@@ -208,24 +225,23 @@ function showList(type) {
     container.id = "container";
     var smallIcon = document.createElement("IMG");
     smallIcon.id = "smallIcon";
-    smallIcon.src = "../image/"+type+"_icon.png";
+    smallIcon.src = "../image/" + type + "_icon.png";
 
     var smallIconDiv = document.createElement("div");
     smallIconDiv.id = "smallIconDiv";
     smallIconDiv.appendChild(smallIcon);
 
-   //div to print what users have selected either restaurant, retailer, activity
-   var category = document.createElement("div");
-   
-   var categotyText = document.createElement("div");
-  categotyText.innerHTML += "<b>"+ type.toUpperCase()+"</b>";
-//   categotyText.style.fontWeight = "bold";
-   categotyText.id = "categoryText"
-   
-   categotyText.style.fontSize = "25px";
-   category.id = "category";
+    //div to print what users have selected either restaurant, retailer, activity
+    var category = document.createElement("div");
+
+    var categotyText = document.createElement("div");
+    categotyText.innerHTML += "<b>" + type.toUpperCase() + "</b>";
+    categotyText.id = "categoryText"
+
+    categotyText.style.fontSize = "25px";
+    category.id = "category";
     categotyText.appendChild(smallIconDiv);
-   category.appendChild(categotyText);
+    category.appendChild(categotyText);
 
     // back button to go back to three options screen
     var back = document.createElement("button");
@@ -258,54 +274,54 @@ function showList(type) {
     for (var i = 0; i < typeList[0].length; i++) {
         var smallDivs = document.createElement("div");
         smallDivs.id = "smallDivs" + i;
-       // marker icon 
-       var markerImg = document.createElement("IMG");
-       markerImg.setAttribute("src", markerRed);
+        // marker icon 
+        var markerImg = document.createElement("IMG");
+        markerImg.setAttribute("src", markerRed);
 
-       // div for marker
-       var markerHolder = document.createElement("div");
-       markerHolder.id = "markerHolder";
-       markerHolder.appendChild(markerImg);
+        // div for marker
+        var markerHolder = document.createElement("div");
+        markerHolder.id = "markerHolder";
+        markerHolder.appendChild(markerImg);
 
-       //div for text
+        //div for text
         textHolder = document.createElement("div");
         textHolder.id = "textHolder" + i;
 
-       var name = typeList[0][i];
-       var desc = typeList[3][i];
-       desc = desc.substr(0, 40);
-       desc += "...";
-       textHolder.innerHTML = "<b>"+name + "</b><br><br>";
-       textHolder.innerHTML += desc + "<br><br>";
+        var name = typeList[0][i];
+        var desc = typeList[3][i];
+        desc = desc.substr(0, 40);
+        desc += "...";
+        textHolder.innerHTML = "<b>" + name + "</b><br><br>";
+        textHolder.innerHTML += desc + "<br><br>";
 
         directionsService = new google.maps.DirectionsService;
-       calculateAndDisplayRouteDistance(directionsService, typeList[1][i], textHolder.id);
+        calculateAndDisplayRouteDistance(directionsService, typeList[1][i], textHolder.id);
 
-       // div for button
-       var buttonHolder = document.createElement("div");
-       buttonHolder.id = "buttonHolder";
+        // div for button
+        var buttonHolder = document.createElement("div");
+        buttonHolder.id = "buttonHolder";
 
-       // i button for more info
-       var btnMore = document.createElement("button");
-       btnMore.innerHTML = "i";
-       btnMore.id = "btnMore" + i;
+        // i button for more info
+        var btnMore = document.createElement("button");
+        btnMore.innerHTML = "i";
+        btnMore.id = "btnMore" + i;
 
-       buttonHolder.appendChild(btnMore);
+        buttonHolder.appendChild(btnMore);
 
-       //event handler for more btn
-       showMoreInfo(btnMore, btnMore.id, type);
+        //event handler for more btn
+        showMoreInfo(btnMore, btnMore.id, type);
 
-       smallDivs.appendChild(markerHolder);
-       smallDivs.appendChild(textHolder);
-       smallDivs.appendChild(buttonHolder);
-       container.appendChild(smallDivs);
+        smallDivs.appendChild(markerHolder);
+        smallDivs.appendChild(textHolder);
+        smallDivs.appendChild(buttonHolder);
+        container.appendChild(smallDivs);
 
-      
-       showPinPoints(typeList[1][i], markerRed);
+
+        showPinPoints(typeList[1][i], markerRed);
 
     }
     content.appendChild(container);
-  
+
 }
 
 //extract number from string, so that the id matches with the index of firebase database
@@ -318,23 +334,23 @@ function getId(btnId) {
 function showMoreInfo(btn, btnId, type) {
 
     btn.addEventListener("click", function () {
-       
-     
+
+
         var regMap = document.getElementById("map");
         regMap.style.height = "500px";
         regMap.style.position = "relative";
         regMap.style.visibility = "visible";
 
 
-         // place holder for info
-         var info = document.createElement("div");
-         info.id = "placeHolder";
-        info.innerHTML  = "";
+        // place holder for info
+        var info = document.createElement("div");
+        info.id = "placeHolder";
+        info.innerHTML = "";
 
         var infoContent = document.createElement("div");
         infoContent.id = "infoContent";
         infoContent.innerHTML = "DISTANCE &nbsp";
- 
+
 
         var id = getId(btnId);
         // clear out the lists
@@ -352,7 +368,7 @@ function showMoreInfo(btn, btnId, type) {
             disableDefaultUI: true,
             zoomControl: true,
             gestureHandling: 'greedy',
- 
+
         });
         showDestinations(myDestinations);
 
@@ -377,22 +393,22 @@ function showMoreInfo(btn, btnId, type) {
                 animation: google.maps.Animation.DROP,
             });
         });
-      
+
         // name of the place
         var name = document.createElement("div");
         name.id = "category";
-        name.innerHTML = "<b>"+typeList[0][id].toUpperCase()+"</b>"+"<br>";
+        name.innerHTML = "<b>" + typeList[0][id].toUpperCase() + "</b>" + "<br>";
         name.style.marginTop = "25px";
         name.style.marginLeft = "10px";
         name.style.border = "0";
         // name.style.height = "100px"
-         name.style.fontSize = "33px";
-       
+        name.style.fontSize = "33px";
+
         // more info button
         var btnMoreInfo = document.createElement("button");
         btnMoreInfo.id = "moreInfo" + id;
         btnMoreInfo.innerHTML = "MORE INFO";
-     
+
 
         showLocationDetails(btnMoreInfo, btnMoreInfo.id, type);
 
@@ -409,9 +425,9 @@ function showMoreInfo(btn, btnId, type) {
                 btnAddToTrip.disabled = true;
             }
         }
-        if(myDestinations[0].length>0){
-        addStartBtn();
-    }
+        if (myDestinations[0].length > 0) {
+            addStartBtn();
+        }
 
         //back to list
         var back = document.createElement("button");
@@ -422,7 +438,7 @@ function showMoreInfo(btn, btnId, type) {
         });
         back.style.position = "absolute";
         back.style.top = "0";
-    
+
         name.appendChild(back);
         info.appendChild(infoContent);
 
@@ -448,7 +464,7 @@ function addStartBtn() {
 
         // store trip address into one array
         wholeTrip.push(localStorage.getItem("myAddress"));
-        for(var i = 0; i < myDestinations[1].length; i++){
+        for (var i = 0; i < myDestinations[1].length; i++) {
             wholeTrip.push(myDestinations[1][i]);
         }
         // creating elements
@@ -533,47 +549,47 @@ function addStartBtn() {
         nextButtonDiv.appendChild(doneButton);
         doneButton.style.display = "none";
         // redirecte to home page
-        doneButton.addEventListener("click", function(){
+        doneButton.addEventListener("click", function () {
             window.location = "../html/finishdirection.html";
         });
         // zoom in map
         startTriping(wholeTrip[trackRoute], wholeTrip[++trackRoute]);
-        if(wholeTrip.length == 2) {
+        if (wholeTrip.length == 2) {
             nextButton.style.display = "none";
             doneButton.style.display = "block";
         }
-        options.addEventListener('change', function() {
-            startTriping(wholeTrip[trackRoute-1], wholeTrip[trackRoute]);
+        options.addEventListener('change', function () {
+            startTriping(wholeTrip[trackRoute - 1], wholeTrip[trackRoute]);
             console.log(selectedMode);
         });
         // onlick next button
-        nextButton.addEventListener("click", function(){
-            destNames.innerHTML = "<b>From</b> : " + myDestinations[0][trackRoute-1] + "<br>&#8942;<br><b>To</b> : " + myDestinations[0][trackRoute];
+        nextButton.addEventListener("click", function () {
+            destNames.innerHTML = "<b>From</b> : " + myDestinations[0][trackRoute - 1] + "<br>&#8942;<br><b>To</b> : " + myDestinations[0][trackRoute];
             startTriping(wholeTrip[trackRoute], wholeTrip[++trackRoute]);
-            if(trackRoute == wholeTrip.length - 1 || wholeTrip.length == 2){
+            if (trackRoute == wholeTrip.length - 1 || wholeTrip.length == 2) {
                 nextButton.style.display = "none";
                 doneButton.style.display = "block";
             }
             // create the provious button
-            if(trackRoute == 2){
+            if (trackRoute == 2) {
                 prevButtonDiv.style.display = "block";
             }
         });
         // onclick previous button 
-        prevButton.addEventListener("click", function(){
-            if(trackRoute == wholeTrip.length - 1 || wholeTrip.length == 2){
-            doneButton.style.display = "none";
-            nextButton.style.display = "block";
+        prevButton.addEventListener("click", function () {
+            if (trackRoute == wholeTrip.length - 1 || wholeTrip.length == 2) {
+                doneButton.style.display = "none";
+                nextButton.style.display = "block";
             }
-            if(trackRoute == 2) {
-            destNames.innerHTML = "<b>From</b> : " + wholeTrip[trackRoute-2] + "<br>&#8942;<br><b>To</b> : " + myDestinations[0][trackRoute-2];
-            startTriping(wholeTrip[trackRoute-2], wholeTrip[trackRoute-1]);
-            prevButtonDiv.style.display = "none";
-            trackRoute--;
+            if (trackRoute == 2) {
+                destNames.innerHTML = "<b>From</b> : " + wholeTrip[trackRoute - 2] + "<br>&#8942;<br><b>To</b> : " + myDestinations[0][trackRoute - 2];
+                startTriping(wholeTrip[trackRoute - 2], wholeTrip[trackRoute - 1]);
+                prevButtonDiv.style.display = "none";
+                trackRoute--;
             } else {
-            destNames.innerHTML = "<b>From</b> : " + myDestinations[0][trackRoute-3] + "<br>&#8942;<br><b>To</b> : " + myDestinations[0][trackRoute-2];
-            startTriping(wholeTrip[trackRoute-2], wholeTrip[trackRoute-1]);
-            trackRoute--;
+                destNames.innerHTML = "<b>From</b> : " + myDestinations[0][trackRoute - 3] + "<br>&#8942;<br><b>To</b> : " + myDestinations[0][trackRoute - 2];
+                startTriping(wholeTrip[trackRoute - 2], wholeTrip[trackRoute - 1]);
+                trackRoute--;
             }
         });
     });
@@ -594,19 +610,19 @@ function startTriping(startPoint, endPoint) {
     // show the directions in directionPanel
     directionsDisplay.setPanel(directionPanel);
     directionsService.route({
-      //convert origin and destinations into lat and lng
-      origin: startPoint,
-      destination: endPoint,
-      travelMode: selectedMode
+        //convert origin and destinations into lat and lng
+        origin: startPoint,
+        destination: endPoint,
+        travelMode: selectedMode
     }, function (response, status) {
-      if (status == 'OK') {
-          directionsDisplay.setDirections(response);
-      } else {
-          window.alert('Directions request failed due to ' + status);
-      }
+        if (status == 'OK') {
+            directionsDisplay.setDirections(response);
+        } else {
+            window.alert('Directions request failed due to ' + status);
+        }
     });
-  }
-  
+}
+
 // shows the distance to each place from the current location
 function calculateAndDisplayRouteDistance(directionsService, address, textHolder) {
     var origin = localStorage.getItem("myAddress");
@@ -686,14 +702,13 @@ function showLocationDetails(btn, btnId, type) {
         detailHolder.id = "detailHolder";
         // detailHolder.style.height = "250px";
 
-        var detailHolderContent  = document.createElement("div");
+        var detailHolderContent = document.createElement("div");
         detailHolderContent.id = "detailHolderContent"
         var link = document.createElement('a');
-        console.log(typeList[4][id]);
-        link.setAttribute('href',typeList[4][id]);
+        link.setAttribute('href', typeList[4][id]);
         link.innerHTML = typeList[4][id];
         detailHolderContent.appendChild(link);
-        detailHolderContent.innerHTML+= "<br><br>";
+        detailHolderContent.innerHTML += "<br><br>";
         detailHolderContent.innerHTML += typeList[3][id] + "<br><br>";
         detailHolder.appendChild(detailHolderContent);
 
@@ -726,7 +741,7 @@ function showLocationDetails(btn, btnId, type) {
         info.appendChild(detailHolder);
         info.appendChild(btnAddToTrip);
     })
-    }
+}
 
 //add selected location to myDestiantions
 function addToTrip(btn, btnId) {
@@ -739,9 +754,9 @@ function addToTrip(btn, btnId) {
         document.getElementById("addToTrip" + id).disabled = true;
         document.getElementById("count").innerHTML = "DESTINATIONS: " + myDestinations[0].length;
 
-       if (addOneTime == 1) {
+        if (addOneTime == 1) {
             addStartBtn();
-       }
+        }
 
     });
 }
