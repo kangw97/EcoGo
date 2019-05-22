@@ -2,19 +2,23 @@ body{
     height: 100%;
     font-family: sans-serif;
 }
+
 html{
     height: 100%;
     overflow: auto;
 }
+
 /* margin : top right bottom left */
 #map {
     height: 570px;
 }
+
 /* div underneath the map */
 #content{
     margin: 10px auto;
     height: 90%;
 }
+
 /* three divs for each option */
 div[id *= "opt"]{
     display: inline-block;
@@ -23,6 +27,7 @@ div[id *= "opt"]{
     vertical-align:top;
     margin-right: 1px;
 }
+
 /* div for icon */
 div [id *= "icon"]{
     border-radius: 50%;
@@ -31,8 +36,8 @@ div [id *= "icon"]{
     width: 90%;
     height: 70%;
     margin: 2px auto 15px auto;
-    /* border: solid 2px; */
 }
+
 /* actual button for three options */
 #Restaurant, #Retailer, #Activity{
     width: 100%;
@@ -42,10 +47,11 @@ div [id *= "icon"]{
     font-size: 10pt;
     border-radius: 10%;
     bottom: 0;
-
     background-color: white;
     color: black;
 }
+
+/* general button */
 button{
     width: 100%;
     height: 100%;
@@ -55,6 +61,7 @@ button{
     font-size: 10pt;
     border-radius: 10%;
 }
+
 /* always header of each list? each text area */
 #category{
     margin-top: 10px;
@@ -66,13 +73,13 @@ button{
     border-bottom: solid 0.5px;
 }
 
+/* div to be appended on tp category */
 #categoryText{
     padding: 5px 0 5px 5px; 
     margin-top: 20px;
-    position: absolute;
-    /* background-color: rebeccapurple; */
-    
+    position: absolute;  
 }
+
 /* contains info for each place */
 div[id*="smallDivs"]{
     margin-top: 5px;
@@ -81,8 +88,8 @@ div[id*="smallDivs"]{
     font-family: sans-serif;
     padding-bottom: 10px;
     border-bottom: solid 0.5px;
-
 }
+
 /* back button : X*/
 #back{
     width: 35px;
@@ -96,6 +103,7 @@ div[id*="smallDivs"]{
     top: 8px;
     font-size: 20px;
 }
+
 /* any btn that contains btnMore as id */
 button[id *="btnMore"]{
     width: 50px;
@@ -107,8 +115,8 @@ button[id *="btnMore"]{
     border: 2px solid black;
     font-size: 20pt;
     background: transparent;
-
 }
+
 /* any btn that contains moreInfo or addToTrip as id */
 button[id *= "moreInfo"], [id *= "addToTrip"]{
     display: inline-block;
@@ -116,14 +124,17 @@ button[id *= "moreInfo"], [id *= "addToTrip"]{
     width: 50%;
     font-size: 20px;
 }
+
 #buttonContainer{
     top: 250px;
 }
+
 /* wider back button : ADD MORE PLACES */
 #backToList{
    font-size: 20px;
    height: 60px;
 }
+
 /* Start button to show the route */
 #startTrip{
     z-index: 1;
@@ -134,6 +145,7 @@ button[id *= "moreInfo"], [id *= "addToTrip"]{
     float: right;
     top: 85px;
 }
+
 /* destination counter button */
 #count{
     z-index: 1;
@@ -142,8 +154,7 @@ button[id *= "moreInfo"], [id *= "addToTrip"]{
     margin-right: 5px;
     position: relative;
     float: right;
-    top: 15px;
-    
+    top: 15px;  
 }
 
 /*entire side bar when it is opened*/
@@ -182,6 +193,7 @@ button[id *= "moreInfo"], [id *= "addToTrip"]{
     font-size: 50px;
     margin-left: 0;  
   }
+
   /*formatting menubar */
   #notindexspan {
       border-radius: 7%;
@@ -222,38 +234,47 @@ div[id *= "textHolder"]{
     height: 50px;
     margin: 25px 0 0 75%;
 }
+
 /* info container when showing more info for each place */
 #placeHolder{
     /* height: 70px; */
     margin-bottom: 10px;
 }
+
 /* get appended to place */
 #infoContent{
     margin: 5px auto auto 10px;
     /* height: 70px; */
     font-size: 20px;
 }
+
 /* div to hold the picture of each place */
 #pictureHolder{
     margin-top: 20px;
     height: 300px;
 }
+
 /* div under the picture */
 #detailHolderContent{
     margin: 15px 8px 20px 8px;
     font-size: 20px;
 }
 
+/* icon div */
 #iconFor{
 width: 100%;
 height: 105%;
 }
+
+/* small icon div when showing the list */
 #smallIconDiv{
     width: 50px;
     height: 50px;
     margin: -10px 15px 0 0;
     float: left;
 }
+
+/* img to be appended on smallIconDiv */
 #smallIcon{
     width: 50px;
     height: 50px;
