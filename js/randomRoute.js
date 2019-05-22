@@ -539,7 +539,7 @@ function go() {
       doneButton.style.textAlign = "center";
       nextButtonDiv.appendChild(doneButton);
       doneButton.addEventListener("click", function(){
-        window.location = "../index.html";
+        window.location = "../html/finishdirection.html";
       });
     }
     // create the provious button
