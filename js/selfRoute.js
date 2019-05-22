@@ -675,7 +675,7 @@ function showLocationDetails(btn, btnId, type) {
         //name
         var name = document.createElement("div");
         name.id = "category";
-        name.innerHTML = typeList[0][id] + "</br>";
+        name.innerHTML = typeList[0][id].toUpperCase() + "</br>";
         name.style.border = "0";
         name.style.marginTop = "15px";
         name.style.fontWeight = "bold";
