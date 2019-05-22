@@ -22,9 +22,9 @@ var methodTravel, options, selectedMode;
 var trackRoute = 0;
 // arrays to store place info
 // [[name],[address],[type], [description]]
-var actArr = [[], [], [], []];
-var retArr = [[], [], [], []];
-var restArr = [[], [], [], []];
+var actArr = [[], [], [], [], []];
+var retArr = [[], [], [], [],[]];
+var restArr = [[], [], [], [],[]];
 
 //array to store the destinations selected by users
 //[[name],[address]]
@@ -191,129 +191,6 @@ btnFood.appendChild(iconFood);
 }
 
 
-// function showListBack(type){
-    
-
-//      // empty the previous content
-//      var content = document.getElementById("content");
-//      content.innerHTML = "";
- 
-//      var container = document.createElement("div");
-//      container.id = "container";
-//      var smallIcon = document.createElement("IMG");
-//      smallIcon.id = "smallIcon";
-//      smallIcon.src = "../image/"+type+"_icon.png";
- 
-//      var smallIconDiv = document.createElement("div");
-//      smallIconDiv.id = "smallIconDiv";
-//      smallIconDiv.appendChild(smallIcon);
-
-//     //  var count = document.getElementById("count");
-//     //  count.style.height = "10%";
- 
-//     //div to print what users have selected either restaurant, retailer, activity
-//     var category = document.createElement("div");
-    
-//     var categotyText = document.createElement("div");
-//    categotyText.innerHTML += "<b>"+ type.toUpperCase()+"</b>";
-//  //   categotyText.style.fontWeight = "bold";
-//     categotyText.id = "categoryText"
-    
-//     categotyText.style.fontSize = "25px";
-//     category.id = "category";
-//      categotyText.appendChild(smallIconDiv);
-//     category.appendChild(categotyText);
- 
-//      // back button to go back to three options screen
-//      var back = document.createElement("button");
-//      back.style.position = "absolute";
-//      back.style.right = "25px";
-//      back.style.top = "25px";
- 
-//      back.id = "back";
-//      back.innerHTML = "X";
-//      back.addEventListener("click", function () {
-//          //shows three options again
-//          content.innerHTML = "";
-//          //showThreeOption();
-//          createEmptyMap();
-//      })
- 
-//      category.appendChild(back);
- 
-//      content.appendChild(category);
- 
-//      if (type == "Restaurant") {
-//          typeList = restArr;
-//      } else if (type == "Retailer") {
-//          typeList = retArr;
-//      } else {
-//          typeList = actArr;
-//      }
- 
-//      //one div for each place, create the more btn as well
-//      for (var i = 0; i < typeList[0].length; i++) {
-//          var smallDivs = document.createElement("div");
-//          smallDivs.id = "smallDivs" + i;
-//         // marker icon 
-//         var markerImg = document.createElement("IMG");
-//         markerImg.setAttribute("src", markerRed);
- 
-//         // div for marker
-//         var markerHolder = document.createElement("div");
-//         markerHolder.id = "markerHolder";
-//         markerHolder.appendChild(markerImg);
- 
-//         //div for text
-//          textHolder = document.createElement("div");
-//          textHolder.id = "textHolder" + i;
- 
-//         var name = typeList[0][i];
-//         var desc = typeList[3][i];
-//         desc = desc.substr(0, 40);
-//         desc += "...";
-//         textHolder.innerHTML = "<b>"+name + "</b><br><br>";
-//         textHolder.innerHTML += desc + "<br><br>";
- 
-//         directionsService = new google.maps.DirectionsService;
-//         calculateAndDisplayRouteDistance(directionsService, typeList[1][i], textHolder.id);
- 
-//         // div for button
-//         var buttonHolder = document.createElement("div");
-//         buttonHolder.id = "buttonHolder";
- 
-//         // i button for more info
-//         var btnMore = document.createElement("button");
-//         btnMore.innerHTML = "i";
-//         btnMore.id = "btnMore" + i;
- 
-//         buttonHolder.appendChild(btnMore);
- 
-//         //event handler for more btn
-//         showMoreInfo(btnMore, btnMore.id, type);
- 
-//         smallDivs.appendChild(markerHolder);
-//         smallDivs.appendChild(textHolder);
-//         smallDivs.appendChild(buttonHolder);
-//         container.appendChild(smallDivs);
-//         var map = new google.maps.Map(document.getElementById('map'), {
-//             zoom: 11.5,
-//             center: { lat: 49.2827, lng: -123.1207 },//downtown vancouver
-//             disableDefaultUI: true,
-//             zoomControl: true,
-//             gestureHandling: 'greedy',
-    
-//         });
-
-        
-       
-//     showPinPoints(typeList[1][i], markerRed);
- 
-//      }
-//      content.appendChild(container);
-
-// }
-
 // shows the list of place, type is either food, store, activity
 function showList(type) {
 
@@ -428,9 +305,7 @@ function showList(type) {
 
     }
     content.appendChild(container);
-    // if(myDestinations[0].length>0){
-    //     addStartBtn();
-    // }
+  
 }
 
 //extract number from string, so that the id matches with the index of firebase database
@@ -446,13 +321,10 @@ function showMoreInfo(btn, btnId, type) {
        
      
         var regMap = document.getElementById("map");
-        regMap.style.height = "550px";
+        regMap.style.height = "500px";
         regMap.style.position = "relative";
         regMap.style.visibility = "visible";
 
-    
-
-        // var document.getElementById("count")
 
          // place holder for info
          var info = document.createElement("div");
@@ -461,7 +333,7 @@ function showMoreInfo(btn, btnId, type) {
 
         var infoContent = document.createElement("div");
         infoContent.id = "infoContent";
-        infoContent.innerHTML = "DISTANCE &nbsp"
+        infoContent.innerHTML = "DISTANCE &nbsp";
  
 
         var id = getId(btnId);
@@ -483,8 +355,6 @@ function showMoreInfo(btn, btnId, type) {
  
         });
         showDestinations(myDestinations);
-        // var c = document.getElementById("count");
-        // c.style.height = "10%";
 
         // converting address into lat and lng for recentering the map
         geocoder.geocode({ "address": typeList[1][id] }, function (results, status) {
@@ -511,14 +381,18 @@ function showMoreInfo(btn, btnId, type) {
         // name of the place
         var name = document.createElement("div");
         name.id = "category";
-        name.innerHTML = typeList[0][id].toUpperCase();
+        name.innerHTML = "<b>"+typeList[0][id].toUpperCase()+"</b>"+"<br>";
+        name.style.marginTop = "25px";
+        name.style.marginLeft = "10px";
         name.style.border = "0";
-        name.style.height = "60px"
+        // name.style.height = "100px"
+         name.style.fontSize = "33px";
        
         // more info button
         var btnMoreInfo = document.createElement("button");
         btnMoreInfo.id = "moreInfo" + id;
         btnMoreInfo.innerHTML = "MORE INFO";
+     
 
         showLocationDetails(btnMoreInfo, btnMoreInfo.id, type);
 
@@ -546,6 +420,9 @@ function showMoreInfo(btn, btnId, type) {
         back.addEventListener("click", function () {
             showList(type);
         });
+        back.style.position = "absolute";
+        back.style.top = "0";
+    
         name.appendChild(back);
         info.appendChild(infoContent);
 
@@ -742,7 +619,7 @@ function calculateAndDisplayRouteDistance(directionsService, address, textHolder
         if (status === 'OK') {
             var route = response.routes[0];
             for (var i = 0; i < route.legs.length; i++) {
-                document.getElementById(textHolder).innerHTML += route.legs[i].distance.text;
+                document.getElementById(textHolder).innerHTML += route.legs[i].distance.text + "<br><br>";
             }
         } else {
             window.alert('Directions request failed due to ' + status);
@@ -800,6 +677,9 @@ function showLocationDetails(btn, btnId, type) {
         name.id = "category";
         name.innerHTML = typeList[0][id] + "</br>";
         name.style.border = "0";
+        name.style.marginTop = "15px";
+        name.style.fontWeight = "bold";
+        name.style.fontSize = "35px";
 
         // detail
         var detailHolder = document.createElement("div");
@@ -808,6 +688,12 @@ function showLocationDetails(btn, btnId, type) {
 
         var detailHolderContent  = document.createElement("div");
         detailHolderContent.id = "detailHolderContent"
+        var link = document.createElement('a');
+        console.log(typeList[4][id]);
+        link.setAttribute('href',typeList[4][id]);
+        link.innerHTML = typeList[4][id];
+        detailHolderContent.appendChild(link);
+        detailHolderContent.innerHTML+= "<br><br>";
         detailHolderContent.innerHTML += typeList[3][id] + "<br><br>";
         detailHolder.appendChild(detailHolderContent);
 
@@ -876,6 +762,7 @@ function getPlaces(type) {
             var zip = info[k].ZipCode;
             var type = info[k].Category;
             var des = info[k].Description;
+            var website = info[k].WebSite;
             var address = street + ", " + city + ", " + state;
 
 
@@ -884,17 +771,20 @@ function getPlaces(type) {
                 restArr[1][i] = address;
                 restArr[2][i] = type;
                 restArr[3][i] = des;
+                restArr[4][i] = website;
             } else if (type == "Retailer") {
 
                 retArr[0][i] = name;
                 retArr[1][i] = address;
                 retArr[2][i] = type;
                 retArr[3][i] = des;
+                retArr[4][i] = website;
             } else {
                 actArr[0][i] = name;
                 actArr[1][i] = address;
                 actArr[2][i] = type;
                 actArr[3][i] = des;
+                actArr[4][i] = website;
             }
         }
     });
