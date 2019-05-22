@@ -47,7 +47,7 @@ $("#send").click(function () {
     var des = document.getElementById("description").value;
     var rootRef = firebase.database().ref().child(userCategory);
 
-    if (userCategory != "Select a category:" && bname != "" && street != "" && city != "" && state != "" && zip_code != "" && phone != "" && des != "") {
+    if (userCategory != "Select a category:" && bname != "" && street != "" && city != "" && state != "" && country != "" && des != "") {
         rootRef.push({
             "Category": userCategory,
             "Name": bname,
