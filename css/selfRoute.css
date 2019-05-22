@@ -148,6 +148,7 @@ button[id *= "moreInfo"], [id *= "addToTrip"]{
 
 /*entire side bar when it is opened*/
 .sidenav {
+    font-family: "Rajdhani";
     height: 100%;
     position: fixed;
     width: 0;
