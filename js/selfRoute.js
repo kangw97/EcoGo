@@ -417,8 +417,8 @@ function showMoreInfo(btn, btnId, type) {
         name.style.marginTop = "25px";
         name.style.marginLeft = "10px";
         name.style.border = "0";
-        // name.style.height = "100px"
-        name.style.fontSize = "33px";
+         name.style.width = "330px";
+        name.style.fontSize = "30px";
 
         // more info button
         var btnMoreInfo = document.createElement("button");
@@ -444,6 +444,11 @@ function showMoreInfo(btn, btnId, type) {
         if (myDestinations[0].length > 0) {
             addStartBtn();
         }
+        var backDiv = document.createElement("div");
+        backDiv.id = "backDiv";
+        backDiv.style.position = "absolute";
+        backDiv.style.margin = "-78px 0 0 360px";
+        backDiv.style.width = "35px";
 
         //back to list
         var back = document.createElement("button");
@@ -455,10 +460,13 @@ function showMoreInfo(btn, btnId, type) {
         back.style.position = "absolute";
         back.style.top = "0";
 
-        name.appendChild(back);
+        backDiv.appendChild(back);
+
+       // name.appendChild(back);
         info.appendChild(infoContent);
 
         content.appendChild(name);
+        content.appendChild(backDiv);
         content.appendChild(info);
         content.appendChild(btnMoreInfo);
         content.appendChild(btnAddToTrip);

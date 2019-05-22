@@ -321,7 +321,7 @@ function showMoreInfo(btnMoreInfo){
       titleDiv.style.position = "absolute";
       titleDiv.style.margin = "-320px 0";
       titleDiv.innerHTML = myTrip[0][btnMoreInfo.id];
-      titleDiv.style.fontSize = "20px";
+      titleDiv.style.fontSize = "25px";
       titleDiv.style.fontWeight = "bold";
       titleDiv.style.fontFamily = "sans-serif";
       // css for bakc button 
