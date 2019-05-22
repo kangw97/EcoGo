@@ -1,7 +1,6 @@
 body{
     height: 100%;
-    font-family: 'Rajdhani';
-    font-weight: bold;
+    font-family: sans-serif;
 }
 html{
     height: 100%;
@@ -9,7 +8,7 @@ html{
 }
 /* margin : top right bottom left */
 #map {
-    height: 500px;
+    height: 570px;
 }
 /* div underneath the map */
 #content{
@@ -32,7 +31,7 @@ div [id *= "icon"]{
     width: 90%;
     height: 70%;
     margin: 2px auto 15px auto;
-    border: solid 2px;
+    /* border: solid 2px; */
 }
 /* actual button for three options */
 #Restaurant, #Retailer, #Activity{
@@ -43,7 +42,7 @@ div [id *= "icon"]{
     font-size: 10pt;
     border-radius: 10%;
     bottom: 0;
-    border: solid 2px;
+
     background-color: white;
     color: black;
 }
@@ -58,19 +57,26 @@ button{
 }
 /* always header of each list? each text area */
 #category{
+    margin-top: 10px;
     font-size: 35px;
     margin-left: 10px;
     text-align: left;
     position: relative;
+    height: 80px;
+    border-bottom: solid 0.5px;
 }
 
 #categoryText{
     padding: 5px 0 5px 5px; 
+    margin-top: 20px;
+    position: absolute;
+    /* background-color: rebeccapurple; */
+    
 }
 /* contains info for each place */
 div[id*="smallDivs"]{
     margin-top: 5px;
-    height: 100px;
+    height: 120px;
     width: 100%;
     font-family: sans-serif;
     padding-bottom: 10px;
@@ -87,7 +93,7 @@ div[id*="smallDivs"]{
     border-radius: 10%;
     position: absolute;
     right: 10px;
-    top: 10px;
+    top: 8px;
     font-size: 20px;
 }
 /* any btn that contains btnMore as id */
@@ -122,20 +128,21 @@ button[id *= "moreInfo"], [id *= "addToTrip"]{
 #startTrip{
     z-index: 1;
     width: 120px;
-    height: 10%;;
+    height: 70px;
     position: relative;
     left: 120px;
     float: right;
-    top: 14%;
+    top: 85px;
 }
 /* destination counter button */
 #count{
     z-index: 1;
     width: 120px;
-    height: 10%;;
+    height: 70px;
+    margin-right: 5px;
     position: relative;
     float: right;
-    top: 4%;
+    top: 15px;
     
 }
 
@@ -216,7 +223,7 @@ div[id *= "textHolder"]{
 }
 /* info container when showing more info for each place */
 #placeHolder{
-    height: 70px;
+    /* height: 70px; */
     margin-bottom: 10px;
 }
 /* get appended to place */
@@ -232,6 +239,21 @@ div[id *= "textHolder"]{
 }
 /* div under the picture */
 #detailHolderContent{
-    margin: auto 8px 20px 8px;
+    margin: 15px 8px 20px 8px;
     font-size: 20px;
+}
+
+#iconFor{
+width: 100%;
+height: 105%;
+}
+#smallIconDiv{
+    width: 50px;
+    height: 50px;
+    margin: -10px 15px 0 0;
+    float: left;
+}
+#smallIcon{
+    width: 50px;
+    height: 50px;
 }
