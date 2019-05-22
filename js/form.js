@@ -13,10 +13,10 @@ function uploadFile() {
         var updates = {};
         var postData = {
             url: downloadURL
-        }
+        };
         updates['/Posts/' + postKey] = postData;
         firebase.database().ref().update(updates);
-    }
+    };
 }
 var selectedFile;
 $("#file").on("change", function (event) {
@@ -231,7 +231,7 @@ function closeAllSelect(elmnt) {
   y = document.getElementsByClassName("select-selected");
   for (i = 0; i < y.length; i++) {
     if (elmnt == y[i]) {
-      arrNo.push(i)
+      arrNo.push(i);
     } else {
       y[i].classList.remove("select-arrow-active");
     }

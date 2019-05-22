@@ -107,7 +107,7 @@ function showPinPoints(address, markerURL) {
             var longitude = results[0].geometry.location.lng();
             var myLatLng = {
                 lat: latitude, lng: longitude
-            }
+            };
             // marker
             marker = new google.maps.Marker({
                 position: myLatLng,
@@ -201,13 +201,13 @@ function showThreeOption() {
     //event handler, pass in the btnFood.id which is the type
     btnFood.addEventListener("click", function () {
         showList(btnFood.id);
-    })
+    });
     btnRetailer.addEventListener("click", function () {
         showList(btnRetailer.id);
-    })
+    });
     btnAct.addEventListener("click", function () {
         showList(btnAct.id);
-    })
+    });
 }
 
 
@@ -243,7 +243,7 @@ function showList(type) {
  } else {
      categotyText.innerHTML += "<b>" + type.toUpperCase() + "</b>";
  }
- categotyText.id = "categoryText"
+ categotyText.id = "categoryText";
  categotyText.style.fontSize = "25px";
  category.id = "category";
  categotyText.appendChild(smallIconDiv);
@@ -259,7 +259,7 @@ function showList(type) {
  back.addEventListener("click", function () {
      content.innerHTML = "";
      createEmptyMap();
- })
+ });
 
  // append the back button on to the category div
  category.appendChild(back);
@@ -303,7 +303,7 @@ function showList(type) {
      textHolder.innerHTML += desc + "<br><br>";
 
      // to calculate the distance to each place from the current location
-     directionsService = new google.maps.DirectionsService;
+     directionsService = new google.maps.DirectionsService();
      calculateAndDisplayRouteDistance(
          directionsService, typeList[1][i], textHolder.id);
 
@@ -367,11 +367,11 @@ function showMoreInfo(btn, btnId, type) {
         content.innerHTML = " ";
         var latitude, longitude;
 
-        directionsService = new google.maps.DirectionsService;
-        directionsDisplay = new google.maps.DirectionsRenderer;
+        directionsService = new google.maps.DirectionsService();
+        directionsDisplay = new google.maps.DirectionsRenderer();
         // get the distance to that specific place from current location
         calculateAndDisplayRouteDistance(
-            directionsService, typeList[1][id], infoContent.id)
+            directionsService, typeList[1][id], infoContent.id);
 
         //reinitialize the map so that they can be centered and zoomed in
         // to one specific location
@@ -388,12 +388,11 @@ function showMoreInfo(btn, btnId, type) {
         // converting address into lat and lng for recentering the map
         geocoder.geocode({ "address": typeList[1][id] },
             function (results, status) {
-                if ((status == google.maps.GeocoderStatus.OK)) {
                     latitude = results[0].geometry.location.lat();
                     longitude = results[0].geometry.location.lng();
                     var myLatLng = {
                         lat: latitude, lng: longitude
-                    }
+                    };
                     //recenter the map and zoom into one specific location
                     // show only one marker
                     map.setCenter(myLatLng);
@@ -405,7 +404,7 @@ function showMoreInfo(btn, btnId, type) {
                     icon: {
                         url: markerRed,
                     },
-                    animation: google.maps.Animation.DROP,
+                    animation: google.maps.Animation.DROP
                 });
             });
 
