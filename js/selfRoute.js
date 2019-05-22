@@ -397,7 +397,6 @@ function showMoreInfo(btn, btnId, type) {
                     // show only one marker
                     map.setCenter(myLatLng);
                     map.setZoom(15);
-                }
                 var marker = new google.maps.Marker({
                     position: myLatLng,
                     map: map,
