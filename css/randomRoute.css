@@ -1,6 +1,8 @@
+/* css for body */
 body{
   font-family: "Rajdhani";
 }
+/* css for map div */
 #map {
     height: 400px;
 }
