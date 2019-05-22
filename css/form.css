@@ -1,27 +1,31 @@
+/* css for the whole body div */
 #container {
   margin-top: 100px;
 }
-
+/* css for the whole form div */
 #form {
-    text-align: left;
-    margin: 0 2% 0 2%;
+  text-align: left;
+  margin: 0 2% 0 2%;
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 1%;
 }
-
+/* css for the send button */
 #send {
     position: absolute;
     margin-bottom: 1em;
+    margin-left: 14%;
 }
-
+/* css for the description div */
 #description {
   padding: 40px;
 }
-
+/* css for the labels */
 label {
     margin-top: 2px;
     font-size: 14pt;
-
 }
-
+/* css for the input, textarea and select div */
 input, select, textarea {
   display: block;
   width: 100%;
@@ -31,9 +35,8 @@ input, select, textarea {
   resize: vertical;
   font-size: 20px;
   text-align: center;
-
 }
-
+/* css for the button */
 button {
   position: absolute;
   color: white;
@@ -42,21 +45,15 @@ button {
   border-radius: 5px;
   cursor: pointer;
 }
-
+/* css for hover effect */
 button:hover {
   background-color: #1e1d1d;
 }
-
-#form {
-  border-radius: 5px;
-  background-color: #f2f2f2;
-  padding: 1%;
-}
-
+/* css for autocomplete field */
 .autocomplete {
   position: relative;
 }
-
+/* css for autocomplete-items and option field */
 .autocomplete-items, option {
   position: absolute;
   border: 1px solid #d4d4d4;
@@ -67,31 +64,31 @@ button:hover {
   left: 0;
   right: 0;
 }
-
+/* css for autocomplete-item div */
 .autocomplete-items div {
   padding: 10px;
   cursor: pointer;
   background-color: #fff; 
   border-bottom: 1px solid #d4d4d4; 
 }
-
+/* css for hover effect */
 .autocomplete-items div:hover {
   background-color: #e9e9e9; 
 }
-
+/* css for autocomplete active */
 .autocomplete-active {
   background-color: #e9e9e9 !important; 
   color: #ffffff; 
 }
-
+/* css for select */
 .custom-select {
   position: relative;
 }
-
+/* css for select */
 .custom-select select {
   display: none;
 }
-
+/* css for after select */
 .select-selected:after {
   position: absolute;
   content: "";
@@ -102,12 +99,12 @@ button:hover {
   border: 6px solid transparent;
   border-color: #000 transparent transparent transparent;
 }
-
+/* css for select after */
 .select-selected.select-arrow-active:after {
   border-color: transparent transparent #000 transparent;
   top: 7px;
 }
-
+/* css for select after */
 .select-items div,.select-selected {
   color: #757575;
   padding: 12px 16px;
@@ -117,13 +114,13 @@ button:hover {
   border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
   cursor: pointer;
 }
-
+/* css for selected item */
 .select-selected {
   background-color: white;
   border: 1px solid #ccc;
   border-radius: 10px;
 }
-
+/* css for selected items */
 .select-items {
   position: absolute;
   background-color: #f9f9f9;
@@ -132,11 +129,11 @@ button:hover {
   right: 0;
   z-index: 99;
 }
-
+/* css for select hide */
 .select-hide {
   display: none;
 }
-
+/* css for hover */
 .select-items div:hover, .same-as-selected {
   background-color: rgba(0, 0, 0, 0.1);
 }

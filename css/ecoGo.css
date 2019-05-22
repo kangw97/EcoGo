@@ -1,3 +1,4 @@
+/* css for body */
 body {
     font-family: 'Rajdhani';
     text-align: center;
@@ -9,7 +10,6 @@ body {
     z-index: -1;
     overflow: scroll;
 }
-
 /* location input text box */
 input{
     font-size: 15pt;
@@ -21,6 +21,7 @@ input{
     border-bottom: 1pt solid;
 
  }
+ /* css for header */
 #header {
     position: fixed;
 }
@@ -38,10 +39,12 @@ button:focus, textarea {
     margin-left: -150px;
     height: 150px;
 }
+/* css for img */
 #divLogo img {
     position: absolute;
     height: 120px;
 }
+/* css for buttons */
 button {
     background-color: black;
     color: white;
@@ -56,13 +59,18 @@ button {
     margin-top: 30px; 
     border-radius: 10%;
 }
+
+/* css for hovering over buttons */
 button:hover {
   background-color: #1e1d1d;
 }
+
+/* css for legend */
 legend {
     font-size: 15pt;
     border-bottom: 0;
 }
+/* css for button div */
 #divBtn{
     margin: auto;
     margin-top: 60px;
@@ -94,13 +102,11 @@ legend {
 .pac-item:active{
     background-color: yellow;
 }
-#aboutUs {
-    font-size: pt; 
-    margin-left: pt;
-}
+/* css for join us div */
 #joinUsP {
     margin: 0 12pt 12pt 12pt;
 }
+/* css for error html */
 #errorHtml {
     background: url("../image/factory.png") no-repeat center center fixed;
     -webkit-background-size: cover;
@@ -108,30 +114,37 @@ legend {
     -o-background-size: cover;
     background-size: cover;
 }
+/* css for error body */
 #errorBody {
     margin-top: -3em;
 }
+/* css for error content */
 #errorContent {
     position: absolute;
     margin: 30pt 0 0 0;
 }
+/* css for error paragraph */
 #errorP {
     font-size: 30pt;
     margin: 0 auto;
 }
+/* css for error para div 2 */
 #errorP2 {
     font-size: 18pt;
     margin: 0 auto;
 }
+/* css for error text */
 #errorText {
     margin-top: -1em;
     text-align: center;
 }
+/* css for error 404 */
 #error404 {
     font-size: 105pt;
     color: #8fb04a;
     display: inline-flex;
 }
+/* css for error 404 image*/
 .image404 {
     display: block;
     top: 50%;
@@ -149,7 +162,6 @@ legend {
 @keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
 
 /* Homepage falling leaves css and animations */
-
 .leaves {
   color: #fff;
   font-size: 1em;
@@ -194,7 +206,7 @@ legend {
         transform:translateX(80px);
     }
 }
-
+/* css for leaf class */
 .leaf{
     position:fixed;
     top:-10%;
@@ -215,71 +227,71 @@ legend {
     animation-iteration-count:infinite,infinite;
     animation-play-state:running,running;
 }
-
+/* css for leaves */
 .leaf:nth-of-type(0){
     left:1%;
     -webkit-animation-delay:0s,0s;
     animation-delay:0s,0s;
 }
-
+/* css for leaves */
 .leaf:nth-of-type(1){
     left:10%;
     -webkit-animation-delay:1s,1s;
     animation-delay:1s,1s;
 }
-
+/* css for leaves */
 .leaf:nth-of-type(2){
     left:20%;
     -webkit-animation-delay:6s,.5s;
     animation-delay:6s,.5s;
 }
-
+/* css for leaves */
 .leaf:nth-of-type(3){
     left:30%;-webkit-animation-delay:4s,2s;
     animation-delay:4s,2s;
 }
-
+/* css for leaves */
 .leaf:nth-of-type(4){
     left:40%;
     -webkit-animation-delay:2s,2s;
     animation-delay:2s,2s;
 }
-
+/* css for leaves */
 .leaf:nth-of-type(5){
     left:50%;
     -webkit-animation-delay:8s,3s;
     animation-delay:8s,3s;
 }
-
+/* css for leaves */
 .leaf:nth-of-type(6){
     left:60%;
     -webkit-animation-delay:6s,2s;
     animation-delay:6s,2s;
 }
-
+/* css for leaves */
 .leaf:nth-of-type(7){
     left:70%;
     -webkit-animation-delay:2.5s,1s;
     animation-delay:2.5s,1s;
 }
-
+/* css for leaves */
 .leaf:nth-of-type(8){
     left:80%;
     -webkit-animation-delay:1s,0s;
     animation-delay:1s,0s;
 }
-
+/* css for leaves */
 .leaf:nth-of-type(9){
     left:90%;-webkit-animation-delay:3s,1.5s;
     animation-delay:3s,1.5s;
 }
-
+/* css for leaves */
 .leaf:nth-of-type(10){
     left:25%;
     -webkit-animation-delay:2s,0s;
     animation-delay:2s,0s;
 }
-
+/* css for leaves */
 .leaf:nth-of-type(11){
     left:65%;
     -webkit-animation-delay:4s,2.5s;
