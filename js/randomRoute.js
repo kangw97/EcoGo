@@ -246,8 +246,9 @@ function tripList(){
 
     // css for 4 desination description divs
     descriptions[i].style.margin = "5px 0 0 80px";
-    descriptions[i].style.width = "45%";
+    descriptions[i].style.width = "55%";
     descriptions[i].style.height = "90px";
+    descriptions[i].style.fontSize = "15px";
     descriptions[i].style.position = "absolute";
     descriptions[i].innerHTML = "<b>" + myTrip[0][i] + "</b><br><br>";
     descriptions[i].innerHTML += myTrip[2][i] + "<br><br>";
@@ -315,11 +316,12 @@ function showMoreInfo(btnMoreInfo){
       var titleDiv = document.createElement("div");
       mainDiv.style.marginTop = "-80px";
       // css for titleDiv
+      titleDiv.style.width = "300px";
       titleDiv.style.height = "50px";
       titleDiv.style.position = "absolute";
       titleDiv.style.margin = "-320px 0";
       titleDiv.innerHTML = myTrip[0][btnMoreInfo.id];
-      titleDiv.style.fontSize = "27px";
+      titleDiv.style.fontSize = "20px";
       titleDiv.style.fontWeight = "bold";
       titleDiv.style.fontFamily = "sans-serif";
       // css for bakc button 
