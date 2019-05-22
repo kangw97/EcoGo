@@ -19,7 +19,7 @@ var mainDiv;
 // diretionPanel holds the diretions
 var directionPanel;
 // method of travel
-var methodTravel; var options; selectedMode;
+var methodTravel, options, selectedMode;
 // trackRoute to keep track of index
 var trackRoute = 0;
 // arrays to store place info
@@ -45,18 +45,18 @@ var textHolder;
 
 function self() {
     // check if user entry is empty
-    var fill = document.getElementById("adEntry").value;
+    var fill = document.getElementById('adEntry').value;
     if (fill == "") {
         alert("Enter Your Location");
     } else {
-        // user"s current location (the address they typed in on the homepage)
-        var address = document.getElementById("adEntry").value;
+        // user's current location (the address they typed in on the homepage)
+        var address = document.getElementById('adEntry').value;
         localStorage.setItem("myAddress", address);
         window.location = "./html/selfRoute.html";
     }
 }
 
-//initial map page centered at user"s location
+//initial map page centered at user's location
 function createEmptyMap() {
     // get all the location info from firebase
     getPlaces("Restaurant");
@@ -68,21 +68,20 @@ function createEmptyMap() {
     //shows the three options/category
     showThreeOption();
 
-    map = new google.maps.Map(document.getElementById("map"), {
+    map = new google.maps.Map(document.getElementById('map'), {
         zoom: 11,
         center: { lat: 49.2827, lng: -123.1207 }, //downtown vancouver
         disableDefaultUI: true,
         zoomControl: true,
-        gestureHandling: "greedy"
+        gestureHandling: 'greedy'
     });
 
-    // show the pin points of all the locations
-    // that was added to the user"s trip
+    // show the pin points of all the locations that was added to the user's trip
     showDestinations(myDestinations);
 
     //show pinpoints of current location using blue marker
     showPinPoints(localStorage.getItem("myAddress"), markerBlue);
-
+    
     // add the start button only for the first time
     if (addOneTime > 0) {
         addStartBtn();
@@ -93,7 +92,7 @@ function createEmptyMap() {
 function showDestinations(array) {
     countDest.innerHTML = "DESTINATIONS: " + array[0].length;
     document.getElementById("map").appendChild(countDest);
-    // show the pinpoints of every places in the array
+    // show the pinpoints of every places in the array 
     for (var i = 0; i < array[1].length; i++) {
         showPinPoints(array[1][i], markerRed);
     }
@@ -214,130 +213,129 @@ function showThreeOption() {
 
 // shows the list of place, type is either food, store, activity
 function showList(type) {
-    // resizing the map to show more of the list
-    var regMap = document.getElementById("map");
-    regMap.style.height = "300px";
-    // empty the previous content
-    var content = document.getElementById("content");
-    content.innerHTML = "";
-    var container = document.createElement("div");
-    container.id = "container";
-    // icon for each category
-    var smallIcon = document.createElement("IMG");
-    smallIcon.id = "smallIcon";
-    smallIcon.src = "../image/" + type + "_icon.png";
-    // div to contain the small icon
-    var smallIconDiv = document.createElement("div");
-    smallIconDiv.id = "smallIconDiv";
-    //append the icon on to the div
-    smallIconDiv.appendChild(smallIcon);
+ // resizing the map to show more of the list
+ var regMap = document.getElementById("map");
+ regMap.style.height = "300px";
+ // empty the previous content
+ var content = document.getElementById("content");
+ content.innerHTML = "";
+ var container = document.createElement("div");
+ container.id = "container";
+ // icon for each category
+ var smallIcon = document.createElement("IMG");
+ smallIcon.id = "smallIcon";
+ smallIcon.src = "../image/" + type + "_icon.png";
+ // div to contain the small icon
+ var smallIconDiv = document.createElement("div");
+ smallIconDiv.id = "smallIconDiv";
+ //append the icon on to the div
+ smallIconDiv.appendChild(smallIcon);
 
-    //div to print what users have selected
-    //either restaurant, retailer, activity
-    var category = document.createElement("div");
-    // div for the text
-    var categotyText = document.createElement("div");
-    // catrgoty gets printed in uppercase
-    // append "S" for restaurant and retaielr
-    if (type === "Restaurant" || type === "Retailer") {
-        categotyText.innerHTML += "<b>" + type.toUpperCase() + "S" + "</b>";
-    } else {
-        categotyText.innerHTML += "<b>" + type.toUpperCase() + "</b>";
-    }
-    categotyText.id = "categoryText"
-    categotyText.style.fontSize = "25px";
-    category.id = "category";
-    categotyText.appendChild(smallIconDiv);
-    category.appendChild(categotyText);
+ //div to print what users have selected
+ //either restaurant, retailer, activity
+ var category = document.createElement("div");
+ // div for the text
+ var categotyText = document.createElement("div");
+ // catrgoty gets printed in uppercase
+ // append "S" for restaurant and retaielr
+ if (type === "Restaurant" || type === "Retailer") {
+     categotyText.innerHTML += "<b>" + type.toUpperCase() + "S" + "</b>";
+ } else {
+     categotyText.innerHTML += "<b>" + type.toUpperCase() + "</b>";
+ }
+ categotyText.id = "categoryText"
+ categotyText.style.fontSize = "25px";
+ category.id = "category";
+ categotyText.appendChild(smallIconDiv);
+ category.appendChild(categotyText);
 
-    // back button to go back to three options screen
-    var back = document.createElement("button");
-    back.style.position = "absolute";
-    back.style.right = "25px";
-    back.style.top = "25px";
-    back.id = "back";
-    back.innerHTML = "X";
-    back.addEventListener("click", function () {
-        content.innerHTML = "";
-        createEmptyMap();
-    })
+ // back button to go back to three options screen
+ var back = document.createElement("button");
+ back.style.position = "absolute";
+ back.style.right = "25px";
+ back.style.top = "25px";
+ back.id = "back";
+ back.innerHTML = "X";
+ back.addEventListener("click", function () {
+     content.innerHTML = "";
+     createEmptyMap();
+ })
 
-    // append the back button on to the category div
-    category.appendChild(back);
-    content.appendChild(category);
+ // append the back button on to the category div
+ category.appendChild(back);
+ content.appendChild(category);
 
-    // assign the typelist depends on the parameter type
-    if (type == "Restaurant") {
-        typeList = restArr;
-    } else if (type == "Retailer") {
-        typeList = retArr;
-    } else {
-        typeList = actArr;
-    }
+ // assign the typelist depends on the parameter type
+ if (type == "Restaurant") {
+     typeList = restArr;
+ } else if (type == "Retailer") {
+     typeList = retArr;
+ } else {
+     typeList = actArr;
+ }
 
-    //one div for each place, create the more btn as well
-    for (var i = 0; i < typeList[0].length; i++) {
-        var smallDivs = document.createElement("div");
-        smallDivs.id = "smallDivs" + i;
-        // marker icon
-        var markerImg = document.createElement("IMG");
-        markerImg.setAttribute("src", markerRed);
+ //one div for each place, create the more btn as well
+ for (var i = 0; i < typeList[0].length; i++) {
+     var smallDivs = document.createElement("div");
+     smallDivs.id = "smallDivs" + i;
+     // marker icon
+     var markerImg = document.createElement("IMG");
+     markerImg.setAttribute("src", markerRed);
 
-        // div for marker
-        var markerHolder = document.createElement("div");
-        markerHolder.id = "markerHolder";
-        markerHolder.appendChild(markerImg);
+     // div for marker
+     var markerHolder = document.createElement("div");
+     markerHolder.id = "markerHolder";
+     markerHolder.appendChild(markerImg);
 
-        //div for text
-        textHolder = document.createElement("div");
-        textHolder.id = "textHolder" + i;
+     //div for text
+     textHolder = document.createElement("div");
+     textHolder.id = "textHolder" + i;
 
-        //name of the place
-        var name = typeList[0][i];
-        // descriptiom of the place
-        var desc = typeList[3][i];
-        // only shows the 40 characters of the description
-        desc = desc.substr(0, 40);
-        desc += "...";
-        // prints name followed by the 40 char desc
-        textHolder.innerHTML = "<b>" + name + "</b><br><br>";
-        textHolder.innerHTML += desc + "<br><br>";
+     //name of the place
+     var name = typeList[0][i];
+     // descriptiom of the place
+     var desc = typeList[3][i];
+     // only shows the 40 characters of the description
+     desc = desc.substr(0, 40);
+     desc += "...";
+     // prints name followed by the 40 char desc
+     textHolder.innerHTML = "<b>" + name + "</b><br><br>";
+     textHolder.innerHTML += desc + "<br><br>";
 
-        // to calculate the distance to each place from the current location
-        directionsService = new google.maps.DirectionsService;
-        calculateAndDisplayRouteDistance(
-            directionsService, typeList[1][i], textHolder.id);
+     // to calculate the distance to each place from the current location
+     directionsService = new google.maps.DirectionsService;
+     calculateAndDisplayRouteDistance(
+         directionsService, typeList[1][i], textHolder.id);
 
-        // div for button
-        var buttonHolder = document.createElement("div");
-        buttonHolder.id = "buttonHolder";
+     // div for button
+     var buttonHolder = document.createElement("div");
+     buttonHolder.id = "buttonHolder";
 
-        // i button for more info
-        var btnMore = document.createElement("button");
-        btnMore.innerHTML = "i";
-        btnMore.id = "btnMore" + i;
+     // i button for more info
+     var btnMore = document.createElement("button");
+     btnMore.innerHTML = "i";
+     btnMore.id = "btnMore" + i;
 
-        buttonHolder.appendChild(btnMore);
+     buttonHolder.appendChild(btnMore);
 
-        //event handler for more button
-        showMoreInfo(btnMore, btnMore.id, type);
+     //event handler for more button
+     showMoreInfo(btnMore, btnMore.id, type);
 
-        // append all the elements that have to be on each smallDiv
-        smallDivs.appendChild(markerHolder);
-        smallDivs.appendChild(textHolder);
-        smallDivs.appendChild(buttonHolder);
-        container.appendChild(smallDivs);
+     // append all the elements that have to be on each smallDiv
+     smallDivs.appendChild(markerHolder);
+     smallDivs.appendChild(textHolder);
+     smallDivs.appendChild(buttonHolder);
+     container.appendChild(smallDivs);
 
-        // show the pinpoints of the each place on the list
-        showPinPoints(typeList[1][i], markerRed);
+     // show the pinpoints of the each place on the list
+     showPinPoints(typeList[1][i], markerRed);
 
-    }
-    content.appendChild(container);
+ }
+ content.appendChild(container);
 
 }
 
-//extract number from string,
-//so that the id matches with the index of firebase database
+//extract number from string, so that the id matches with the index of firebase database
 function getId(btnId) {
     var id = btnId.match(/\d/g);
     id = id.join("");
@@ -521,8 +519,7 @@ function addStartBtn() {
         biking.value = "BICYCLING";
         trans.value = "TRANSIT";
         // innerhtml for destination names
-        destNames.innerHTML = "<b>From</b> : " + wholeTrip[trackRoute]
-            + "<br>&#8942;<br><b>To</b> : " + myDestinations[0][trackRoute];
+        destNames.innerHTML = "<b>From</b> : " + wholeTrip[trackRoute] + "<br>&#8942;<br><b>To</b> : " + myDestinations[0][trackRoute];
         // css for destination names, from ... to ...
         destNames.style.width = "300px";
         destNames.style.fontSize = "13pt";
@@ -577,16 +574,13 @@ function addStartBtn() {
             nextButton.style.display = "none";
             doneButton.style.display = "block";
         }
-        options.addEventListener("change", function () {
+        options.addEventListener('change', function () {
             startTriping(wholeTrip[trackRoute - 1], wholeTrip[trackRoute]);
             console.log(selectedMode);
         });
         // onlick next button
         nextButton.addEventListener("click", function () {
-            destNames.innerHTML = "<b>From</b> : " +
-                myDestinations[0][trackRoute - 1] +
-                "<br>&#8942;<br><b>To</b> : " +
-                myDestinations[0][trackRoute];
+            destNames.innerHTML = "<b>From</b> : " + myDestinations[0][trackRoute - 1] + "<br>&#8942;<br><b>To</b> : " + myDestinations[0][trackRoute];
             startTriping(wholeTrip[trackRoute], wholeTrip[++trackRoute]);
             if (trackRoute == wholeTrip.length - 1 || wholeTrip.length == 2) {
                 nextButton.style.display = "none";
@@ -597,28 +591,20 @@ function addStartBtn() {
                 prevButtonDiv.style.display = "block";
             }
         });
-        // onclick previous button
+        // onclick previous button 
         prevButton.addEventListener("click", function () {
             if (trackRoute == wholeTrip.length - 1 || wholeTrip.length == 2) {
                 doneButton.style.display = "none";
                 nextButton.style.display = "block";
             }
             if (trackRoute == 2) {
-                destNames.innerHTML = "<b>From</b> : " +
-                    wholeTrip[trackRoute - 2] +
-                    "<br>&#8942;<br><b>To</b> : " +
-                    myDestinations[0][trackRoute - 2];
-                startTriping(wholeTrip[trackRoute - 2],
-                    wholeTrip[trackRoute - 1]);
+                destNames.innerHTML = "<b>From</b> : " + wholeTrip[trackRoute - 2] + "<br>&#8942;<br><b>To</b> : " + myDestinations[0][trackRoute - 2];
+                startTriping(wholeTrip[trackRoute - 2], wholeTrip[trackRoute - 1]);
                 prevButtonDiv.style.display = "none";
                 trackRoute--;
             } else {
-                destNames.innerHTML = "<b>From</b> : " +
-                    myDestinations[0][trackRoute - 3] +
-                    "<br>&#8942;<br><b>To</b> : " +
-                    myDestinations[0][trackRoute - 2];
-                startTriping(wholeTrip[trackRoute - 2],
-                    wholeTrip[trackRoute - 1]);
+                destNames.innerHTML = "<b>From</b> : " + myDestinations[0][trackRoute - 3] + "<br>&#8942;<br><b>To</b> : " + myDestinations[0][trackRoute - 2];
+                startTriping(wholeTrip[trackRoute - 2], wholeTrip[trackRoute - 1]);
                 trackRoute--;
             }
         });
@@ -628,12 +614,12 @@ function addStartBtn() {
 // show the route of two points and directions
 function startTriping(startPoint, endPoint) {
     selectedMode = options.value;
-    map = new google.maps.Map(document.getElementById("map"), {
+    map = new google.maps.Map(document.getElementById('map'), {
         zoom: 11,
         center: { lat: 49.2827, lng: -123.1207 },//downtown vancouver
         disableDefaultUI: true,
         zoomControl: true,
-        gestureHandling: "greedy"
+        gestureHandling: 'greedy'
     });
     // show the route on map
     directionsDisplay.setMap(map);
@@ -645,37 +631,34 @@ function startTriping(startPoint, endPoint) {
         destination: endPoint,
         travelMode: selectedMode
     }, function (response, status) {
-        if (status == "OK") {
+        if (status == 'OK') {
             directionsDisplay.setDirections(response);
         } else {
-            window.alert("Directions request failed due to " + status);
+            window.alert('Directions request failed due to ' + status);
         }
     });
 }
 
 // shows the distance to each place from the current location
-function calculateAndDisplayRouteDistance
-    (directionsService, address, textHolder) {
+function calculateAndDisplayRouteDistance(directionsService, address, textHolder) {
     var origin = localStorage.getItem("myAddress");
     directionsService.route({
         //convert origin and destinations into lat and lng
         origin: origin,
         destination: address,
-        travelMode: "WALKING"
+        travelMode: 'WALKING'
     }, function (response, status) {
-        if (status === "OK") {
+        if (status === 'OK') {
             var route = response.routes[0];
             for (var i = 0; i < route.legs.length; i++) {
-                document.getElementById(textHolder).innerHTML
-                    += route.legs[i].distance.text + "<br><br>";
+                document.getElementById(textHolder).innerHTML += route.legs[i].distance.text + "<br><br>";
             }
         } else {
-            window.alert("Directions request failed due to " + status);
+            window.alert('Directions request failed due to ' + status);
         }
     });
 }
 
-// shows the details of the location
 function showLocationDetails(btn, btnId, type) {
     btn.addEventListener("click", function () {
         var picture = document.createElement("IMG");
@@ -800,42 +783,42 @@ function addToTrip(btn, btnId) {
 
 // get info from firebase
 function getPlaces(type) {
-    //database path
-    dbref = firebase.database().ref(type);
-    dbref.on("value", function (snap) {
-        var info = snap.val();
-        var keys = Object.keys(info);
-        for (var i = 0; i < keys.length; i++) {
-            var k = keys[i];
-            var name = info[k].Name;
-            var street = info[k].Street;
-            var city = info[k].City;
-            var state = info[k].State;
-            var zip = info[k].ZipCode;
-            var type = info[k].Category;
-            var des = info[k].Description;
-            var website = info[k].WebSite;
-            var address = street + ", " + city + ", " + state;
-            // check the type in order to store the info in the correct array
-            if (type == "Restaurant") {
-                restArr[0][i] = name;
-                restArr[1][i] = address;
-                restArr[2][i] = type;
-                restArr[3][i] = des;
-                restArr[4][i] = website;
-            } else if (type == "Retailer") {
-                retArr[0][i] = name;
-                retArr[1][i] = address;
-                retArr[2][i] = type;
-                retArr[3][i] = des;
-                retArr[4][i] = website;
-            } else {
-                actArr[0][i] = name;
-                actArr[1][i] = address;
-                actArr[2][i] = type;
-                actArr[3][i] = des;
-                actArr[4][i] = website;
-            }
-        }
-    });
+     //database path
+     dbref = firebase.database().ref(type);
+     dbref.on("value", function (snap) {
+         var info = snap.val();
+         var keys = Object.keys(info);
+         for (var i = 0; i < keys.length; i++) {
+             var k = keys[i];
+             var name = info[k].Name;
+             var street = info[k].Street;
+             var city = info[k].City;
+             var state = info[k].State;
+             var zip = info[k].ZipCode;
+             var type = info[k].Category;
+             var des = info[k].Description;
+             var website = info[k].WebSite;
+             var address = street + ", " + city + ", " + state;
+             // check the type in order to store the info in the correct array
+             if (type == "Restaurant") {
+                 restArr[0][i] = name;
+                 restArr[1][i] = address;
+                 restArr[2][i] = type;
+                 restArr[3][i] = des;
+                 restArr[4][i] = website;
+             } else if (type == "Retailer") {
+                 retArr[0][i] = name;
+                 retArr[1][i] = address;
+                 retArr[2][i] = type;
+                 retArr[3][i] = des;
+                 retArr[4][i] = website;
+             } else {
+                 actArr[0][i] = name;
+                 actArr[1][i] = address;
+                 actArr[2][i] = type;
+                 actArr[3][i] = des;
+                 actArr[4][i] = website;
+             }
+         }
+     });
 }
