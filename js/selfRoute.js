@@ -71,25 +71,6 @@ function createEmptyMap() {
 
 
     });
-    for (var i = 0; i < myDestinations[1].length; i++) {
-        geocoder.geocode({ "address": myDestinations[1][i] }, function (results, status) {
-            if ((status == google.maps.GeocoderStatus.OK)) {
-                var latitude = results[0].geometry.location.lat();
-                var longitude = results[0].geometry.location.lng();
-                var myLatLng = {
-                    lat: latitude, lng: longitude
-                }
-                marker = new google.maps.Marker({
-                    position: myLatLng,
-                    map: map,
-                    icon: {
-                        url: markerRed,
-                    },
-                    animation: google.maps.Animation.DROP,
-                });
-            }
-        });
-    }
 
     // showThreeOption();
     showDestinations(myDestinations);
