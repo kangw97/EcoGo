@@ -38,10 +38,8 @@
             <a href="./html/aboutUs.html">ABOUT US</a>
             <a href="./html/joinUs.html">JOIN US</a>
         </div>
-        
         <!--menubar icon-->
         <span id = "indexspan" style="font-size:30px;cursor:pointer; text-align: left" onclick="openNav()">&#9776;</span>
-        
         <!--EcoGo logo with easter egg-->
         <div id='divLogo'>
           <img src="./image/crack6.png"/>
@@ -52,7 +50,6 @@
           <img src="./image/crack1.png" onclick="easterEgg(this);counter()"/>
           <img src="./image/ecogo1.png" onclick="easterEgg(this);counter()"/>
         </div>
-
         <div class="leaves" aria-hidden="true">
           <div class="leaf">🍂</div>
           <div class="leaf">🍃</div>
@@ -61,22 +58,21 @@
           <div class="leaf">🍂</div>
           <div class="leaf">🍃</div>
         </div>
-
         <!--label and text box to input location-->
         <fieldset>
-        <legend>WHERE ARE YOU?</legend>
-        <input type="text" placeholder="ENTER YOUR LOCATION" onclick = "select()" id = "adEntry" autofocus required>
+            <legend>WHERE ARE YOU?</legend>
+            <input type="text" placeholder="ENTER YOUR LOCATION" onclick = "select()" id = "adEntry" autofocus required>
         </fieldset>
-        
         <!--twobuttons-->
         <div id="divBtn">
             <button onclick="random()">WE'LL ROUTE YOU</button>
             <button onclick = "self()">FIND YOUR OWN ROUTE</button>
         </div>
+        <!-- link to scripts -->
         <script src="./js/randomRoute.js"></script>
         <script src="./js/selfRoute.js"></script>
         <script src="./js/sideNav.js"></script>
+        <!-- link to google maps api with API key and call back function for the autofilling address -->
         <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?callback=autoFillAddress&key=AIzaSyCHXKnfoxUG98BDI0ZgzVwViZEH9CCGb0M&libraries=places"></script>
     </body>
-
 </html>
