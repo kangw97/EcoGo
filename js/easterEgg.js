@@ -19,8 +19,6 @@ function easterEgg(element) {
         element.classList.add("easterEgg");
     });
 
-    console.log("counter= " + count);
-
     /* When count is five or greater, the event listener 
     is overwritten and instead changes the layer clicked
     into display none */
