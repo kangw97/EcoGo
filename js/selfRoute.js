@@ -142,7 +142,7 @@ function showThreeOption() {
     // actual icon for food
     var iconForFood = document.createElement("IMG");
     iconForFood.id = "iconFor";
-    iconForFood.src = "../image/Restaurant_icon.png";
+    iconForFood.src = "../image/RestaurantIcon.png";
     //append the icon on the div
     iconFood.appendChild(iconForFood);
     // append the div on the button
