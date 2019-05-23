@@ -142,7 +142,7 @@ function showThreeOption() {
     // actual icon for food
     var iconForFood = document.createElement("IMG");
     iconForFood.id = "iconFor";
-    iconForFood.src = "../image/RestaurantIcon.png";
+    iconForFood.src = "../image/restaurantIcon.png";
     //append the icon on the div
     iconFood.appendChild(iconForFood);
     // append the div on the button
@@ -163,7 +163,7 @@ function showThreeOption() {
     //actual icon for the retailer
     var iconForRet = document.createElement("IMG");
     iconForRet.id = "iconFor";
-    iconForRet.src = "../image/Retailer_icon.png";
+    iconForRet.src = "../image/retailerIcon.png";
     //append the icon on the div
     iconRetailer.appendChild(iconForRet);
     //append the div on the button
@@ -184,7 +184,7 @@ function showThreeOption() {
     // actual icon for the activity
     var iconForAct = document.createElement("IMG");
     iconForAct.id = "iconFor";
-    iconForAct.src = "../image/Activity_icon.png";
+    iconForAct.src = "../image/activityIcon.png";
     //append the icon on the div
     iconAct.appendChild(iconForAct);
     //append the div on the button
@@ -224,7 +224,7 @@ function showList(type) {
  // icon for each category
  var smallIcon = document.createElement("IMG");
  smallIcon.id = "smallIcon";
- smallIcon.src = "../image/" + type + "_icon.png";
+ smallIcon.src = "../image/" + type.toLowerCase() + "Icon.png";
  // div to contain the small icon
  var smallIconDiv = document.createElement("div");
  smallIconDiv.id = "smallIconDiv";
