@@ -1,11 +1,11 @@
 # EcoGo Mobile Web App
 
 # Developers
-Cho   Claire
-Chiu  Eric
-Kim	  Emily
+Cho   Claire,
+Chiu  Eric,
+Kim	  Emily,
+Suen	Ringo,
 Wang	Kang
-Suen	Ringo
 
 # Link
 https://ecogo-5914c.firebaseapp.com
