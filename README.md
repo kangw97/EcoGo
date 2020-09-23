@@ -11,7 +11,7 @@ Suen	Ringo,
 Wang	Kang
 
 # Link
-https://ecogo-5914c.firebaseapp.com
+https://ecogo-33c6f.web.app/
 
 # Technology
 EcoGo was created using HTML5, CSS3, JavaScript, JQuery, and Firebase with the help of Google Maps API.
