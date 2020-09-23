@@ -10,7 +10,7 @@ Kim	  Emily,
 Suen	Ringo,
 Wang	Kang
 
-# Link
+# Link (Best Viewed on Mobile Web Browser)
 https://ecogo-33c6f.web.app/
 
 # Technology
